@@ -1,0 +1,169 @@
+\section{Discussion}
+%summary of why
+\subsubsubsection{{Justification}}
+Our investigation of machine learning methods for 
+predicting and explaining inpatient outcomes
+was initiated as a result of 
+1) increased focus on the inpatient experience in the United States and other countries, 
+2) availability of complex data in the EHR,
+and 3) the development of explainable predictive models.\@
+Additionally, recent concerns over the impact of metrics such as 
+readmission rates yield an opportunity to develop models that may be used to 
+not only predict, but also understand the components of risk and their interactions.\supercite{Wadhera2018}
+We therefore sought to predict and understand current and future readmissions, predict and understand length of stay,
+and, further, examine health care disparities.\@ 
+
+The desired decision-making aid for patients, providers, and hospital systems
+is a robust and reliable prediction for an outcome of interest,
+paired with an explanation of the components of the predicted probability.\@
+We produce per-encounter probability estimates, which can be compared against the calibration curve
+to determine the reliability of the estimate. The most important components
+of this prediction can then be examined, which would ideally lead to 
+action items that can be modified to attempt risk optimization,\supercite{Donze2013, Leppin2014, Burke2017, Auerbach2016}
+or at least to a deeper understanding of the current situation.\supercite{Saunders2015}
+We also generate cohort-level diagrams that explain the 
+contributions of each variable to the model output
+as well as key variable interactions.\@
+
+% sweeping overview
+\subsubsubsection{{Summary}}
+Our models achieved comparable performance to the existing state of the art 
+in the prediction of readmission and length of stay.\supercite{Rajkomar2018, Aubert2017, Artetxe2018}\@
+In addition to reporting AUC, which conveys performance across classification cutoffs,
+we reported that our models are well-calibrated when using raw probabilities, 
+which may be more useful than binary classifications in many settings.\supercite{Steyerberg2010}
+Additionally, we generated per-encounter and per-cohort explanations for these models.
+Using these explanations in combination with the probability reliability estimate, 
+we are able to audit the model on local and global levels, 
+as well as generate further hypotheses for exploration through examination of 
+variable interactions.\@
+We also used these techniques to explore healthcare disparities 
+by making demographic variables into predictive targets, 
+followed by global, local, and variable interaction explanations.\@
+\subsubsubsection{{Innovations}}
+% Explainability
+
+% Dirty data is good data
+Because of the focus on interpretability, the study was designed to cast a broad net
+with regards to variable and patient inclusion criteria.\@
+Rather than including only CMS-defined readmissions, 
+we chose to include patients of all ages and diagnos:es who survived the index hospitalization,
+including those on observation status.\supercite{obsincreasing2019, obs2016nejm}\@
+This allowed us to examine the impacts of these variables, as well as develop a broadly applicable
+model for the institution as a whole, which includes many specialties, hospitals, and a range of socioeconomic environs.\@
+We also observed variable interactions that would not have been otherwise apparent, 
+such as the interplay between age and heart rate for 30-day readmissions (\ref{fig:30dinthrage}),
+which would not have been found if the age was restricted to over 65 as in CMS criteria.
+In another example, we found that leaving against medical advice (a criterion for disinclusion in CMS-defined readmission)
+has comparatively little impact on readmission risk,
+but that a discharge to hospice has a downward impact on readmission risk that 
+varies with a patient's number of past hospitalizations (\ref{fig:30dintdispoadmits}).\@
+
+% why GBMs
+EHR data is typically heterogenous and incomplete.
+We chose to use GBMs because they perform well with this kind of data.\@
+% no scaling or embedding
+For example, because they do not require feature scaling,
+GBM explanations of predictions use metrics with the same units as the input 
+(e.g.\ red blood cell count, heart rate, BMI).
+They can also account for categorical variables with many levels (e.g.\ diagnoses), 
+and do not combine variables in an ad hoc and inseparable fashion (as is the case with feature embedding).\@
+The explanations are therefore easily readable.\@
+% missingness and imputation
+Additionally, prior work with EHR data has shown that the presence or absence of a laboratory result can itself be a useful predictor,
+even if the actual value of the laboratory test is ignored.\supercite{Agniel2018}
+GBMs do not require imputation of missing values 
+nor removal of examples with missing data, and so allowed us to capture the impact of missingness.\@
+% parsimonious models
+Lastly, GBMs, particularly in combination with an explanatory method such as SHAP,
+allow for robust selection of the most impactful variables.\@
+Feature selection using SHAP considers all variables in every possible combination, and so produces reliable, consistent explanations
+and measures of the impact of individual variables.\@
+We found that a model for readmission that included only the top 10 SHAP variables
+was equally performant to a model with the full feature set.\@
+The smaller model may reduce the richness of individual
+explanations, but a parsimonious approach may be more applicable in settings without 
+broad and deep EHR data availability, or without the ability to embed a complex model.\@
+\subsubsubsection{{Caveats}}
+% caveats
+The study was not designed to recapitulate or examine CMS criteria for readmission.\@
+Without further restriction of our study population to meet CMS criteria,
+it would not be appropriate to generalize our models or explanations for CMS applications.\@
+The general approach, however, can easily be adapted to a more curated cohort.\@
+Additionally, our variables were selected based on existing literature and available in-house data.
+This is both a strength and a limitation, 
+as selection of specific variables does not require the EHR to adopt a standard 
+such as the Fast Healthcare Interoperability Resources (FHIR) specification,
+but also cannot account for variables it was not explicitly given.
+Artetxe et al.\ achieved comparable results to ours using a FHIR-based 
+data collection method and a deep learning model trained on nearly 
+47 billion data points spread over 200,000 patients.\supercite{Artetxe2018}
+Aubert et al.\ also achieved comparable results using a model with only 6 variables.\supercite{Aubert2017}
+Our study was designed to maximize interpretability, and it may be the case that, using our larger cohort,
+deep learning or less complex approaches would achieve similar or superior predictive power.\supercite{unreasonable2017}
+\subsubsubsection{{Limitations}}
+% limitations
+The study has several limitations.
+% beginning/end variables
+First, we selected only variables available at the beginning and end of the hospitalization.\@
+A model that accounts for and explains daily changes in risk may be a useful tool for dynamic discharge planning, etc.,
+but would require a different approach and greatly increase required processing time.\@ 
+% primary diagnosis != most important diagnosis?
+Second, we included only the primary diagnosis for each patient. 
+Selection of the primary diagnosis is difficult to disentangle from insurance concerns.
+However, despite this we found that primary diagnosis was among the most important variables in 
+several prediction models, and seems to consistently yield useful information. 
+Additionally, as primary diagnosis is selected from among all patient diagnoses
+at the end of the hospital encounter, there may be cases where it does not 
+reflect the admission diagnosis (which was not available as a discrete variable in our database).\@ 
+This may weaken the applicability of the length of stay prediction.\@
+% readmissions to our hospital
+Third, because we only used data available in our EHR, 
+we could only assess for readmissions to our hospital system.\@
+We therefore did not capture the total readmission rate,
+nor could we account for admissions to our system that were readmissions
+from another system.\@ 
+We also only included EHR data available for a given patient within the timeframe of the study,
+rendering variables such as ``number of past admissions'' valid only within the years specified.\@
+Lastly, though we are able to extract important variables and examine their impact for individuals and the cohort,
+certain variables are, in themselves, difficult to interpret.\@
+For example, the repeatedly important variable ``ACS BlockGroup'' may have been suggesting, at least in some cases,
+that the patient simply lives nearby and is likely to come back, or will stay instead of transferring closer to home, and so forth.\@
+Deeper exploration of census data on the outcomes of interest, 
+in addition to hospital- and patient-specific factors, may help elucidate the impacts of 
+geographic, socioeconomic, and demographic risk factors.\supercite{krumholz2017}
+\subsubsubsection{{Further Directions}}
+% further directions
+This study raises several questions and suggests further avenues for research.\@
+As this was a retrospective study, we are beginning validation of this model
+in a prospective study in our hospital system.\@
+Additionally, because this was a single-system study, it requires validation in other systems.\@
+Further, a selection of subpopulations may allow richer explanations and, 
+possibly, increased predictive power.\supercite{Yu2015, Smith2018, Weinreich2016, Garrison2017, Golas2018}
+\subsubsubsection{{Conclusion}}
+%conclusion
+In conclusion, we generated locally and globally explainable prediction models 
+that reliably predict the probability of readmission and length of stay,
+as well as sociodemographic factors including gender, race, financial class, and age.\@
+We propose the use of this approach as an auditable decision aid that 
+also contributes to hypothesis creation.\@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Resources:
+% \supercite{Aubert2017}, % Simplification of the HOSPITAL score forpredicting30-dayreadmissions.
+% \supercite{Ephrem2013}, % RDW FTW.
+% \supercite{Auerbach2016}, % preventability and Causes of Readmissions in a National Cohort of General Medicine Patients.
+% \supercite{Burke2017}, % The HOSPITAL Score Predicts Potentially Preventable 30-Day Readmissions in Conditions Targeted by the Hospital Readmissions Reduction Program
+% \supercite{Donze2013}, %Potentially Avoidable 30-Day Hospital Readmissions in Medical Patients: derivation and Validation of a Prediction Model.
+% \supercite{Golas2018}, %A machine learning model to predict the risk of 30-day readmissions in patients with heart failure: a retrospective analysis of electronic medical records data
+% \supercite{Leppin2014}, %  Preventing 30-Day Hospital Readmissions: A Systematic Review and Meta-analysis of RandomizedTrials.
+% \supercite{Saunders2015}, % Examination of unplanned 30-day readmissions to a comprehensive cancer hospital
+
+% Unused so far:
+% \supercite{Allaudeen2011}, % Inability of Providers to Predict Unplanned Readmissions.
+% \supercite{Collins2015}, % Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis (TRIPOD): The TRIPOD Statement
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

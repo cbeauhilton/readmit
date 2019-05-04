@@ -1,0 +1,1368 @@
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2035,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2039,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2045,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2048,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2053,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2056,length_of_stay_over_5_days,0.3666420391577392,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.735586
+1         NaN
+dtype: float64","0         NaN
+1    0.735586
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.264414
+1         NaN
+dtype: float64","0    0.735586
+1    0.735586
+dtype: float64",0.7943282239917544,0.5292263412504412,0.19360388958723496
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2058,length_of_stay_over_7_days,0.19686185700420575,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.842342
+1         NaN
+dtype: float64","0         NaN
+1    0.842342
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.157658
+1         NaN
+dtype: float64","0    0.842342
+1    0.842342
+dtype: float64",0.7864957983193277,0.35374164712340217,0.13241310430793726
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2100,length_of_stay_over_14_days,0.04633732440840954,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.96036
+1        NaN
+dtype: float64","0        NaN
+1    0.96036
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.03964
+1        NaN
+dtype: float64","0    0.96036
+1    0.96036
+dtype: float64",0.6374696187958384,0.08003343090692121,0.03806472550441848
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2103,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2106,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2109,readmitted1d,0.047669086740542606,2181,"0    0.974531
+1    0.400000
+dtype: float64","0    0.400000
+1    0.974531
+dtype: float64","0    0.971264
+1    0.430108
+dtype: float64","0    0.430108
+1    0.971264
+dtype: float64","0    0.600000
+1    0.025469
+dtype: float64","0    0.025469
+1    0.600000
+dtype: float64","0    0.028736
+1    0.569892
+dtype: float64","0    0.948189
+1    0.948189
+dtype: float64",0.7849207111965402,0.23976579875016424,0.04362313586915368
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2112,readmitted3d,0.06506749538700593,2181,"0    0.975634
+1    0.333333
+dtype: float64","0    0.333333
+1    0.975634
+dtype: float64","0    0.958812
+1    0.462366
+dtype: float64","0    0.462366
+1    0.958812
+dtype: float64","0    0.666667
+1    0.024366
+dtype: float64","0    0.024366
+1    0.666667
+dtype: float64","0    0.041188
+1    0.537634
+dtype: float64","0    0.937643
+1    0.937643
+dtype: float64",0.7485606781812413,0.24748766184338783,0.05551044546275714
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2114,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2118,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-19-2119,length_of_stay_over_3_days,0.9328631138975967,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.514414
+1         NaN
+dtype: float64","0         NaN
+1    0.514414
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.485586
+1         NaN
+dtype: float64","0    0.514414
+1    0.514414
+dtype: float64",0.8318438504202826,0.7852576035546217,0.1866934177897875
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1252,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1253,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1254,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1313,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1316,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1321,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1322,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1325,readmitted3650d,1.1233301064859633,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.468134
+1         NaN
+dtype: float64","0         NaN
+1    0.468134
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.531866
+1         NaN
+dtype: float64","0    0.468134
+1    0.468134
+dtype: float64",0.7595118882772129,0.7723447212289286,0.22956268268516633
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1328,discharged_in_past_30d,0.20721161690324685,2220,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.845045
+1         NaN
+dtype: float64","0         NaN
+1    0.845045
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.154955
+1         NaN
+dtype: float64","0    0.845045
+1    0.845045
+dtype: float64",0.7964403480934199,0.35480695554874814,0.13065953120331242
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1331,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1333,readmitted30d,0.2166629687153317,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.83127
+1        NaN
+dtype: float64","0        NaN
+1    0.83127
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.16873
+1        NaN
+dtype: float64","0    0.83127
+1    0.83127
+dtype: float64",0.6967268399721815,0.32713691733866923,0.1400770392659238
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-20-1336,readmitted3650d,1.1233301064859633,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.468134
+1         NaN
+dtype: float64","0         NaN
+1    0.468134
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.531866
+1         NaN
+dtype: float64","0    0.468134
+1    0.468134
+dtype: float64",0.7595118882772129,0.7723447212289286,0.22956268268516633
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0531,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0532,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0535,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0539,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0546,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0547,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0556,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0559,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0600,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0602,readmitted1d,0.047669086740542606,2181,"0    0.974531
+1    0.400000
+dtype: float64","0    0.400000
+1    0.974531
+dtype: float64","0    0.971264
+1    0.430108
+dtype: float64","0    0.430108
+1    0.971264
+dtype: float64","0    0.600000
+1    0.025469
+dtype: float64","0    0.025469
+1    0.600000
+dtype: float64","0    0.028736
+1    0.569892
+dtype: float64","0    0.948189
+1    0.948189
+dtype: float64",0.7849207111965402,0.23976579875016424,0.04362313586915368
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0605,readmitted3d,0.06506749538700593,2181,"0    0.975634
+1    0.333333
+dtype: float64","0    0.333333
+1    0.975634
+dtype: float64","0    0.958812
+1    0.462366
+dtype: float64","0    0.462366
+1    0.958812
+dtype: float64","0    0.666667
+1    0.024366
+dtype: float64","0    0.024366
+1    0.666667
+dtype: float64","0    0.041188
+1    0.537634
+dtype: float64","0    0.937643
+1    0.937643
+dtype: float64",0.7485606781812413,0.24748766184338783,0.05551044546275714
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0607,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0610,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0612,readmitted1d,0.047669086740542606,2181,"0    0.974531
+1    0.400000
+dtype: float64","0    0.400000
+1    0.974531
+dtype: float64","0    0.971264
+1    0.430108
+dtype: float64","0    0.430108
+1    0.971264
+dtype: float64","0    0.600000
+1    0.025469
+dtype: float64","0    0.025469
+1    0.600000
+dtype: float64","0    0.028736
+1    0.569892
+dtype: float64","0    0.948189
+1    0.948189
+dtype: float64",0.7849207111965402,0.23976579875016424,0.04362313586915368
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0626,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0628,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0639,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0640,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0642,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0643,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0644,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0646,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0648,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0651,readmitted1d,0.047669086740542606,2181,"0    0.974531
+1    0.400000
+dtype: float64","0    0.400000
+1    0.974531
+dtype: float64","0    0.971264
+1    0.430108
+dtype: float64","0    0.430108
+1    0.971264
+dtype: float64","0    0.600000
+1    0.025469
+dtype: float64","0    0.025469
+1    0.600000
+dtype: float64","0    0.028736
+1    0.569892
+dtype: float64","0    0.948189
+1    0.948189
+dtype: float64",0.7849207111965402,0.23976579875016424,0.04362313586915368
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0653,readmitted3d,0.06506749538700593,2181,"0    0.975634
+1    0.333333
+dtype: float64","0    0.333333
+1    0.975634
+dtype: float64","0    0.958812
+1    0.462366
+dtype: float64","0    0.462366
+1    0.958812
+dtype: float64","0    0.666667
+1    0.024366
+dtype: float64","0    0.024366
+1    0.666667
+dtype: float64","0    0.041188
+1    0.537634
+dtype: float64","0    0.937643
+1    0.937643
+dtype: float64",0.7485606781812413,0.24748766184338783,0.05551044546275714
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0656,readmitted5d,0.08059907380037443,2181,"0    0.981701
+1    0.251572
+dtype: float64","0    0.251572
+1    0.981701
+dtype: float64","0    0.943441
+1    0.519481
+dtype: float64","0    0.519481
+1    0.943441
+dtype: float64","0    0.748428
+1    0.018299
+dtype: float64","0    0.018299
+1    0.748428
+dtype: float64","0    0.056559
+1    0.480519
+dtype: float64","0    0.928473
+1    0.928473
+dtype: float64",0.6928456786667415,0.23748890253434668,0.0674507760102676
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0658,readmitted7d,0.09489342584735187,2181,"0    0.981463
+1    0.216216
+dtype: float64","0    0.216216
+1    0.981463
+dtype: float64","0    0.931084
+1    0.519481
+dtype: float64","0    0.519481
+1    0.931084
+dtype: float64","0    0.783784
+1    0.018537
+dtype: float64","0    0.018537
+1    0.783784
+dtype: float64","0    0.068916
+1    0.480519
+dtype: float64","0    0.916552
+1    0.916552
+dtype: float64",0.6927151600498294,0.23775307728599662,0.07750592078498178
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0701,readmitted15d,0.1462764567546381,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.874828
+1         NaN
+dtype: float64","0         NaN
+1    0.874828
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.125172
+1         NaN
+dtype: float64","0    0.874828
+1    0.874828
+dtype: float64",0.6951499758103532,0.2787849078122995,0.10930104832772462
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0703,readmitted28d,0.20868463106849616,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.833563
+1         NaN
+dtype: float64","0         NaN
+1    0.833563
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.166437
+1         NaN
+dtype: float64","0    0.833563
+1    0.833563
+dtype: float64",0.7037771959014082,0.3292656216129383,0.13849913151950777
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0705,readmitted45d,0.26544741245023945,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.798258
+1         NaN
+dtype: float64","0         NaN
+1    0.798258
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.201742
+1         NaN
+dtype: float64","0    0.798258
+1    0.798258
+dtype: float64",0.7079995822672445,0.38593980545234263,0.16073719881293594
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0708,readmitted90d,0.38071257711192247,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.736818
+1         NaN
+dtype: float64","0         NaN
+1    0.736818
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.263182
+1         NaN
+dtype: float64","0    0.736818
+1    0.736818
+dtype: float64",0.714531806621293,0.4671685276782477,0.19348147801785745
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0710,readmitted180d,0.5255251078035889,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.671252
+1         NaN
+dtype: float64","0         NaN
+1    0.671252
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.328748
+1         NaN
+dtype: float64","0    0.671252
+1    0.671252
+dtype: float64",0.7193327922201643,0.5530955768687661,0.22005374712746817
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0721,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0812,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0818,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0823,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0825,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0826,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0829,readmitted1d,0.047669086740542606,2181,"0    0.974531
+1    0.400000
+dtype: float64","0    0.400000
+1    0.974531
+dtype: float64","0    0.971264
+1    0.430108
+dtype: float64","0    0.430108
+1    0.971264
+dtype: float64","0    0.600000
+1    0.025469
+dtype: float64","0    0.025469
+1    0.600000
+dtype: float64","0    0.028736
+1    0.569892
+dtype: float64","0    0.948189
+1    0.948189
+dtype: float64",0.7849207111965402,0.23976579875016424,0.04362313586915368
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0832,readmitted3d,0.06506749538700593,2181,"0    0.975634
+1    0.333333
+dtype: float64","0    0.333333
+1    0.975634
+dtype: float64","0    0.958812
+1    0.462366
+dtype: float64","0    0.462366
+1    0.958812
+dtype: float64","0    0.666667
+1    0.024366
+dtype: float64","0    0.024366
+1    0.666667
+dtype: float64","0    0.041188
+1    0.537634
+dtype: float64","0    0.937643
+1    0.937643
+dtype: float64",0.7485606781812413,0.24748766184338783,0.05551044546275714
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0834,readmitted5d,0.08059907380037443,2181,"0    0.981701
+1    0.251572
+dtype: float64","0    0.251572
+1    0.981701
+dtype: float64","0    0.943441
+1    0.519481
+dtype: float64","0    0.519481
+1    0.943441
+dtype: float64","0    0.748428
+1    0.018299
+dtype: float64","0    0.018299
+1    0.748428
+dtype: float64","0    0.056559
+1    0.480519
+dtype: float64","0    0.928473
+1    0.928473
+dtype: float64",0.6928456786667415,0.23748890253434668,0.0674507760102676
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0837,readmitted7d,0.09489342584735187,2181,"0    0.981463
+1    0.216216
+dtype: float64","0    0.216216
+1    0.981463
+dtype: float64","0    0.931084
+1    0.519481
+dtype: float64","0    0.519481
+1    0.931084
+dtype: float64","0    0.783784
+1    0.018537
+dtype: float64","0    0.018537
+1    0.783784
+dtype: float64","0    0.068916
+1    0.480519
+dtype: float64","0    0.916552
+1    0.916552
+dtype: float64",0.6927151600498294,0.23775307728599662,0.07750592078498178
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0840,readmitted15d,0.1462764567546381,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.874828
+1         NaN
+dtype: float64","0         NaN
+1    0.874828
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.125172
+1         NaN
+dtype: float64","0    0.874828
+1    0.874828
+dtype: float64",0.6951499758103532,0.2787849078122995,0.10930104832772462
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0842,readmitted28d,0.20868463106849616,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.833563
+1         NaN
+dtype: float64","0         NaN
+1    0.833563
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.166437
+1         NaN
+dtype: float64","0    0.833563
+1    0.833563
+dtype: float64",0.7037771959014082,0.3292656216129383,0.13849913151950777
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0845,readmitted45d,0.26544741245023945,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.798258
+1         NaN
+dtype: float64","0         NaN
+1    0.798258
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.201742
+1         NaN
+dtype: float64","0    0.798258
+1    0.798258
+dtype: float64",0.7079995822672445,0.38593980545234263,0.16073719881293594
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0848,readmitted90d,0.38071257711192247,2181,"0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.736818
+1         NaN
+dtype: float64","0         NaN
+1    0.736818
+dtype: float64","0    1.0
+1    0.0
+dtype: float64","0    0.0
+1    1.0
+dtype: float64","0    0.263182
+1         NaN
+dtype: float64","0    0.736818
+1    0.736818
+dtype: float64",0.714531806621293,0.4671685276782477,0.19348147801785745
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0851,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0857,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485
+,Time,Target,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss
+0,2019-03-21-0902,readmitted0_5d,0.04422756486550821,2181,"0    0.974150
+1    0.423913
+dtype: float64","0    0.423913
+1    0.974150
+dtype: float64","0    0.974617
+1    0.419355
+dtype: float64","0    0.419355
+1    0.974617
+dtype: float64","0    0.576087
+1    0.025850
+dtype: float64","0    0.025850
+1    0.576087
+dtype: float64","0    0.025383
+1    0.580645
+dtype: float64","0    0.95094
+1    0.95094
+dtype: float64",0.7581794909151455,0.23661649377886765,0.040283978913339485

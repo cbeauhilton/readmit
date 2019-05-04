@@ -1,0 +1,208 @@
+,index,calcium_discharge_value
+0,,1277999
+1,8.9,24573
+2,9.0,23999
+3,8.8,23953
+4,8.7,23060
+5,9.1,22880
+6,9.2,21068
+7,8.6,20765
+8,9.3,18823
+9,8.5,18598
+10,9.4,16688
+11,8.4,16037
+12,9.5,14078
+13,8.3,13258
+14,9.6,11576
+15,8.2,10366
+16,9.7,9439
+17,8.1,8123
+18,9.8,7352
+19,8.0,6082
+20,9.9,5876
+21,7.9,4572
+22,10.0,4402
+23,7.8,3257
+24,10.1,3244
+25,10.2,2391
+26,7.7,2347
+27,10.3,1810
+28,7.6,1679
+29,10.4,1419
+30,7.5,1181
+31,10.5,1022
+32,7.4,871
+33,10.6,766
+34,7.3,611
+35,10.7,575
+36,7.2,465
+37,10.8,459
+38,7.1,352
+39,10.9,307
+40,11.0,279
+41,7.0,263
+42,11.1,186
+43,Account Credited,179
+44,6.9,177
+45,11.2,153
+46,Duplicate request,151
+47,6.8,146
+48,11.3,113
+49,6.7,112
+50,11.4,107
+51,6.6,101
+52,6.5,93
+53,Unacceptable due to gross hemolysis. Redraw requested.,78
+54,Unable to assay. Specimen significantly hemolyzed.,75
+55,6.4,75
+56,Unable to assay. No specimen received.,71
+57,11.5,67
+58,Unable to assay. Quantity not sufficient.,61
+59,11.7,56
+60,6.3,53
+61,11.6,53
+62,Unable to assay.  Unable to locate specimen.,51
+63,"CANCELLED,Specimen not collected or received",43
+64,Cancelled by clinician,43
+65,6.0,41
+66,11.8,40
+67,11.9,39
+68,Unable to assay. Possible interfering substance(s) present.,38
+69,6.1,36
+70,6.2,36
+71,12.0,32
+72,Unable to assay. Specimen incorrectly identified.,28
+73,12.7,20
+74,5.7,19
+75,12.4,19
+76,13.0,18
+77,12.1,18
+78,12.9,17
+79,Specimen received unlabelled.,16
+80,12.5,16
+81,12.3,16
+82,5.8,14
+83,5.6,13
+84,5.5,12
+85,13.2,11
+86,12.8,11
+87,12.6,11
+88,Specimen hemolyzed.,10
+89,Unable to assay. Specimen improperly collected/handled.,10
+90,13.4,9
+91,13.9,9
+92,5.4,9
+93,5.9,9
+94,13.1,9
+95,12.2,8
+96,13.5,7
+97,13.8,7
+98,13.3,7
+99,14.3,7
+100,Identity unclear. Specimen labelled incorrectly.,7
+101,5.1,7
+102,1.19,6
+103,Unable to quantitate due to possible contamination.,6
+104,1.15,6
+105,14.4,6
+106,14.2,6
+107,Requisitioning entry error,6
+108,5.2,6
+109,1.17,5
+110,1.18,5
+111,5.0,5
+112,13.6,5
+113,Unable to assay. Specimen grossly hemolyzed.,5
+114,"Test accessioning error,please disregard.",5
+115,1.08,5
+116,1.23,5
+117,1.12,5
+118,1.14,5
+119,15.3,4
+120,1.13,4
+121,14.8,4
+122,14.0,4
+123,1.21,4
+124,15.1,3
+125,Disregard results. Specimen incorrectly identified.,3
+126,14.9,3
+127,14.6,3
+128,1.22,3
+129,1.11,3
+130,1.16,3
+131,4.9,3
+132,5.3,3
+133,13.7,3
+134,1.10,3
+135,Patient discharged,2
+136,1.07,2
+137,Patient refused collection,2
+138,Patient expired,2
+139,Unable to assay. Specimen too old to perform test.,2
+140,1.09,2
+141,Ignore results. Specimen was contaminated,2
+142,Specimen collected in wrong container type.,2
+143,3.9,2
+144,see below,2
+145,Ignore results. Specimen hemolyzed,2
+146,Test reordered on another CCHS MRN.,2
+147,16.9,2
+148,16.6,2
+149,15.4,2
+150,15.7,2
+151,4.4,2
+152,4.6,2
+153,1.20,2
+154,Unable to assay. Analytical difficulty.,2
+155,1.27,1
+156,1.30,1
+157,1.24,1
+158,1.05,1
+159,1.35,1
+160,1.39,1
+161,1.40,1
+162,1.25,1
+163,0.99,1
+164,1.01,1
+165,1.06,1
+166,0.97,1
+167,1.26,1
+168,4.0,1
+169,14.1,1
+170,14.7,1
+171,4.8,1
+172,<1.0,1
+173,CONVERTED TO ISTAT,1
+174,"DUPLICATE ORDER,PATIENT CREDITED",1
+175,Ignore results.  Ordered on wrong patient.,1
+176,Ignore results.  Specimen mislabeled.,1
+177,LCAN LOCATION TOUTING ERROR,1
+178,MISLABELED,1
+179,PT EXPIRED,1
+180,SPECIMEN HEMOLYZED,1
+181,Specimen drawn in wrong tube.,1
+182,Specimen leaked in transport.,1
+183,Test inadvertently not performed,1
+184,Unable to assay due to viscosity of specimen.,1
+185,Unable to quantitate due to age of specimen.,1
+186,4.5,1
+187,4.3,1
+188,4.2,1
+189,4.1,1
+190,15.0,1
+191,15.2,1
+192,15.5,1
+193,16.1,1
+194,16.2,1
+195,16.7,1
+196,16.8,1
+197,17.5,1
+198,17.6,1
+199,17.7,1
+200,18.4,1
+201,19.1,1
+202,2.8,1
+203,20.6,1
+204,3.7,1
+205,0.36,1
+206,1.04,0

@@ -1,0 +1,14 @@
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-20-2009,length_of_stay_in_days,3.9814910786952202,2.4307436984958692,1.5080357794920218,0.21076623434775832,0.22990001082697797
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-20-2016,length_of_stay_in_days,3.9814910786952202,2.4307436984958692,1.5080357794920218,0.21076623434775832,0.22990001082697797
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-20-2019,days_between_current_discharge_and_next_admission,8.47328994967747,6.960097852637201,5.890196062656441,0.08914414467916476,0.11344464293355794
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-20-2022,patient_age,13.585426323497767,11.403886274833544,10.444580836898233,0.5015071917335845,0.6505285244871991
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-20-2024,length_of_stay_in_days,3.9814910786952202,2.4307436984958692,1.5080357794920218,0.21076623434775832,0.22990001082697797
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-27-0804,length_of_stay_in_days,4.005968230559919,2.450716338734417,1.5054020007389697,0.21409820287495007,0.23612883298376575
+,Time,Target,RMSE,Median Absolute Error,Mean Absolute Error,R Squared,Explained Variance
+0,2019-03-27-0807,length_of_stay_in_days,4.042960467779696,2.4769155475522058,1.5317769709418851,0.200851398414452,0.22584217685243513

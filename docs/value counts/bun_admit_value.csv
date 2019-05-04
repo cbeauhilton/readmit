@@ -1,0 +1,245 @@
+,index,bun_admit_value
+0,,1256418
+1,12,21867
+2,11,21823
+3,13,21282
+4,10,21108
+5,14,19692
+6,9,19644
+7,15,18705
+8,8,17423
+9,16,16602
+10,17,15251
+11,7,14693
+12,18,13808
+13,19,11891
+14,6,11710
+15,20,10579
+16,21,9337
+17,5,8336
+18,22,8037
+19,23,7075
+20,24,6298
+21,25,5621
+22,4,5342
+23,26,4871
+24,27,4533
+25,28,3921
+26,29,3575
+27,30,3216
+28,31,2957
+29,3,2686
+30,32,2607
+31,33,2385
+32,34,2143
+33,35,1966
+34,36,1837
+35,37,1682
+36,38,1633
+37,39,1423
+38,41,1322
+39,40,1308
+40,42,1171
+41,43,1146
+42,44,992
+43,2,984
+44,45,935
+45,47,853
+46,46,839
+47,48,814
+48,50,756
+49,51,730
+50,49,711
+51,53,595
+52,52,591
+53,54,532
+54,56,500
+55,55,496
+56,57,468
+57,59,436
+58,58,427
+59,60,395
+60,61,393
+61,63,350
+62,62,338
+63,65,328
+64,64,325
+65,66,308
+66,71,267
+67,70,258
+68,68,256
+69,67,249
+70,69,233
+71,Account Credited,227
+72,72,225
+73,74,204
+74,73,201
+75,77,180
+76,78,173
+77,76,172
+78,75,171
+79,79,170
+80,80,155
+81,<2,154
+82,Duplicate request,148
+83,82,144
+84,83,138
+85,81,128
+86,84,126
+87,86,113
+88,85,108
+89,87,105
+90,89,99
+91,91,98
+92,93,98
+93,90,98
+94,88,97
+95,Unable to assay. Specimen significantly hemolyzed.,96
+96,Unacceptable due to gross hemolysis. Redraw requested.,91
+97,94,89
+98,92,84
+99,<3,82
+100,Unable to assay. No specimen received.,70
+101,Unable to assay. Quantity not sufficient.,64
+102,96,63
+103,98,60
+104,99,59
+105,97,55
+106,1,50
+107,Cancelled by clinician,50
+108,95,50
+109,100,49
+110,104,48
+111,106,47
+112,Unable to assay.  Unable to locate specimen.,46
+113,101,43
+114,103,43
+115,111,42
+116,107,41
+117,"CANCELLED,Specimen not collected or received",40
+118,102,39
+119,Unable to assay. Possible interfering substance(s) present.,39
+120,105,37
+121,109,36
+122,108,35
+123,Unable to assay. Specimen incorrectly identified.,31
+124,110,26
+125,112,25
+126,Specimen received unlabelled.,20
+127,117,19
+128,115,19
+129,118,19
+130,123,19
+131,121,18
+132,116,17
+133,119,15
+134,122,15
+135,124,15
+136,113,14
+137,130,14
+138,129,14
+139,120,13
+140,128,12
+141,126,11
+142,<1,11
+143,Specimen hemolyzed.,10
+144,131,10
+145,Unable to assay. Specimen improperly collected/handled.,10
+146,Unable to assay. Specimen grossly hemolyzed.,9
+147,135,8
+148,140,8
+149,125,8
+150,Identity unclear. Specimen labelled incorrectly.,8
+151,133,7
+152,Unable to quantitate due to possible contamination.,7
+153,149,7
+154,"Test accessioning error,please disregard.",6
+155,132,6
+156,Requisitioning entry error,6
+157,127,6
+158,114,6
+159,134,6
+160,146,5
+161,141,5
+162,156,5
+163,148,4
+164,163,4
+165,139,4
+166,136,4
+167,150,3
+168,145,3
+169,138,3
+170,143,3
+171,Disregard results. Specimen incorrectly identified.,3
+172,see below,3
+173,142,3
+174,Unable to assay. Analytical difficulty.,2
+175,169,2
+176,194,2
+177,190,2
+178,147,2
+179,Specimen collected in wrong container type.,2
+180,Unable to assay. Specimen too old to perform test.,2
+181,Patient refused collection,2
+182,177,2
+183,Patient discharged,2
+184,152,2
+185,Ignore results. Specimen was contaminated,2
+186,155,2
+187,174,2
+188,173,2
+189,158,2
+190,172,2
+191,170,2
+192,137,2
+193,Patient expired,2
+194,164,2
+195,Unable to quantitate due to age of specimen.,1
+196,MISID NOTIFIED SHENEFE DIAL 04/06 1340 TS,1
+197,151,1
+198,PT EXPIRED,1
+199,Test reordered on another CCHS MRN.,1
+200,253,1
+201,Test inadvertently not performed,1
+202,263,1
+203,Specimen leaked in transport.,1
+204,Specimen drawn in wrong tube.,1
+205,Specimen contaminated,1
+206,SPECIMEN HEMOLYZED NURSE TO REDRAW,1
+207,SPECIMEN HEMOLYZED,1
+208,POS CONTAMINATION 998335BY 897715 103018,1
+209,LCAN LOCATION TOUTING ERROR,1
+210,Notified by unit that specimen labelled incorrectly.,1
+211,Medical record number mismatch. Disregard results.,1
+212,MISLABELED,1
+213,CONVERTED TO ISTAT,1
+214,DUPL SEE BMP STROKE ORDER,1
+215,"DUPLICATE ORDER,PATIENT CREDITED",1
+216,Ignore results.  Ordered on wrong patient.,1
+217,Ignore results.  Specimen mislabeled.,1
+218,Ignore results. Specimen hemolyzed,1
+219,244,1
+220,Unable to assay due to viscosity of specimen.,1
+221,153,1
+222,181,1
+223,157,1
+224,159,1
+225,160,1
+226,161,1
+227,162,1
+228,168,1
+229,171,1
+230,175,1
+231,180,1
+232,184,1
+233,225,1
+234,185,1
+235,186,1
+236,187,1
+237,195,1
+238,197,1
+239,206,1
+240,213,1
+241,214,1
+242,217,1
+243,"UNSUITABLE FOR ANALYSIS,SAMPLES LEFT AT SATELLITE",1

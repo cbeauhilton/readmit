@@ -1,0 +1,180 @@
+,index,sodium_discharge_value
+0,,1305470
+1,139,42194
+2,140,39907
+3,138,39257
+4,137,32990
+5,141,32119
+6,136,25563
+7,142,22374
+8,135,18588
+9,143,13549
+10,134,12830
+11,133,8966
+12,144,7305
+13,132,6344
+14,131,4287
+15,145,3516
+16,130,2988
+17,129,2091
+18,146,1685
+19,128,1540
+20,127,1073
+21,147,759
+22,126,747
+23,125,488
+24,148,421
+25,124,385
+26,123,245
+27,149,219
+28,122,155
+29,Account Credited,151
+30,Duplicate request,143
+31,121,132
+32,150,120
+33,120,109
+34,151,93
+35,Unacceptable due to gross hemolysis. Redraw requested.,78
+36,Unable to assay. Specimen significantly hemolyzed.,74
+37,Unable to assay. No specimen received.,71
+38,152,62
+39,119,56
+40,154,50
+41,Unable to assay. Quantity not sufficient.,50
+42,Unable to assay.  Unable to locate specimen.,46
+43,118,44
+44,"CANCELLED,Specimen not collected or received",42
+45,Cancelled by clinician,39
+46,155,36
+47,Unable to assay. Possible interfering substance(s) present.,35
+48,153,34
+49,117,28
+50,Unable to assay. Specimen incorrectly identified.,27
+51,157,26
+52,156,23
+53,116,22
+54,115,20
+55,Specimen received unlabelled.,16
+56,158,12
+57,113,11
+58,114,10
+59,110,10
+60,Specimen hemolyzed.,10
+61,159,10
+62,Unable to assay. Specimen improperly collected/handled.,8
+63,165,8
+64,160,7
+65,164,7
+66,Identity unclear. Specimen labelled incorrectly.,7
+67,112,6
+68,Requisitioning entry error,6
+69,Unable to quantitate due to possible contamination.,6
+70,111,5
+71,162,5
+72,"Test accessioning error,please disregard.",5
+73,108,5
+74,161,5
+75,169,5
+76,166,5
+77,107,4
+78,168,4
+79,163,4
+80,Unable to assay. Specimen grossly hemolyzed.,4
+81,136.9,3
+82,105,3
+83,135.2,3
+84,109,3
+85,Disregard results. Specimen incorrectly identified.,3
+86,173,3
+87,170,3
+88,135.0,2
+89,136.4,2
+90,135.6,2
+91,136.7,2
+92,104,2
+93,172,2
+94,141.6,2
+95,137.3,2
+96,Test reordered on another CCHS MRN.,2
+97,171,2
+98,137.1,2
+99,138.5,2
+100,Ignore results. Specimen hemolyzed,2
+101,134.9,2
+102,139.3,2
+103,Specimen collected in wrong container type.,2
+104,Ignore results. Specimen was contaminated,2
+105,Patient refused collection,2
+106,Patient expired,2
+107,see below,2
+108,Patient discharged,2
+109,Unable to assay. Specimen too old to perform test.,2
+110,132.7,1
+111,133.1,1
+112,133.0,1
+113,133.6,1
+114,132.9,1
+115,125.7,1
+116,132.6,1
+117,132.0,1
+118,124.5,1
+119,131.3,1
+120,123.8,1
+121,130.5,1
+122,130.2,1
+123,113.8,1
+124,128.5,1
+125,128.1,1
+126,125.9,1
+127,133.7,1
+128,140.5,1
+129,134.4,1
+130,145.8,1
+131,174,1
+132,175,1
+133,178,1
+134,179,1
+135,194,1
+136,198,1
+137,>180,1
+138,ACRE,1
+139,CONVERTED TO ISTAT,1
+140,"DUPLICATE ORDER,PATIENT CREDITED",1
+141,Ignore results.  Ordered on wrong patient.,1
+142,Ignore results.  Specimen mislabeled.,1
+143,LCAN LOCATION TOUTING ERROR,1
+144,MISLABELED,1
+145,PT EXPIRED,1
+146,SPECIMEN HEMOLYZED,1
+147,Specimen drawn in wrong tube.,1
+148,Test inadvertently not performed,1
+149,Unable to assay due to viscosity of specimen.,1
+150,Unable to assay. Analytical difficulty.,1
+151,Unable to quantitate due to age of specimen.,1
+152,167,1
+153,150.2,1
+154,138.0,1
+155,138.1,1
+156,135.3,1
+157,135.4,1
+158,135.5,1
+159,135.7,1
+160,136.0,1
+161,136.3,1
+162,136.6,1
+163,136.8,1
+164,137.9,1
+165,102,1
+166,138.2,1
+167,138.3,1
+168,138.8,1
+169,139.0,1
+170,139.5,1
+171,139.8,1
+172,139.9,1
+173,140.7,1
+174,142.3,1
+175,124.4,0
+176,132.5,0
+177,136.2,0
+178,134.7,0

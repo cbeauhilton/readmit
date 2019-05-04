@@ -1,0 +1,121 @@
+,index,egfr_aa_admit_value
+0,,1503914
+1,>60,100509
+2,57,845
+3,59,836
+4,58,824
+5,56,815
+6,55,776
+7,54,763
+8,53,741
+9,51,681
+10,52,677
+11,50,677
+12,49,643
+13,47,638
+14,48,608
+15,46,596
+16,45,539
+17,43,531
+18,42,517
+19,44,505
+20,60,505
+21,41,469
+22,40,467
+23,38,453
+24,39,430
+25,34,404
+26,35,395
+27,37,395
+28,36,392
+29,7,385
+30,33,383
+31,9,375
+32,6,369
+33,32,364
+34,8,343
+35,31,339
+36,10,333
+37,29,314
+38,13,309
+39,27,309
+40,11,305
+41,28,304
+42,5,304
+43,12,301
+44,30,294
+45,26,287
+46,22,279
+47,25,259
+48,15,259
+49,17,253
+50,16,253
+51,20,235
+52,14,232
+53,19,232
+54,24,226
+55,21,224
+56,23,222
+57,4,209
+58,18,197
+59,3,99
+60,Unacceptable due to gross hemolysis. Redraw requested.,89
+61,Account Credited,78
+62,Duplicate request,73
+63,Unable to assay. No specimen received.,61
+64,Unable to assay. Specimen significantly hemolyzed.,51
+65,"CANCELLED,Specimen not collected or received",37
+66,Not calculated,28
+67,Cancelled by clinician,26
+68,Unable to assay.  Unable to locate specimen.,25
+69,Unable to assay. Quantity not sufficient.,24
+70,Unable to assay. Specimen incorrectly identified.,21
+71,2,17
+72,Specimen received unlabelled.,12
+73,Unable to assay. Possible interfering substance(s) present.,12
+74,Specimen hemolyzed.,9
+75,Unable to assay. Specimen improperly collected/handled.,7
+76,"Test accessioning error,please disregard.",5
+77,> 60 ml/min/1.73m2,4
+78,Unable to quantitate due to possible contamination.,4
+79,Identity unclear. Specimen labelled incorrectly.,4
+80,Requisitioning entry error,4
+81,0,3
+82,Unable to Calculate,3
+83,Unable to assay. Specimen too old to perform test.,2
+84,Ignore results. Specimen was contaminated,2
+85,Specimen collected in wrong container type.,2
+86,Patient discharged,2
+87,Patient expired,2
+88,91,1
+89,92,1
+90,Unable to assay. Analytical difficulty.,1
+91,107,1
+92,108,1
+93,Unable to assay due to viscosity of specimen.,1
+94,113,1
+95,115,1
+96,117,1
+97,74,1
+98,120,1
+99,127,1
+100,Test reordered on another CCHS MRN.,1
+101,Test inadvertently not performed,1
+102,Test Not Performed,1
+103,Specimen drawn in wrong tube.,1
+104,Specimen contaminated,1
+105,75,1
+106,SPECIMEN HEMOLYZED,1
+107,68,1
+108,78,1
+109,PT EXPIRED,1
+110,POS CONTAMINATION 998335BY 897715 103018,1
+111,Notified by unit that specimen labelled incorrectly.,1
+112,MISLABELED,1
+113,MISID NOTIFIED SHENEFE DIAL 04/06 1340 TS,1
+114,LCAN LOCATION TOUTING ERROR,1
+115,85,1
+116,Ignore results. Specimen hemolyzed,1
+117,Disregard results. Specimen incorrectly identified.,1
+118,CONVERTED TO ISTAT,1
+119,Unable to quantitate due to age of specimen.,1

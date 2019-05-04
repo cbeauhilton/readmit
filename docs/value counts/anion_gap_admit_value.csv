@@ -1,0 +1,124 @@
+,index,anion_gap_admit_value
+0,,1336485
+1,12,39653
+2,11,39200
+3,13,34984
+4,10,33950
+5,14,27583
+6,9,25897
+7,15,19072
+8,8,17528
+9,16,12436
+10,7,10661
+11,17,7841
+12,6,5650
+13,18,4753
+14,19,2977
+15,5,2719
+16,20,1874
+17,21,1154
+18,4,1104
+19,22,823
+20,23,528
+21,24,392
+22,3,381
+23,25,302
+24,26,196
+25,Account Credited,185
+26,2,154
+27,27,153
+28,Duplicate request,133
+29,28,104
+30,Unacceptable due to gross hemolysis. Redraw requested.,90
+31,Unable to assay. Specimen significantly hemolyzed.,89
+32,29,73
+33,Unable to assay. No specimen received.,68
+34,30,63
+35,1,62
+36,Unable to assay. Quantity not sufficient.,55
+37,Cancelled by clinician,45
+38,31,45
+39,32,44
+40,"CANCELLED,Specimen not collected or received",39
+41,Unable to assay.  Unable to locate specimen.,39
+42,Unable to assay. Possible interfering substance(s) present.,35
+43,Unable to assay. Specimen incorrectly identified.,30
+44,33,27
+45,34,22
+46,35,19
+47,0,19
+48,Specimen received unlabelled.,18
+49,37,17
+50,Not calculated,15
+51,36,14
+52,NOT DONE,11
+53,Unable to assay. Specimen improperly collected/handled.,10
+54,Specimen hemolyzed.,10
+55,38,9
+56,42,9
+57,Identity unclear. Specimen labelled incorrectly.,8
+58,Unable to quantitate due to possible contamination.,7
+59,40,7
+60,41,7
+61,Requisitioning entry error,6
+62,Unable to assay. Specimen grossly hemolyzed.,5
+63,"Test accessioning error,please disregard.",5
+64,39,5
+65,44,4
+66,45,4
+67,Disregard results. Specimen incorrectly identified.,3
+68,47,3
+69,16.5,2
+70,43,2
+71,48,2
+72,<0,2
+73,50,2
+74,Patient discharged,2
+75,Unable to calculate due to invalid or missing component.,2
+76,Unable to assay. Specimen too old to perform test.,2
+77,Patient expired,2
+78,see below,2
+79,Patient refused collection,2
+80,Ignore results. Specimen was contaminated,2
+81,NEG 1,2
+82,Specimen collected in wrong container type.,2
+83,49,1
+84,17.2,1
+85,SPECIMEN HEMOLYZED,1
+86,18.9,1
+87,18.0,1
+88,SPECIMEN HEMOLYZED NURSE TO REDRAW,1
+89,Specimen drawn in wrong tube.,1
+90,Specimen contaminated,1
+91,POS CONTAMINATION 998335BY 897715 103018,1
+92,Test inadvertently not performed,1
+93,Test reordered on another CCHS MRN.,1
+94,"UNSUITABLE FOR ANALYSIS,SAMPLES LEFT AT SATELLITE",1
+95,Unable to assay due to viscosity of specimen.,1
+96,Unable to assay. Analytical difficulty.,1
+97,Unable to quantitate due to age of specimen.,1
+98,-2,1
+99,PT EXPIRED,1
+100,NEG 8,1
+101,Notified by unit that specimen labelled incorrectly.,1
+102,NEG 6,1
+103,46,1
+104,51,1
+105,52,1
+106,53,1
+107,55,1
+108,<5,1
+109,CONVERTED TO ISTAT,1
+110,"DUPLICATE ORDER,PATIENT CREDITED",1
+111,Ignore results. Specimen hemolyzed,1
+112,LCAN LOCATION TOUTING ERROR,1
+113,MISID NOTIFIED SHENEFE DIAL 04/06 1340 TS,1
+114,MISLABELED,1
+115,Medical record number mismatch. Disregard results.,1
+116,NEG 10,1
+117,NEG 11,1
+118,NEG 16,1
+119,NEG 3,1
+120,NEG 32,1
+121,NEG 347,1
+122,-1,1

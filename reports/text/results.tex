@@ -1,0 +1,88 @@
+\section{Results}
+\subsubsection{Study Cohort}
+\sloppy
+\input{"pygen/results_paragraphs_latex.txt"}
+% \hyperref[table:table1]{Table 1}
+% \hyperref[table:table2]{Table 2}
+
+\subsubsection{Prediction of Inpatient Outcomes}
+Summary performance metrics are shown in \hyperref[table:table2]{Table 2}.
+\subsubsubsection{Thirty-day unplanned readmission}
+Thirty-day readmissions were predicted with an AUC of 0.76 (Fig.\ \ref{fig:roc30d}).\@
+The Brier score loss was 0.1, calibration curve shown in Fig.\ \ref{fig:cal30d}.\@
+The most impactful features included primary diagnosis, 
+time between the start of the current admission and the previous admission,
+discharge disposition location, 
+number of past admissions, length of stay, number of reported comorbidities,  
+total emergency department visits in the last six months,
+discharge disposition, admission source, and BMI on admission and discharge, 
+as well as others (Figs.\ \ref{fig:shapsumbar30d} and~\ref{fig:shapsum30d}).\@
+Including more than the top ten variables in the model did not improve predictive power for the cohort overall, 
+but does allow for more specific rationale for prediction for certain patients, as well as 
+examination of feature interactions for further exploration.\@
+Sample individualized predictions with their explanations are shown in 
+Figs.\ \ref{fig:shapforce30d1},~\ref{fig:shapforce30d2}, and~\ref{fig:shapforce30d3}.\@
+
+In order to examine possible changes in causes of readmission risk as a function of time from discharge, 
+we predicted readmission risk for several readmission thresholds and calculated Shapley values for each.\@
+Shapley values for 3-day and 7-day readmission are shown in Figs.\ \ref{fig:shaprdt3d} and~\ref{fig:shaprdt7d}, respectively.\@
+For example, 7-day readmission risk prediction achieved AUC of 0.70 %
+with a Brier score loss of 0.04 (\hyperref[table:table2]{Table 2}).\@
+The most impactful feature remained primary diagnosis, %
+but insurance provider, census block group, and other demographic features played more important roles, %
+along with other variables shown in Fig.\ \ref{fig:suppshapfig}.\@
+
+\subsubsubsection{Length of stay}
+Length of stay was predicted in terms of number of days and was binarized at various thresholds.\@
+Length of stay in days was predicted within 3.97 days measured by root mean squared error.\@
+Length of stay over 5 days was predicted with an AUC of 0.85 (Fig.\ \ref{fig:roclos5d}), 
+with a PPV for length of stay less than 5 days of 0.82, 
+and a Brier score loss of 0.14 (calibration curve shown in Fig.\ \ref{fig:callos5d}).\@ 
+The most impactful features for the regression and classification problems were similar, 
+and included the type of admission, primary diagnosis code, patient age, admission source, 
+length of stay of the most recent prior admission, 
+medications administered in the hospital in the first 24 hours, insurance, 
+and early admission to the intensive care unit, among others shown in Figs.\ \ref{fig:shapsumbarlos5d} and~\ref{fig:shapsumlos5d}.\@
+Impactful features for length of stay at thresholds of 3 and 7 days are shown in %
+Figs.\ \ref{fig:shaplos3d} and~\ref{fig:shaplos7d}, respectively.\@ 
+
+\subsubsubsection{Death within 48\textendash72 hours}
+Prediction of death within 48--72 hours of admission was predicted with an AUC of 0.81 (\hyperref[table:table2]{Table 2}). 
+However, due to extreme class imbalance (e.g.\ in the testing set there were 260,518 non-deaths and 390 deaths), 
+this was achieved by simply predicting non-death in every case. Strategies to address class imbalance
+were unsuccessful. More work is needed in this area before reliable model interpretations are produced. 
+
+\subsubsection{Prediction of Patient Characteristics}
+\subsubsubsection{{Gender}}
+Gender prediction achieved an AUC of 0.87 (Fig.\ \ref{fig:aucgender}),\@
+and a Brier score loss of 0.14 (calibration curve shown in Fig.\ \ref{fig:calgender}).\@
+The most impactful features for gender prediction are shown in Fig.\ \ref{fig:shapsumgender}.\@
+
+\subsubsubsection{{Race}}
+Race prediction (white vs.\ non-white) achieved an AUC of 0.91 (Fig.\ \ref{fig:aucrace}), 
+and a Brier score loss of 0.1 (calibration curve shown in Fig.\ \ref{fig:calrace}).\@
+The most impactful features for racial prediction are shown in Fig.\ \ref{fig:shapsumrace}.\@
+
+\subsubsubsection{{Financial Class}}
+Financial class prediction (Medicare/Medicaid vs.\ private insurance) achieved an AUC of 0.92 (Fig.\ \ref{fig:aucinsurance}), 
+and a Brier score loss of 0.1 (calibration curve shown in Fig.\ \ref{fig:calinsurance}).\@
+The most impactful features for insurance prediction are shown in Fig.\ \ref{fig:shapsuminsurance}.\@
+
+\subsubsubsection{{Age}}
+When predicted as a continuous variable, age was only able to be predicted within about 10 years (\hyperref[table:table2]{Table 2}).\@
+If age was binarized into patients older or younger than 65 years, 
+prediction achieved an AUC of 0.94 (Fig.\ \ref{fig:aucage}) and Brier score loss of 0.09 (Fig.\ \ref{fig:calage}).\@
+The most impactful features for age prediction are shown in Fig.\ \ref{fig:shapsumage}.\@
+
+\subsubsection{{Variable Interactions}}
+SHAP analysis also allows examination of interactions between variables.\@
+Key variable interactions are shown in Figs.\ \ref{fig:30dint},~\ref{fig:los5dint},%
+~\ref{fig:ageint},~\ref{fig:raceint},~\ref{fig:genderint}, and~\ref{fig:insuranceint}.\@ 
+For example, high and low values of heart rate were shown to affect probability of readmission
+differently for patients at different ages. A lower heart rate, between 50 and 100 beats per minute,
+reduced the likelihood of readmission for older patients, while a high heart rate increased it.\@
+For children, a high heart rate had little impact on the model output (Fig.\ \ref{fig:30dinthrage}).\@
+For prediction of length of stay over 5 days, for middle-aged patients the number of medications
+administered in the first 24 hours had little impact on model output, whereas very low or very high
+numbers of medications greatly decreased or increased the prediction of length of stay, respectively,
+for older and younger patients (Fig.\ \ref{fig:los5dintagemeds}).\@

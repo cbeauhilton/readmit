@@ -1,0 +1,239 @@
+,index,potassium_admit_value
+0,,1278740
+1,4.0,31924
+2,3.9,31247
+3,4.1,30221
+4,3.8,29169
+5,4.2,26928
+6,3.7,25358
+7,4.3,22825
+8,3.6,20800
+9,4.4,18819
+10,3.5,16166
+11,4.5,14750
+12,4.6,11578
+13,3.4,11305
+14,4.7,8850
+15,3.3,7748
+16,4.8,6698
+17,3.2,5183
+18,4.9,5171
+19,5.0,3788
+20,3.1,3264
+21,5.1,2727
+22,3.0,2099
+23,5.2,2018
+24,5.3,1497
+25,5.4,1180
+26,Unable to assay. Specimen significantly hemolyzed.,1124
+27,2.9,1022
+28,5.5,820
+29,5.6,706
+30,2.8,648
+31,5.7,568
+32,5.8,482
+33,2.7,441
+34,5.9,374
+35,6.0,318
+36,2.6,299
+37,Account Credited,220
+38,6.1,201
+39,2.5,181
+40,6.2,165
+41,Duplicate request,156
+42,6.3,152
+43,6.5,119
+44,6.4,117
+45,6.6,96
+46,Unacceptable due to gross hemolysis. Redraw requested.,93
+47,6.7,90
+48,2.4,89
+49,6.8,84
+50,Specimen hemolyzed.,83
+51,Unable to assay. No specimen received.,74
+52,Unable to assay. Quantity not sufficient.,59
+53,6.9,56
+54,Unable to assay.  Unable to locate specimen.,56
+55,2.3,54
+56,2.2,52
+57,"CANCELLED,Specimen not collected or received",50
+58,7.1,50
+59,Cancelled by clinician,49
+60,7.0,42
+61,Unable to assay. Possible interfering substance(s) present.,38
+62,2.1,35
+63,7.3,35
+64,Unable to assay. Specimen incorrectly identified.,31
+65,Result not available due to interference by hemolysis. Suggest reorder,31
+66,7.2,30
+67,2.0,26
+68,7.4,25
+69,see below,21
+70,7.5,21
+71,1.9,18
+72,Specimen received unlabelled.,18
+73,>10.0,17
+74,7.7,15
+75,7.6,14
+76,7.8,13
+77,8.2,13
+78,7.9,12
+79,Unable to assay. Specimen improperly collected/handled.,12
+80,1.8,11
+81,Unable to assay. Specimen grossly hemolyzed.,11
+82,1.7,11
+83,8.3,9
+84,8.4,9
+85,Identity unclear. Specimen labelled incorrectly.,8
+86,8.0,8
+87,8.5,8
+88,Unable to quantitate due to possible contamination.,7
+89,Requisitioning entry error,7
+90,<1.5,7
+91,8.7,7
+92,1.6,6
+93,8.6,6
+94,8.9,6
+95,8.8,6
+96,"Test accessioning error,please disregard.",5
+97,8.1,5
+98,3.81,4
+99,4.67,3
+100,Unable to assay. Specimen too old to perform test.,3
+101,1.5,3
+102,9.0,3
+103,Disregard results. Specimen incorrectly identified.,3
+104,3.54,2
+105,UNABLE TO REPORT DUE TO HEMOLYSIS,2
+106,3.60,2
+107,Unable to assay. Analytical difficulty.,2
+108,3.87,2
+109,4.27,2
+110,3.69,2
+111,4.35,2
+112,4.36,2
+113,3.85,2
+114,Specimen collected in wrong container type.,2
+115,4.26,2
+116,3.94,2
+117,4.22,2
+118,4.20,2
+119,9.2,2
+120,9.3,2
+121,9.4,2
+122,3.93,2
+123,3.15,2
+124,4.24,2
+125,Patient refused collection,2
+126,3.96,2
+127,Ignore results. Specimen was contaminated,2
+128,Patient discharged,2
+129,Patient expired,2
+130,3.88,1
+131,3.89,1
+132,3.95,1
+133,3.91,1
+134,3.90,1
+135,3.82,1
+136,3.80,1
+137,3.97,1
+138,Test reordered on another CCHS MRN.,1
+139,3.79,1
+140,3.42,1
+141,10.0,1
+142,10.1,1
+143,2.07,1
+144,3.01,1
+145,3.05,1
+146,3.10,1
+147,3.18,1
+148,3.26,1
+149,3.31,1
+150,Unable to quantitate due to age of specimen.,1
+151,4.04,1
+152,3.46,1
+153,3.78,1
+154,3.49,1
+155,3.51,1
+156,3.57,1
+157,3.61,1
+158,3.62,1
+159,3.63,1
+160,3.65,1
+161,3.70,1
+162,3.73,1
+163,3.74,1
+164,3.77,1
+165,4.03,1
+166,4.71,1
+167,4.05,1
+168,CONVERTED TO ISTAT,1
+169,MISID NOTIFIED SHENEFE DIAL 04/06 1340 TS,1
+170,LCAN LOCATION TOUTING ERROR,1
+171,Ignore results. Specimen hemolyzed,1
+172,Ignore results.  Specimen mislabeled.,1
+173,Ignore results.  Ordered on wrong patient.,1
+174,"DUPLICATE ORDER,PATIENT CREDITED",1
+175,>9.9,1
+176,4.07,1
+177,9.9,1
+178,9.7,1
+179,9.6,1
+180,9.5,1
+181,6.22,1
+182,5.46,1
+183,MISLABELED,1
+184,Medical record number mismatch. Disregard results.,1
+185,Notified by unit that specimen labelled incorrectly.,1
+186,POS CONTAMINATION 998335BY 897715 103018,1
+187,PT EXPIRED,1
+188,RESULTS REPORTED 1312 FROM SAME SAMPLE,1
+189,SIGNIFICANT HEMOLYSIS /NOT ABLE TO REPORT VALUE /SUGGEST REDRAWING SAMPLE,1
+190,SPECIMEN GROSSLY HEMOLYZED PATIENT DISCHARGED,1
+191,SPECIMEN GROSSLY HEMOLYZED.  UNABLE TO RELEASE RESULT.,1
+192,SPECIMEN HEMOLYZED,1
+193,SPECIMEN HEMOLYZED NURSE TO REDRAW,1
+194,Specimen contaminated,1
+195,Specimen drawn in wrong tube.,1
+196,"Specimen is hemolyzed,results may be affected.",1
+197,Specimen leaked in transport.,1
+198,Specimen over 24 hours old when received,1
+199,TNP,1
+200,5.43,1
+201,5.33,1
+202,5.28,1
+203,4.31,1
+204,4.53,1
+205,Unable to assay due to viscosity of specimen.,1
+206,4.49,1
+207,4.48,1
+208,4.34,1
+209,4.33,1
+210,4.29,1
+211,5.02,1
+212,4.21,1
+213,4.18,1
+214,4.16,1
+215,4.14,1
+216,4.13,1
+217,4.09,1
+218,4.56,1
+219,"UNSUITABLE FOR ANALYSIS,SAMPLES LEFT AT SATELLITE",1
+220,4.60,1
+221,4.83,1
+222,4.92,1
+223,4.91,1
+224,UNABLE TO REPORT DUE TO GROSS HEMOLYSIS,1
+225,4.87,1
+226,4.62,1
+227,4.86,1
+228,4.81,1
+229,4.72,1
+230,Test inadvertently not performed,1
+231,4.70,1
+232,UNABLE TO REPORT SUE TO GROSS HEMOLYSIS,1
+233,4.64,1
+234,1.3,1
+235,3.32,0
+236,9.1,0
+237,4.12,0

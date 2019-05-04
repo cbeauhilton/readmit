@@ -1,0 +1,208 @@
+\ProvidesPackage{mystyle}
+
+\usepackage[table]{xcolor}
+\definecolor{blue}{HTML}{0000FF}
+\definecolor{red}{HTML}{FF0000}
+\definecolor{NEJMRed}{HTML}{FC0031}
+\definecolor{NEJMTopRow}{HTML}{F7F1EC}
+\definecolor{NEJMAlternatingRows}{HTML}{FFF9ED}
+\definecolor{NEJMCaptionBackground}{HTML}{F7F1EC} 
+\definecolor{NEJMSectionTitleBackground}{HTML}{FFFEF2}
+\definecolor{NEJMGreyText}{HTML}{A9ABAF} %
+\definecolor{NEJMAuthorText}{HTML}{76797C} %
+
+\usepackage[explicit]{titlesec}
+\usepackage[]{geometry} % standard page size is US letter: 8.5x11" (215.9x279.4mm)
+% \usepackage[a4paper]{geometry} % A4 (210x297mm, 8.27x11.69") is much prettier and what the rest of the world uses,
+% however will not play so nicely with printing from American printers
+\usepackage{gensymb}
+\usepackage{booktabs, adjustbox, stackengine,multirow,array,tabularx,ragged2e}
+\usepackage{tikz}
+\usepackage{pgf}
+\usepackage{pgffor}
+\usepackage{grffile}
+\usepackage{afterpage}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+% \newcolumntype{Y}{>{\RaggedRight\hangindent=1em \hangafter=1 \arraybackslash}X}
+\newcolumntype{Z}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{Q}{>{\raggedright\arraybackslash}X}
+
+\usepackage{hyperref}  
+\hypersetup{
+    colorlinks,
+    linkcolor={red},
+    citecolor={blue},
+    % 
+    urlcolor={blue},
+}
+\usepackage{cleveref}  
+\usepackage[style=nejm,backend=biber]{biblatex}  %backend=biber is 'better'   
+\renewcommand*{\bibfont}{\footnotesize}
+\addbibresource{readmitccf.bib}
+
+\usepackage[]{authblk} % easy to add authors and affiliations
+\usepackage{graphicx} % for including graphics
+\graphicspath{{figdir/}} % setting the graphicspath - cleans up foldering
+% \usepackage{import} % mostly for the pdf_tex files
+% 
+\usepackage{subcaption} % for making graphics with multiple panes and captions
+\usepackage{lipsum} % dummy font
+\usepackage{bredzenie} % freaking ML generated Polish dummy font!
+\usepackage{multicol} % specify num of text columns
+\usepackage{lettrine} % fancy first letter
+\usepackage[explicit]{titlesec} % for customizing sections, subsections, etc.
+\usepackage[T1]{fontenc} % allows for UTF-8 characters
+\usepackage{type1cm} % scalable fonts
+\usepackage{letterspace} % provides "lsstyle" command to prettify all-caps
+\usepackage{titlecaps} % makes first letter capitalized - used in sup figs
+
+\usepackage{fontspec} % to browse TeX fonts: http://www.tug.dk/FontCatalogue/seriffonts.html 
+\setmainfont{TeX Gyre Termes} % Tex Gyre family for the win!
+\setsansfont{TeX Gyre Heros} % Helvetica clone, maybe even better?!
+\setmonofont{TeX Gyre Cursor}
+\newfontfamily\subsectionfont{TeX Gyre Heros}
+\newfontfamily\subsubsectionfont[]{TeX Gyre Heros}
+\newfontfamily\subsubsubsectionfont[]{TeX Gyre Heros}
+\renewcommand{\sfdefault}{TeX Gyre Heros}
+
+% (maybe the below are old? New colors are considerably brighter)
+% NEJM top row: {HTML}{F5F1EB} {RGB}{209, 38, 70}. 
+% Alternating row: {HTML}{FEF9EC} {RGB}{254, 249, 236}. 
+% Reddish font: {HTML}{D12646}  {RGB}{209, 38, 70}.
+
+\titleformat{\section}[block]
+    {\titlerule     
+     \vspace{0ex}%
+     \normalfont}
+    {\colorbox{NEJMSectionTitleBackground}{\parbox{\columnwidth-2\fboxsep}{\normalfont\centering\MakeUppercase{#1}}}}{0em}
+    {}
+    % {\normalfont\centering}
+    [\titlerule]
+
+\titlespacing{\section}{0pt}{*4.0}{*1.5}
+
+\titleformat{\subsection}[block]
+    {\scriptsize\color{NEJMRed}\bf\subsectionfont\lsstyle}
+    {\MakeUppercase{#1}}{0em}
+    {}
+    % {\normalfont\centering}
+    []
+
+\titlespacing{\subsection}{0pt}{*2}{*0.0}
+
+\titleformat{\subsubsection}[block]
+    {\scriptsize\color{black}\bf\subsubsectionfont\lsstyle}
+    {\MakeUppercase{#1}}{0em}
+    {}
+    % {\normalfont\centering}
+    []
+\titlespacing{\subsubsection}{0pt}{*1.5}{*1.5}
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}[block]
+    {\tiny\color{black}\bf\subsubsubsectionfont\lsstyle}
+    {\MakeUppercase{#1}}{0em}
+    {}
+    % {\normalfont\centering}
+    []
+\titlespacing{\subsubsubsection}{0pt}{*1.5}{*0.25}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{6}{\parindent}%
+  {3.25ex \@plus1ex \@minus .2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+\def\toclevel@subsubsubsection{4}
+\def\toclevel@paragraph{5}
+\def\toclevel@paragraph{6}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\l@paragraph{\@dottedtocline{5}{10em}{5em}}
+\def\l@subparagraph{\@dottedtocline{6}{14em}{6em}}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\captionsetup[figure]{box=colorbox,boxcolor=NEJMCaptionBackground,labelformat=simple,labelsep=period,labelfont={bf,color=NEJMRed,large},font={sf,normalsize},width=.98\textwidth}
+\captionsetup[subfigure]{subrefformat=simple,labelsep={space},labelformat=simple,position=top,labelfont={bf,normalcolor,large},font={sf,normalsize},justification=raggedright,singlelinecheck=false}
+\renewcommand\thesubfigure{\Alph{subfigure}}
+
+\newcommand{\shortTitleText}{Interpretable predictions of inpatient outcomes}% the shortened version of the title that appears in the headers
+
+\newcommand{\beginfigs}{%
+        \newgeometry{outer=3cm, inner=1cm, tmargin=2cm, bmargin=6cm}% fig margins
+        \chead{\small\MakeUppercase{\shortTitleText}}%
+        \fancyfoot[LE]{}% gets rid of footer, leaves header = more room for figs
+        \fancyfoot[RO]{}%
+        \fancyfoot[C]{}%
+     }
+
+\newcommand{\begintables}{%
+        \newgeometry{outer=3cm, inner=1cm, tmargin=2cm, bmargin=2cm}% table margins
+        \chead{\small\MakeUppercase{\shortTitleText}}%
+        \fancyfoot[LE]{}% gets rid of footer, leaves header = more room for tables
+        \fancyfoot[RO]{}%
+        \fancyfoot[C]{}%
+        \setcounter{table}{0}%
+        \renewcommand{\thetable}{\arabic{table}}%
+        \setcounter{figure}{0}%
+        \renewcommand{\thefigure}{\arabic{figure}}%
+        \setcounter{subfigure}{0}%
+        \renewcommand{\thesubfigure}{\Alph{subfigure}}%
+    }
+     
+\newcommand{\beginsupplement}{%
+        \newgeometry{outer=3cm, inner=1cm, tmargin=2cm, bmargin=6cm}% fig margins
+        \chead{\small\MakeUppercase{\shortTitleText}}%
+        \fancyfoot[LE]{}% gets rid of footer, leaves header = more room for figs/tables
+        \fancyfoot[RO]{}%
+        \fancyfoot[C]{}%
+        \setcounter{table}{0}%
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}%
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+        \setcounter{subfigure}{0}%
+        \renewcommand{\thesubfigure}{\alph{subfigure}}%
+        \pagebreak
+        \topskip0pt
+        \hspace{0pt}
+        \vfill
+        \begin{center}
+        \Huge\lsstyle
+        \MakeUppercase{Supplementary}\\ 
+        \MakeUppercase{material}
+        \end{center}
+        \vfill
+        \hspace{0pt}
+     }
+
+\input{title_authors} % TeX file with all authors and affiliations
+
+% \geometry{showframe} % useful for showing frame of page
+% \usepackage{layout}
+% \usepackage[grid,
+%   gridcolor=red!20,
+%   subgridcolor=green!20,
+%   gridunit=in]{eso-pic} % prints grid on page with inch markings, very useful
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\chead{\footnotesize\lsstyle\MakeUppercase{\shortTitleText}}
+\fancyfoot[LE]{\leavevmode\smash{\llap{\thepage}}}
+\fancyfoot[RO]{\leavevmode\smash{\rlap{\thepage}}}
+\fancyfoot[C]{\tiny\today}
+\renewcommand{\headrulewidth}{0pt}
+\frenchspacing

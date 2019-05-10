@@ -1,0 +1,74 @@
+\begin{figure}
+\begin{adjustbox}{minipage=7.0in,frame}
+\vspace{2.5mm}
+\centering
+%
+\def\target{race}
+%
+\def\picdir{supplementary/\target/}
+%
+\def\labbig{fig:raceint}
+%
+\def\picone{\target_SHAP_dependence_8.pdf}
+\def\pictwo{\target_SHAP_dependence_5.pdf}
+\def\picthr{\target_SHAP_dependence_3.pdf}
+\def\picfor{\target_SHAP_dependence_2.pdf}
+% 1
+\def\capone{Number of families with income over twice the poverty level vs.\ number of families with female householder and no husband present.}
+\def\labone{fig:raceintincfemhh}
+% 2
+\def\captwo{Employed population count vs.\ number of married couple families.}
+\def\labtwo{fig:raceintempmarried}
+% 3
+\def\capthr{Marital status vs.\ age.}
+\def\labthr{fig:raceintmarriedage}
+% 4
+\def\capfor{Age vs.\ hypertension.}
+\def\labfor{fig:raceintagehtn}
+%
+\def\capbig{\textbf{Variable Interactions for \titlecap{\target}.} \\ %
+Panels~\ref{\labone},~\ref{\labtwo}, %
+~\ref{\labthr}, and~\ref{\labfor} %
+show changes in model output (SHAP values---left axis) %
+as an effect of the interplay between %
+values of indicated variables (x-axis and color-coded points, %
+color code shown on right axis).\@
+Each point is a single hospitalization.\@
+Values less than zero or gray points indicate missing information, e.g.\ 
+a patient without an available ACS BlockGroup ID 
+for whom other ACS information cannot be obtained (see~\ref{\labone} and~\ref{\labtwo}).\@
+}
+%
+%
+\begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \captionsetup[subfigure]{}
+    \caption{\capone{}}\label{\labone}
+    \includegraphics[height=3in,width=3in,keepaspectratio]{\picdir\picone}
+\end{subfigure}%
+\hspace{5mm}%
+\begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \captionsetup[subfigure]{}
+    \caption{\captwo}\label{\labtwo}
+    \includegraphics[height=3in,width=3in,keepaspectratio]{\picdir\pictwo}
+\end{subfigure}%
+
+\vspace{5mm}
+\begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \captionsetup[subfigure]{}
+    \caption{\capthr}\label{\labthr}
+    \includegraphics[height=2.7in,width=3in,keepaspectratio]{\picdir\picthr}
+\end{subfigure}%
+\hspace{5mm}%
+\begin{subfigure}[t]{.45\linewidth}
+    \centering
+    \captionsetup[subfigure]{}
+    \caption{\capfor}\label{\labfor}
+    \includegraphics[height=2.7in,width=3in,keepaspectratio]{\picdir\picfor}
+\end{subfigure}%
+
+\caption{\capbig}\label{\labbig}
+\end{adjustbox}
+\end{figure}

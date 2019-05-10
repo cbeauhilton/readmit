@@ -254,8 +254,8 @@ class shapHelpers:
                     feature_names=self.features_shap.columns,
                 )
 
-                print(f"Making dependence plot for {self.target} feature ranked {i}...")
-                figure_title = f"{self.target}_SHAP_dependence_{i}_"
+                print(f"Making self dependence plot for {self.target} feature ranked {i}...")
+                figure_title = f"{self.target}_SHAP_dependence_self_{i}_"
                 timestr = time.strftime("_%Y-%m-%d-%H%M_")
                 ext = ".png"
                 title = figure_title + n_features + timestr + ext

@@ -13,7 +13,7 @@ import pandas as pd
 import shap
 from sklearn.exceptions import UndefinedMetricWarning
 
-from cbh import config
+import cbh.config as config
 import configcols
 from cbh.generalHelpers import (
     lgb_f1_score,
@@ -38,19 +38,19 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    # "readmitted30d",
-    # "readmitted5d",
-    # "readmitted7d",
-    # "readmitted3d",
-    # "length_of_stay_over_3_days",
-    # "length_of_stay_over_5_days",
-    # "length_of_stay_over_7_days",
-    # "financialclass_binary",
-    # "age_gt_10_y",
-    # "age_gt_30_y",
-    # "age_gt_65_y",
-    # "gender_binary",
-    # "race_binary",
+    "readmitted30d",
+    "readmitted5d",
+    "readmitted7d",
+    "readmitted3d",
+    "length_of_stay_over_3_days",
+    "length_of_stay_over_5_days",
+    "length_of_stay_over_7_days",
+    "financialclass_binary",
+    "age_gt_10_y",
+    "age_gt_30_y",
+    "age_gt_65_y",
+    "gender_binary",
+    "race_binary",
     "discharged_in_past_30d",
     # "died_within_48_72h_of_admission_combined",
 ]
@@ -227,10 +227,10 @@ for shap_index in shap_indices:
         # takes a couple minutes since SHAP interaction values take a factor of 2 * # features 
         # # more time than SHAP values to compute, since this is just an example we only explain
         # the first 2,000 people in order to run quicker
-        shap_int_vals = shap.TreeExplainer(gbm_model).shap_interaction_values(X.iloc[:2000,:]) 
+        
         shap_expected=explainer.expected_value
         helpshap = shapHelpers(
-            target, features_shap, shap_values, shap_int_vals, shap_expected, gbm_model, figfolder, datafolder, modelfolder) 
+            target, features_shap, shap_values, shap_expected, gbm_model, figfolder, datafolder, modelfolder) 
         helpshap.shap_save_to_disk()
         helpshap.shap_save_ordered_values()
         helpshap.save_requirements()

@@ -4,7 +4,7 @@ import os
 print("Loading", os.path.basename(__file__))
 
 # Directories
-PROJECT_DIR = Path(r"C:/Users/hiltonc/Desktop/readmit/")
+PROJECT_DIR = Path(r"C:/Users/hiltonc/Desktop/readmit/readmit/")
 RAW_DATA_DIR = PROJECT_DIR / "data/raw/"
 INTERIM_DATA_DIR = PROJECT_DIR / "data/interim/"
 EXTERNAL_DATA_DIR = PROJECT_DIR / "data/external/"

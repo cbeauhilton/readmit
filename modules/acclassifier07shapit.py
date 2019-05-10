@@ -224,10 +224,12 @@ for shap_index in shap_indices:
         explainer = shap.TreeExplainer(gbm_model)
         features_shap = features.sample(n=20000, random_state=seed, replace=False)
         shap_values = explainer.shap_values(features_shap)
-
+        # takes a couple minutes since SHAP interaction values take a factor of 2 * # features 
+        # # more time than SHAP values to compute, since this is just an example we only explain
+        # the first 2,000 people in order to run quicker
+        shap_int_vals = shap.TreeExplainer(gbm_model).shap_interaction_values(X.iloc[:2000,:]) 
         helpshap = shapHelpers(
-            target, features_shap, shap_values, gbm_model, figfolder, datafolder, modelfolder
-        )
+            target, features_shap, shap_values, shap_int_vals, gbm_model, figfolder, datafolder, modelfolder) 
         helpshap.shap_save_to_disk()
         helpshap.shap_save_ordered_values()
         helpshap.shap_prettify_column_names(
@@ -240,6 +242,7 @@ for shap_index in shap_indices:
             n_plots=20, expected_value=explainer.expected_value
         )
         helpshap.shap_top_dependence_plots(n_plots=10)
+        helpshap.shap_int_vals_heatmap()
 
         print("This loop ran in:")
         print(datetime.now() - startTime1)

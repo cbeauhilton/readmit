@@ -28,11 +28,12 @@ except BaseException:
 
 class shapHelpers:
     def __init__(
-        self, target, features_shap, shap_values, model, figfolder, datafolder, modelfolder
+        self, target, features_shap, shap_values, shap_int_vals, model, figfolder, datafolder, modelfolder
     ):
         self.target = target
         self.features_shap = features_shap
         self.shap_values = shap_values
+        self.shap_int_vals = shap_int_vals
         self.model = model
         self.figfolder = figfolder
         self.datafolder = datafolder
@@ -76,8 +77,10 @@ class shapHelpers:
         h5_file = self.modelfolder / title
         shap_val_df = pd.DataFrame(self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
+        shap_int_vals_df = pd.DataFrame(self.shap_int_vals)
         shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
         shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")
+        shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
 
     def shap_save_ordered_values(self):
         n_features = self.n_features
@@ -260,6 +263,28 @@ class shapHelpers:
             title1 = str(self.figfolder) + "/" + title1
             # texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
             texfig.savefig(title1, bbox_inches="tight")
+        except Exception as exc:
+            print(traceback.format_exc())
+            print(exc)
+            print("Aww, LaTeX!..")
+        plt.close()
+
+    def shap_int_vals_heatmap(self):
+        tmp = np.abs(self.shap_int_vals).sum(0)
+        for i in range(tmp.shape[0]):
+            tmp[i,i] = 0
+        inds = np.argsort(-tmp.sum(0))[:50]
+        tmp2 = tmp[inds,:][:,inds]
+        pl.figure(figsize=(12,12))
+        pl.imshow(tmp2)
+        pl.yticks(range(tmp2.shape[0]), self.features_shap.columns[inds], rotation=50.4, horizontalalignment="right")
+        pl.xticks(range(tmp2.shape[0]), self.features_shap.columns[inds], rotation=50.4, horizontalalignment="left")
+        pl.gca().xaxis.tick_top()
+        figure_title = f"{self.target} SHAP_int_vals_heatmap"
+        try:
+            title1 = figure_title + self.n_features + self.timestr
+            title1 = str(self.figfolder) + "/" + title1
+            texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)

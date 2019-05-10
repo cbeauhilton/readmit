@@ -82,7 +82,8 @@ class shapHelpers:
         shap_val_df = pd.DataFrame(self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
         shap_int_vals_df = pd.DataFrame(self.shap_int_vals)
-        exp_df = pd.DataFrame(self.shap_expected, columns=("SHAP Expected Value"))
+        d = [[self.shap_expected]]
+        exp_df = pd.DataFrame(d, columns=("SHAP Expected Value"))
         print(exp_df)
         shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
         shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")
@@ -93,38 +94,43 @@ class shapHelpers:
         
         if os.name == 'nt':
             call("bash", shell=True)
-            
-        call("conda list > requirements.txt", shell=True)
+        try:
+            call("conda list > requirements.txt", shell=True)
 
-        for line in fileinput.input("requirements.txt", inplace=True):
-        # inside this loop the STDOUT will be redirected to the file
-            print(line.replace("# Name", "Name"))
+            for line in fileinput.input("requirements.txt", inplace=True):
+            # inside this loop the STDOUT will be redirected to the file
+                print(line.replace("# Name", "Name"))
 
-        # The Python equivalent of this bash command,
-        # which strips internal whitespace and replaces with a comma,
-        # yet escapes me.
-        call("cat requirements.txt | tr -s '[:blank:]' ',' > ofile.csv", shell=True)
+            # The Python equivalent of this bash command,
+            # which strips internal whitespace and replaces with a comma,
+            # yet escapes me.
+            call("cat requirements.txt | tr -s '[:blank:]' ',' > ofile.csv", shell=True)
 
-        reqs = pd.read_csv("ofile.csv")
-        reqs = reqs[1:] # select rows with meaningful data
-        cols = [4,5] # define empty columns
-        reqs.drop(reqs.columns[cols],axis=1,inplace=True)
-        reqs = reqs.rename(columns=reqs.iloc[0])
-        reqs = reqs[["Name", "Version", "Build", "Channel"]]
-        print(reqs.head)
 
-        os.remove("requirements.txt")
-        os.remove("ofile.csv")
-        # If on Unix, could do this instead:
-        # call("rm requirements.txt", shell=True)
-        # call("rm ofile.csv", shell=True)
+            reqs = pd.read_csv("ofile.csv")
+            reqs = reqs[1:] # select rows with meaningful data
+            cols = [4,5] # define empty columns
+            reqs.drop(reqs.columns[cols],axis=1,inplace=True)
+            reqs = reqs.rename(columns=reqs.iloc[0])
+            reqs = reqs[["Name", "Version", "Build", "Channel"]]
+            print(reqs.head)
 
-        file_title = f"{self.target}_{self.n_features}_everything_"
-        timestr = time.strftime("_%Y-%m-%d")
-        ext = ".h5"
-        title = file_title + timestr + ext
-        h5_file = self.modelfolder / title
-        reqs.to_hdf(h5_file, key='requirements', format="table")
+            os.remove("requirements.txt")
+            os.remove("ofile.csv")
+            # If on Unix, could do this instead:
+            # call("rm requirements.txt", shell=True)
+            # call("rm ofile.csv", shell=True)
+
+            file_title = f"{self.target}_{self.n_features}_everything_"
+            timestr = time.strftime("_%Y-%m-%d")
+            ext = ".h5"
+            title = file_title + timestr + ext
+            h5_file = self.modelfolder / title
+            reqs.to_hdf(h5_file, key='requirements', format="table")
+            print("Requirements saved!")
+        except Exception as exc:
+            print(traceback.format_exc())
+            print(exc)
 
     def shap_save_ordered_values(self):
         n_features = self.n_features
@@ -175,6 +181,72 @@ class shapHelpers:
             try:
                 shap.dependence_plot(
                     "rank(%d)" % i,
+                    self.shap_values,
+                    df_with_codes,
+                    display_features=self.features_shap,
+                    show=False,
+                    feature_names=self.features_shap.columns,
+                )
+
+                print(f"Making dependence plot for {self.target} feature ranked {i}...")
+                figure_title = f"{self.target}_SHAP_dependence_{i}_"
+                timestr = time.strftime("_%Y-%m-%d-%H%M_")
+                ext = ".png"
+                title = figure_title + n_features + timestr + ext
+                plt.savefig(
+                    (self.figfolder / title),
+                    dpi=1200,
+                    transparent=True,
+                    bbox_inches="tight",
+                )
+                try:
+                    title1 = figure_title + n_features + timestr
+                    title1 = str(self.figfolder) + "/" + title1
+                    texfig.savefig(
+                        title1, dpi=1200, transparent=True, bbox_inches="tight"
+                    )
+                except Exception as exc:
+                    print(traceback.format_exc())
+                    print(exc)
+                    print("Aww, LaTeX!..")
+                plt.close()
+            except:
+                print(f"Plot for feature {i} failed, moving on...")
+
+    def shap_top_dependence_plots_self(self, n_plots):
+        n_features = self.n_features
+        # Dependence plots don't like the "category" dtype, will only work with
+        # category codes (ints).
+        # Make a copy of the df that uses cat codes
+        # Then use the original df as the "display"
+        df_with_codes = self.features_shap.copy()
+        df_with_codes.columns = (
+            df_with_codes.columns.str.strip()
+            .str.replace("_", " ")
+            .str.replace("__", " ")
+            .str.capitalize()
+        )
+        # This requires that you already set dtype to "category" as appropriate
+        # in "features_shap" or earlier
+        for col in list(df_with_codes.select_dtypes(include="category")):
+            df_with_codes[col] = df_with_codes[col].cat.codes
+
+        # get list of most important variables, in order
+        df_shap_train = pd.DataFrame(
+            self.shap_values, columns=self.features_shap.columns.values
+        )
+        imp_cols = (
+            df_shap_train.abs().mean().sort_values(ascending=False).index.tolist()
+        )
+        # imp_cols[i]
+        for i in range(n_plots):
+            try:
+                shap.dependence_plot(
+                    imp_cols[i],
+                    # "rank(%d)" % i,
+                    # here's the difference: set interaction index to the feature itself
+                    interaction_index=imp_cols[i],
+                    # interaction_index="rank(%d)" % i, #
                     self.shap_values,
                     df_with_codes,
                     display_features=self.features_shap,

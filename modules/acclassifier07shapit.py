@@ -233,6 +233,7 @@ for shap_index in shap_indices:
             target, features_shap, shap_values, shap_int_vals, shap_expected, gbm_model, figfolder, datafolder, modelfolder) 
         helpshap.shap_save_to_disk()
         helpshap.shap_save_ordered_values()
+        helpshap.save_requirements()
         helpshap.shap_prettify_column_names(
             prettycols_file=config.PRETTIFYING_COLUMNS_CSV
         )
@@ -243,6 +244,7 @@ for shap_index in shap_indices:
             n_plots=20, expected_value=shap_expected
         )
         helpshap.shap_top_dependence_plots(n_plots=10)
+        helpshap.shap_top_dependence_plots_self(n_plots=20)
         helpshap.shap_int_vals_heatmap()
 
         print("This loop ran in:")

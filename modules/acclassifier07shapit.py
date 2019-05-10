@@ -255,36 +255,3 @@ print("This program,", os.path.basename(__file__), "took")
 print(datetime.now() - startTime)
 print("to run.")
 print("\n")
-
-
-# data = data.rename(
-#     index=str,
-#     columns={
-#         "readmitted30d": "readmitted30d_full",
-#         "length_of_stay_over_7_days": "length_of_stay_over_7_days_full",
-#         "financialclass_binary": "financialclass_binary_full",
-#         "gender_binary": "gender_binary_full",
-#         "race_binary": "race_binary_full",
-#     },
-# )
-# data = data.rename(
-#     index=str,
-#     columns={
-#         "readmitted30d": "readmitted30d_ccf",
-#         "length_of_stay_over_7_days": "length_of_stay_over_7_days_ccf",
-#         "financialclass_binary": "financialclass_binary_ccf",
-#         "gender_binary": "gender_binary_ccf",
-#         "race_binary": "race_binary_ccf",
-#     },
-# )
-
-# data = data.rename(
-#     index=str,
-#     columns={
-#         "readmitted30d": "readmitted30d_community",
-#         "length_of_stay_over_7_days": "length_of_stay_over_7_days_community",
-#         "financialclass_binary": "financialclass_binary_community",
-#         "gender_binary": "gender_binary_community",
-#         "race_binary": "race_binary_community",
-#     },
-# )

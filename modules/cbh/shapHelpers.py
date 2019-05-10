@@ -8,7 +8,7 @@ import traceback
 from subprocess import call
 
 import cbh.config as config
-# import texfig first to configure Matplotlib's backend
+# import cbh.texfig first to configure Matplotlib's backend
 import cbh.texfig as texfig
 import conda.cli
 import h5py
@@ -315,7 +315,7 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary bar plot PDF...")
-        import texfig # set rcParams to texfig version...
+        import cbh.texfig as texfig # set rcParams to texfig version...
         shap.summary_plot(
             self.shap_values,
             self.features_shap,
@@ -356,7 +356,7 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary plot PDF...")
-        import texfig # set rcParams to texfig version...
+        import cbh.texfig as texfig # set rcParams to texfig version...
         shap.summary_plot(
             self.shap_values,
             self.features_shap,
@@ -494,7 +494,7 @@ class shapHelpers:
                 title1 = figure_title + timestr + patient_number
 
                 # reset mpl params for LaTeX PDF via texfig.py
-                import texfig 
+                import cbh.texfig as texfig 
                 shap.force_plot(
                     expected_value,  # this version uses the standard base value
                     self.shap_values[pt_num, :],

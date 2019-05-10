@@ -2032,3 +2032,39 @@ dtype: float64","0    0.122671
 dtype: float64","0    0.869767
 1    0.869767
 dtype: float64",0.8116936836908749,0.4172050102487115,0.09671742924490095,[],[]
+,Time,Target,Number of Features,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss,Brier Score Loss Sigmoid Calibration,Brier Score Loss Isotonic Calibration
+0,_2019-05-10-1429_,readmitted30d,285,0.2,146066,"0    0.991638
+1    0.093996
+dtype: float64","0    0.093996
+1    0.991638
+dtype: float64","0    0.867192
+1    0.653298
+dtype: float64","0    0.653298
+1    0.867192
+dtype: float64","0    0.906004
+1    0.008362
+dtype: float64","0    0.008362
+1    0.906004
+dtype: float64","0    0.132808
+1    0.346702
+dtype: float64","0    0.862774
+1    0.862774
+dtype: float64",0.7626700001176787,0.3825804127391309,0.10689303158986711,[],[]
+,Time,Target,Number of Features,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss,Brier Score Loss Sigmoid Calibration,Brier Score Loss Isotonic Calibration
+0,_2019-05-10-1446_,readmitted30d,285,0.2,146066,"0    0.991638
+1    0.093996
+dtype: float64","0    0.093996
+1    0.991638
+dtype: float64","0    0.867192
+1    0.653298
+dtype: float64","0    0.653298
+1    0.867192
+dtype: float64","0    0.906004
+1    0.008362
+dtype: float64","0    0.008362
+1    0.906004
+dtype: float64","0    0.132808
+1    0.346702
+dtype: float64","0    0.862774
+1    0.862774
+dtype: float64",0.7626700001176787,0.3825804127391309,0.10689303158986711,[],[]

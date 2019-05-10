@@ -2,7 +2,7 @@ import os
 import time
 import cbh.config
 import traceback
-# import texfig first to configure Matplotlib's backend
+# import cbh.texfig first to configure Matplotlib's backend
 import cbh.texfig as texfig
 # then, import PyPlot
 import matplotlib.pyplot as plt

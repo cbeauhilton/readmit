@@ -3,6 +3,9 @@ import sys
 import time
 import traceback
 
+from subprocess import call
+import fileinput
+
 import h5py
 # import texfig first to configure Matplotlib's backend
 import texfig
@@ -81,6 +84,39 @@ class shapHelpers:
         shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
         shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")
         shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
+
+    def save_requirements(self):
+        
+        if os.name == 'nt':
+            call("bash", shell=True)
+        call("conda list > requirements.txt", shell=True)
+
+        for line in fileinput.input("requirements.txt", inplace=True):
+        # inside this loop the STDOUT will be redirected to the file
+            print(line.replace("# Name", "Name"))
+
+        call("cat requirements.txt | tr -s '[:blank:]' ',' > ofile.csv", shell=True)
+
+        reqs = pd.read_csv("ofile.csv")
+        reqs = reqs[1:] # select rows with meaningful data
+        cols = [4,5] # define empty columns
+        reqs.drop(reqs.columns[cols],axis=1,inplace=True)
+        reqs = reqs.rename(columns=reqs.iloc[0])
+        reqs = reqs[["Name", "Version", "Build", "Channel"]]
+        print(reqs.head)
+
+        os.remove("requirements.txt")
+        os.remove("ofile.csv")
+        # If on Unix, could do this instead:
+        # call("rm requirements.txt", shell=True)
+        # call("rm ofile.csv", shell=True)
+
+        file_title = f"{self.target}_{self.n_features}_everything_"
+        timestr = time.strftime("_%Y-%m-%d")
+        ext = ".h5"
+        title = file_title + timestr + ext
+        h5_file = self.modelfolder / title
+        reqs.to_hdf(h5_file, key='requirements', format="table")
 
     def shap_save_ordered_values(self):
         n_features = self.n_features

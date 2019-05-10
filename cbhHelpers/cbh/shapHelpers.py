@@ -31,12 +31,13 @@ except BaseException:
 
 class shapHelpers:
     def __init__(
-        self, target, features_shap, shap_values, shap_int_vals, model, figfolder, datafolder, modelfolder
+        self, target, features_shap, shap_values, shap_int_vals, shap_expected, model, figfolder, datafolder, modelfolder
     ):
         self.target = target
         self.features_shap = features_shap
         self.shap_values = shap_values
         self.shap_int_vals = shap_int_vals
+        self.shap_expected = shap_expected
         self.model = model
         self.figfolder = figfolder
         self.datafolder = datafolder
@@ -81,20 +82,27 @@ class shapHelpers:
         shap_val_df = pd.DataFrame(self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
         shap_int_vals_df = pd.DataFrame(self.shap_int_vals)
+        exp_df = pd.DataFrame(self.shap_expected, columns=("SHAP Expected Value"))
+        print(exp_df)
         shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
         shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")
         shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
+        exp_df.to_hdf(h5_file, key = 'shap_expected_value', format='table')
 
     def save_requirements(self):
         
         if os.name == 'nt':
             call("bash", shell=True)
+            
         call("conda list > requirements.txt", shell=True)
 
         for line in fileinput.input("requirements.txt", inplace=True):
         # inside this loop the STDOUT will be redirected to the file
             print(line.replace("# Name", "Name"))
 
+        # The Python equivalent of this bash command,
+        # which strips internal whitespace and replaces with a comma,
+        # yet escapes me.
         call("cat requirements.txt | tr -s '[:blank:]' ',' > ofile.csv", shell=True)
 
         reqs = pd.read_csv("ofile.csv")

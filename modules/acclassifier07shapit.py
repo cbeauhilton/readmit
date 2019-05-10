@@ -228,8 +228,9 @@ for shap_index in shap_indices:
         # # more time than SHAP values to compute, since this is just an example we only explain
         # the first 2,000 people in order to run quicker
         shap_int_vals = shap.TreeExplainer(gbm_model).shap_interaction_values(X.iloc[:2000,:]) 
+        shap_expected=explainer.expected_value
         helpshap = shapHelpers(
-            target, features_shap, shap_values, shap_int_vals, gbm_model, figfolder, datafolder, modelfolder) 
+            target, features_shap, shap_values, shap_int_vals, shap_expected, gbm_model, figfolder, datafolder, modelfolder) 
         helpshap.shap_save_to_disk()
         helpshap.shap_save_ordered_values()
         helpshap.shap_prettify_column_names(
@@ -239,7 +240,7 @@ for shap_index in shap_indices:
             title_in_figure=f"Impact of Variables on {name_for_figs} Prediction"
         )
         helpshap.shap_random_force_plots(
-            n_plots=20, expected_value=explainer.expected_value
+            n_plots=20, expected_value=shap_expected
         )
         helpshap.shap_top_dependence_plots(n_plots=10)
         helpshap.shap_int_vals_heatmap()

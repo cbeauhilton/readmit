@@ -13,7 +13,7 @@ import pandas as pd
 import shap
 from sklearn.exceptions import UndefinedMetricWarning
 
-from cbh import config
+import cbh.config as config
 import configcols
 from cbh.generalHelpers import (
     lgb_f1_score,
@@ -38,19 +38,19 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    # "readmitted30d",
-    # "readmitted5d",
-    # "readmitted7d",
-    # "readmitted3d",
-    # "length_of_stay_over_3_days",
-    # "length_of_stay_over_5_days",
-    # "length_of_stay_over_7_days",
-    # "financialclass_binary",
-    # "age_gt_10_y",
-    # "age_gt_30_y",
-    # "age_gt_65_y",
-    # "gender_binary",
-    # "race_binary",
+    "readmitted30d",
+    "readmitted5d",
+    "readmitted7d",
+    "readmitted3d",
+    "length_of_stay_over_3_days",
+    "length_of_stay_over_5_days",
+    "length_of_stay_over_7_days",
+    "financialclass_binary",
+    "age_gt_10_y",
+    "age_gt_30_y",
+    "age_gt_65_y",
+    "gender_binary",
+    "race_binary",
     "discharged_in_past_30d",
     # "died_within_48_72h_of_admission_combined",
 ]
@@ -224,12 +224,16 @@ for shap_index in shap_indices:
         explainer = shap.TreeExplainer(gbm_model)
         features_shap = features.sample(n=20000, random_state=seed, replace=False)
         shap_values = explainer.shap_values(features_shap)
-
+        # takes a couple minutes since SHAP interaction values take a factor of 2 * # features 
+        # # more time than SHAP values to compute, since this is just an example we only explain
+        # the first 2,000 people in order to run quicker
+        
+        shap_expected=explainer.expected_value
         helpshap = shapHelpers(
-            target, features_shap, shap_values, gbm_model, figfolder, datafolder, modelfolder
-        )
+            target, features_shap, shap_values, shap_expected, gbm_model, figfolder, datafolder, modelfolder) 
         helpshap.shap_save_to_disk()
         helpshap.shap_save_ordered_values()
+        helpshap.save_requirements()
         helpshap.shap_prettify_column_names(
             prettycols_file=config.PRETTIFYING_COLUMNS_CSV
         )
@@ -237,9 +241,11 @@ for shap_index in shap_indices:
             title_in_figure=f"Impact of Variables on {name_for_figs} Prediction"
         )
         helpshap.shap_random_force_plots(
-            n_plots=20, expected_value=explainer.expected_value
+            n_plots=20, expected_value=shap_expected
         )
         helpshap.shap_top_dependence_plots(n_plots=10)
+        helpshap.shap_top_dependence_plots_self(n_plots=20)
+        helpshap.shap_int_vals_heatmap()
 
         print("This loop ran in:")
         print(datetime.now() - startTime1)
@@ -249,36 +255,3 @@ print("This program,", os.path.basename(__file__), "took")
 print(datetime.now() - startTime)
 print("to run.")
 print("\n")
-
-
-# data = data.rename(
-#     index=str,
-#     columns={
-#         "readmitted30d": "readmitted30d_full",
-#         "length_of_stay_over_7_days": "length_of_stay_over_7_days_full",
-#         "financialclass_binary": "financialclass_binary_full",
-#         "gender_binary": "gender_binary_full",
-#         "race_binary": "race_binary_full",
-#     },
-# )
-# data = data.rename(
-#     index=str,
-#     columns={
-#         "readmitted30d": "readmitted30d_ccf",
-#         "length_of_stay_over_7_days": "length_of_stay_over_7_days_ccf",
-#         "financialclass_binary": "financialclass_binary_ccf",
-#         "gender_binary": "gender_binary_ccf",
-#         "race_binary": "race_binary_ccf",
-#     },
-# )
-
-# data = data.rename(
-#     index=str,
-#     columns={
-#         "readmitted30d": "readmitted30d_community",
-#         "length_of_stay_over_7_days": "length_of_stay_over_7_days_community",
-#         "financialclass_binary": "financialclass_binary_community",
-#         "gender_binary": "gender_binary_community",
-#         "race_binary": "race_binary_community",
-#     },
-# )

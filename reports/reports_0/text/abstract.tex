@@ -1,0 +1,52 @@
+% \onecolumn
+\section{Abstract}
+\subsection{Background}%
+Outcomes for hospitalized patients, including metrics such as length of stay
+and early readmission, are difficult to predict.\@
+Hospital systems and governments have focused on improving these metrics,
+with uncertain benefit.\@
+Whether interpretable machine learning algorithms can simultaneously
+achieve useful predictive power and identify actionable 
+patient-specific and institutional variables remains unknown.\@
+\subsection{Methods}%
+We collected clinical, demographic, and institutional data for all hospitalizations
+from January 2011 to May 2018.\@
+Summary statistics were used to describe the cohort.\@
+Machine learning algorithms were trained to predict 
+readmission, length of stay, in-hospital death within 48--72 hours, and demographic data.\@
+Model performance was evaluated using a variety of metrics, including 
+area under the receiver operator characteristic curve (AUC) and Brier score loss (BSL).\@
+% precision-recall curves, average precision root mean square error,
+% median absolute error, mean absolute error, and R\textsuperscript{2} scores.\@
+Global and individual prediction explanations 
+were generated using Shapley values and visualizations.\@
+\subsection{Results}%
+Nearly 1.5 million hospitalizations for over 700,000 unique patients were used
+for model development, validation, and testing. 
+Readmission rates were higher for patients who were 
+older, black, divorced/separated, on Medicare, 
+and with high overall disease burden.\@
+Thirty-day readmission was predicted with an AUC of 0.76 and BSL of 0.1.\@
+Length of stay greater than 5 days was predicted with an AUC of 0.85 and BSL of 0.14.\@
+% Length of stay was predicted with an RMSE of 3.97 days if treated continuously,
+% and an AUC of 0.85 and Brier score loss of 0.14 
+% if binarized into length of stay greater or less than 5 days.\@
+Death within 48--72 hours was predicted with an AUC of 0.81.\@ 
+% but was poorly calibrated due to class imbalance.\@
+Performance metrics for other targets were AUC 0.87 and BSL 0.14 (gender), AUC 0.91 and BSL 0.10 (race), 
+AUC 0.92 and BSL 0.10 (financial class), and AUC 0.94 and BSL 0.09 (age greater than 65 years).\@
+Explanatory diagrams for individuals, the cohort, and variable interactions were produced for each predictive target.\@ 
+% Gender, race, and financial class were predicted with AUCs and Brier score losses of
+% 0.87 and 0.14, 0.91 and 0.10, and 0.92 and 0.10, respectively.\@
+% Age greater than 65 years was predicted with an AUC of 0.94 and Brier score loss of 0.09.\@
+% with an RMSE of 10 years if treated as continuous, 
+% and with an AUC of 0.94 and Brier score loss of 0.09 
+% if binarized into older or younger than 65 years.\@
+\subsection{Conclusions}%
+Interpretable machine learning algorithms can achieve state-of-the-art 
+predictive power for hospital readmission and extended length of stay,
+while simultaneously providing locally and globally interpretable predictions
+that account for clinical, demographic, and institutional variables.\@
+% They also identify key demographic features that may 
+% reveal sources of healthcare inequality.\@
+\newpage%

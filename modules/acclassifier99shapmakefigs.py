@@ -19,9 +19,9 @@ import shap
 # from sklearn.exceptions import UndefinedMetricWarning
 from sklearn.externals import joblib
 
-import config
+import cbh.config as
 import configcols
-from zz_generalHelpers import (
+from cbh.generalHelpers import (
     lgb_f1_score,
     make_datafolder_for_target,
     make_figfolder_for_target,
@@ -30,8 +30,8 @@ from zz_generalHelpers import (
     train_test_valid_80_10_10_split,
     load_jsonified_sklearn_model_from_h5,
 )
-from zz_lgbmHelpers import lgbmClassificationHelpers
-from zz_shapHelpers import shapHelpers
+from cbh.lgbmHelpers import lgbmClassificationHelpers
+from cbh.shapHelpers import shapHelpers
 
 # When training starts, certain metrics are often zero for a while, which throws a warning and clutters the terminal output
 # warnings.filterwarnings(action="ignore", category=UndefinedMetricWarning)

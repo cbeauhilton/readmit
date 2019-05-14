@@ -1,0 +1,94 @@
+%% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'race_SHAP_summary_test.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{919.87271118bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.64715342)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{race_SHAP_summary_test.pdf}}%
+    \put(0.53758707,0.02832934){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{race_SHAP_summary_test.pdf}}%
+    \put(0.61338982,0.02832934){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{race_SHAP_summary_test.pdf}}%
+    \put(0.6841838,0.02832934){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{race_SHAP_summary_test.pdf}}%
+    \put(0.75998653,0.02832934){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{race_SHAP_summary_test.pdf}}%
+    \put(0.83578928,0.02832934){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{race_SHAP_summary_test.pdf}}%
+    \put(0.91159202,0.02832934){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}6\end{tabular}}}}%
+    \put(0.5920425,0.01076577){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}SHAP value (impact on model output)\end{tabular}}}}%
+    \put(0.31783948,0.06692368){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Temperature on discharge\end{tabular}}}}%
+    \put(0.39053975,0.09418832){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS Median age\end{tabular}}}}%
+    \put(0.16280785,0.12145296){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Benzodiazepines administered during admission\end{tabular}}}}%
+    \put(0.45228403,0.1487176){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Anxiety\end{tabular}}}}%
+    \put(0.41122876,0.17598224){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Hypertension\end{tabular}}}}%
+    \put(0.44265294,0.20324688){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Medicaid\end{tabular}}}}%
+    \put(0.3806199,0.23051152){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Primary language\end{tabular}}}}%
+    \put(0.00782717,0.25777616){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS Number of families with female householder, no husband present\end{tabular}}}}%
+    \put(0.32906726,0.2850408){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Admit source description\end{tabular}}}}%
+    \put(0.38152017,0.31230545){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}BMI on admission\end{tabular}}}}%
+    \put(0.38398314,0.33957009){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}BMI on discharge\end{tabular}}}}%
+    \put(0.21808044,0.36683473){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS Income over twice the poverty level\end{tabular}}}}%
+    \put(0.31335516,0.39409937){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS Total population count\end{tabular}}}}%
+    \put(0.37275537,0.42136401){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Insurance provider\end{tabular}}}}%
+    \put(0.27844884,0.44862865){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS Employed population count\end{tabular}}}}%
+    \put(0.37961773,0.47589329){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Primary diagnosis\end{tabular}}}}%
+    \put(0.4091225,0.50315793){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Marital status\end{tabular}}}}%
+    \put(0.47844254,0.53042258){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Age\end{tabular}}}}%
+    \put(0.22650552,0.55768722){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS Number of married couple families\end{tabular}}}}%
+    \put(0.34335253,0.58495186){\color[rgb]{0.2,0.2,0.2}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ACS BlockGroup GeoID\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{race_SHAP_summary_test.pdf}}%
+    \put(0.95205181,0.04048286){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Low\end{tabular}}}}%
+    \put(0.95205181,0.61304032){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}High\end{tabular}}}}%
+    \put(0.98945508,0.28624138){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Feature value\end{tabular}}}}}%
+  \end{picture}%
+\endgroup%

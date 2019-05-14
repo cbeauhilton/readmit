@@ -1,0 +1,73 @@
+\begin{figure}
+    \begin{adjustbox}{minipage=7.0in,frame}
+    \vspace{2.5mm}
+    \centering
+    %
+    \def\target{gender}
+    %
+    \def\picdir{supplementary/\target/}
+    %
+    \def\labbig{fig:genderint}
+    %
+    \def\picone{\target_SHAP_dependence_1.pdf}
+    \def\pictwo{\target_SHAP_dependence_6.pdf}
+    \def\picthr{\target_SHAP_dependence_7.pdf}
+    \def\picfor{\target_SHAP_dependence_9.pdf}
+    % 1
+    \def\capone{Marital status vs.\ age.}
+    \def\labone{fig:genderintmarriedage}
+    % 2
+    \def\captwo{Age vs.\ marital status}
+    \def\labtwo{fig:genderintagemarried}
+    % 3
+    \def\capthr{Diastolic blood pressure vs.\ medications administered on day of admission.}
+    \def\labthr{fig:genderintdbpmeds}
+    % 4
+    \def\capfor{Diagnosis of anxiety vs.\ age.}
+    \def\labfor{fig:genderintanxietyage}
+    %
+    \def\capbig{\textbf{Variable Interactions for \titlecap{\target}.} \\ %
+    Panels~\ref{\labone},~\ref{\labtwo},%
+    ~\ref{\labthr}, and~\ref{\labfor} % 
+    show changes in model output (SHAP values---left axis) %
+    as an effect of the interplay between %
+    values of indicated variables (x-axis and color-coded points, %
+    color code shown on right axis).\@
+    Each point is a single hospitalization.\@
+    Values less than zero indicate missing values for the variable indicated, %
+    e.g.\ a person for whom admission diastolic blood pressure was not available in the chart (\ref{\labthr}).\@
+    }
+    %
+    %
+    \begin{subfigure}[t]{.45\linewidth}
+        \centering
+        \captionsetup[subfigure]{}
+        \caption{\capone{}}\label{\labone}
+        \includegraphics[height=3in,width=3in,keepaspectratio]{\picdir\picone}
+    \end{subfigure}%
+    \hspace{5mm}%
+    \begin{subfigure}[t]{.45\linewidth}
+        \centering
+        \captionsetup[subfigure]{}
+        \caption{\captwo}\label{\labtwo}
+        \includegraphics[height=3in,width=3in,keepaspectratio]{\picdir\pictwo}
+    \end{subfigure}%
+    
+    \vspace{5mm}
+    \begin{subfigure}[t]{.45\linewidth}
+        \centering
+        \captionsetup[subfigure]{}
+        \caption{\capthr}\label{\labthr}
+        \includegraphics[height=2.7in,width=3in,keepaspectratio]{\picdir\picthr}
+    \end{subfigure}%
+    \hspace{5mm}%
+    \begin{subfigure}[t]{.45\linewidth}
+        \centering
+        \captionsetup[subfigure]{}
+        \caption{\capfor}\label{\labfor}
+        \includegraphics[height=2.7in,width=3in,keepaspectratio]{\picdir\picfor}
+    \end{subfigure}%
+    
+    \caption{\capbig}\label{\labbig}
+    \end{adjustbox}
+    \end{figure}

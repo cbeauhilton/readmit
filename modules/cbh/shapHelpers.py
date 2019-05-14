@@ -392,36 +392,42 @@ class shapHelpers:
         # in "features_shap" or earlier
         for col in list(df_with_codes.select_dtypes(include="category")):
             df_with_codes[col] = df_with_codes[col].cat.codes
-
+        # takes a couple minutes since SHAP interaction values take a factor of 2 * # features 
+        # # more time than SHAP values to compute, since this is just an example we only explain
+        # the first 2,000 people in order to run quicker
         print("Getting interaction values...")
-        shap_int_vals = shap.TreeExplainer(self.model).shap_interaction_values(df_with_codes.iloc[:2000,:]) 
-        file_title = f"{self.target}_{self.n_features}_everything_"
-        timestr = time.strftime("_%Y-%m-%d")
-        ext = ".h5"
-        title = file_title + timestr + ext
-        h5_file = self.modelfolder / title
-        shap_int_vals_df = pd.DataFrame(self.shap_int_vals)
-        shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
-        tmp = np.abs(self.shap_int_vals).sum(0)
-        for i in range(tmp.shape[0]):
-            tmp[i,i] = 0
-        inds = np.argsort(-tmp.sum(0))[:50]
-        tmp2 = tmp[inds,:][:,inds]
-        pl.figure(figsize=(12,12))
-        pl.imshow(tmp2)
-        pl.yticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="right")
-        pl.xticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="left")
-        pl.gca().xaxis.tick_top()
-        figure_title = f"{self.target} SHAP_int_vals_heatmap"
         try:
-            title1 = figure_title + self.n_features + self.timestr
-            title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
+            shap_int_vals = shap.TreeExplainer(self.model).shap_interaction_values(df_with_codes.iloc[:2000,:]) 
+            file_title = f"{self.target}_{self.n_features}_everything_"
+            timestr = time.strftime("_%Y-%m-%d")
+            ext = ".h5"
+            title = file_title + timestr + ext
+            h5_file = self.modelfolder / title
+            shap_int_vals_df = pd.DataFrame(shap_int_vals)
+            shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
+            tmp = np.abs(shap_int_vals).sum(0)
+            for i in range(tmp.shape[0]):
+                tmp[i,i] = 0
+            inds = np.argsort(-tmp.sum(0))[:50]
+            tmp2 = tmp[inds,:][:,inds]
+            pl.figure(figsize=(12,12))
+            pl.imshow(tmp2)
+            pl.yticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="right")
+            pl.xticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="left")
+            pl.gca().xaxis.tick_top()
+            figure_title = f"{self.target} SHAP_int_vals_heatmap"
+            try:
+                title1 = figure_title + self.n_features + self.timestr
+                title1 = str(self.figfolder) + "/" + title1
+                texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
+            except Exception as exc:
+                print(traceback.format_exc())
+                print(exc)
+                print("Aww, LaTeX!..")
+            plt.close()
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
-        plt.close()
 
     def shap_random_force_plots(self, n_plots, expected_value):
         n_features = self.n_features

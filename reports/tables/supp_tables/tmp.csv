@@ -1,0 +1,298 @@
+feature_pretty
+Age
+Marital status
+Hypertension
+Race
+Number of morbidities
+Number of ED visits in past 6 months
+Primary diagnosis
+Number of past admissions
+Admit source description
+ACS BlockGroup GeoID
+Discharge disposition description
+Medications administered in hospital on day of discharge
+ACS Employed population count
+Has had at least 1 ED encounter in the past 6 months
+ACS Income over twice the poverty level
+ACS Number of married couple families
+"ACS Race, white alone"
+ACS Total population count
+Days between current admission and previous discharge
+ACS Income between 50 and 99 percent of poverty level
+Gender
+BMI on discharge
+BMI on admission
+Depression
+ACS Income below 50 percent of poverty level
+"Cancer, excluding skin cancers"
+RDW value on admission
+"ACS Race, black alone"
+Length of stay in days
+Diastolic BP on discharge
+WBC value on admission
+ACS Population employed
+Diastolic BP on admission
+Renal disease
+Admitted from ED
+Metastatic solid tumor
+ACS Income between 125 and 149 percent of poverty level
+ANC value on admission
+Cerebrovascular disease
+ACS Income between 100 and 124 percent of poverty level
+Congestive heart failure
+Systolic BP on admission
+Number of prescribed homegoing medications on day of discharge
+Epilepsy
+Primary language
+ACS Income between 150 and 184 percent of poverty level
+Hemiplegia or paraplegia
+Systolic BP on discharge
+MCV value on admission
+RDW value on discharge
+Neutrophil value on admission
+RBC value on admission
+WBC count on discharge
+Anxiety
+Number of other patients admitted on same day
+Lymphocyte value on admission
+Discharged with opiate prescription
+ANC value on discharge
+Length of stay of last admission
+"ACS Number of families with female householder, no husband present"
+On dialysis
+Medications administered in hospital on day of admission
+Hospital transfer description
+Temperature on discharge
+Platelet count on admission
+"EGFR, AA discharge value"
+Received TPN
+Hematocrit value on admission
+Discharge hour of day
+ACS Median age
+B11001 009e
+"ACS Average size of households, renters and owners"
+MCV value on discharge
+B02001 008e
+Dementia
+Abs lymph admit value
+"ACS Number of families with male householder, no wife present"
+Creatinine value on discharge
+Egfr aa admit value
+Neut discharge value
+Rbc discharge value
+Lymph discharge value
+Medications administered in the first 24 hours
+Platelet count discharge value
+Creatinine value on admission
+ACS Median age of males
+Dischargetime weekofyear
+Length of stay over 3 days
+Diabetes without chronic complication
+Peripheral vascular disease
+Hematocrit discharge value
+ACS Population unemployed
+Cbc admit time hospital burden
+Heart rate on discharge
+Dischargedonbenzo
+Mch admit value
+B23025 007e
+Abs lymph discharge value
+Benzodiazepines administered during admission
+Cbc discharge time hospital burden
+Egfr other admit value
+Temperature admit
+Acs 185 to 199 ratio income poverty level past 12 mo
+Pt ot consult
+Chronic pulmonary disease
+Heart rate on admission
+MCHC value on discharge
+Opiatesduringadmit
+ACS Median age of females
+Hemoglobin discharge value
+Admission time numeric week of the year
+ACS Number of householders living alone
+Pressure ulcer absent
+Psychosis
+Dischargetime hospital burden
+Egfr other discharge value
+Geoprob new addr
+Mch discharge value
+Glucose discharge value
+Length of stay over 5 days
+BUN value on discharge
+Cmp discharge time hospital burden
+ICU length of stay in days
+Glucose admit value
+Alkaline phosphatase admit value
+Alkaline phosphatase discharge value
+Hemoglobin admit value
+Baso discharge value
+Cbc admit time on weekend
+Cbc discharge time day of week
+Cbc discharge time at night 6p 10p
+Cbc admit time weekofyear
+Cbc admit time very late night 12a 4a
+Cbc admit time quarter
+Cbc admit time on holiday
+Cbc discharge time during working day 7a 6p
+Cbc admit time month
+Cbc admit time late night 10p 12a
+Cbc admit time hour of day
+Abs mono admit value
+Abs mono discharge value
+Abs eosin discharge value
+Abs eosin admit value
+Cbc discharge time early morning 4a 7a
+Absolute nrbc discharge value
+Cbc discharge time hour of day
+Cbc discharge time late night 10p 12a
+Cbc discharge time month
+Cbc discharge time on holiday
+Cbc discharge time on weekend
+Cbc discharge time quarter
+Cbc discharge time very late night 12a 4a
+Cbc discharge time weekofyear
+Cdiffinfection
+Cerebral palsy
+Abs baso discharge value
+Chloride admit value
+Absolute nrbc admit value
+Admissiontime at night 6p 10p
+Baso admit value
+Admission day of week
+Ast discharge value
+Ast admit value
+Anion gap discharge value
+Anion gap admit value
+Alt discharge value
+Bilirubin total admit value
+Bilirubin total discharge value
+Alt admit value
+Albumin discharge value
+Albumin admit value
+Aids hiv
+BUN value on admission
+Admissiontime very late night 12a 4a
+Calcium admit value
+Calcium discharge value
+Admissiontime quarter
+Admissiontime on weekend
+Admissiontime on holiday
+Admissiontime month
+Cbc admit time at night 6p 10p
+Admissiontime late night 10p 12a
+Admissiontime hour of day
+First CBC resulted day of week
+Cbc admit time during working day 7a 6p
+Admissiontime early morning 4a 7a
+Cbc admit time early morning 4a 7a
+Admitted between 7am and 6pm
+Chloride discharge value
+Dischargetime late night 10p 12a
+Cmp admit time at night 6p 10p
+Mchc admit value
+Nucleated reds admit value
+Myocardial infarction
+Mpv discharge value
+Mpv admit value
+Mono discharge value
+Mono admit value
+Moderate or severe liver disease
+Mild liver disease
+Lineinfection
+First CMP resulted day of week
+Length of stay over 7 days
+Length of stay over 14 days
+Knee replacement
+Infectiousdiseaseconsult
+Discharged from ICU at any point during current hospitalization
+Admitted to ICU at any point during current hospitalization
+Hospice consult received
+Hip replacement
+Nucleated reds discharge value
+Admitted to ICU on first day of hospitalization
+Discharged from ICU on first day of hospitalization
+Palliativecareconsult
+Spiritualcareconsult
+Solid organ transplant
+Sodium discharge value
+Sodium admit value
+Short gut syndrome
+Rheumatic disease
+Protein total discharge value
+Protein total admit value
+Pressure ulcer information unavailable
+Pressure ulcer
+Pressure ulcer present on admission to the hospital
+History of pressure ulcer
+Potassium discharge value
+Potassium admit value
+Pneumonia
+Peptic ulcer disease
+Patient class description
+Fallduringadmission
+Eosin discharge value
+Eosin admit value
+Cmp discharge time on holiday
+Cmp discharge time late night 10p 12a
+Cmp discharge time hour of day
+Cmp discharge time early morning 4a 7a
+Cmp discharge time during working day 7a 6p
+Cmp discharge time day of week
+Cmp discharge time at night 6p 10p
+Cmp admit time weekofyear
+Cmp admit time very late night 12a 4a
+Cmp admit time quarter
+Cmp admit time on weekend
+Cmp admit time on holiday
+Cmp admit time month
+Cmp admit time late night 10p 12a
+Cmp admit time hour of day
+Cmp admit time hospital burden
+Cmp admit time early morning 4a 7a
+Cmp admit time during working day 7a 6p
+Cmp discharge time month
+Cmp discharge time on weekend
+Dischargetime very late night 12a 4a
+Cmp discharge time quarter
+Dischargetime quarter
+Dischargetime on weekend
+Dischargetime on holiday
+Dischargetime month
+Dischargetime early morning 4a 7a
+Dischargetime during working day 7a 6p
+Dischargetime day of week
+Dischargetime at night 6p 10p
+Had a hospital discharge in the past 30 days
+Diff type discharge value
+Diff type admit value
+Diabetes with chronic complication
+Connective tissue disorder
+Co2 discharge value
+Co2 admit value
+Cmp discharge time weekofyear
+Cmp discharge time very late night 12a 4a
+Abs baso admit value
+Insurance provider
+Financial class information unavailable
+Readmitted90d
+Medicare
+Readmitted365d
+Readmitted1d
+Readmitted28d
+Readmitted20d
+Readmitted30d
+Readmitted3650d
+Readmitted3d
+Readmitted45d
+Readmitted5d
+Readmitted7d
+Readmitted15d
+Readmitted180d
+Private health insurance
+Insurance other
+Medicaid_
+Readmitted within 12 Hours_
+ CMP resulted within 24 hours of admission
+ CBC resulted within 24 hours of admission
+Department of attending physician

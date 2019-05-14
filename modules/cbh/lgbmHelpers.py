@@ -93,7 +93,7 @@ class lgbmClassificationHelpers:
         self.calibrate_please = calibrate_please
         self.n_features = str(len(self.train_features.columns))
         self.timestr = time.strftime("_%Y-%m-%d-%H%M_")
-        self.timestrfolder = time.strftime("%Y-%m-%d")
+        self.timestrfolder = time.strftime("_%Y-%m-%d")
 
     def lgbm_save_ttv_split(self):
         n_features = self.n_features

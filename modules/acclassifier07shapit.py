@@ -38,10 +38,10 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    "readmitted30d",
-    "readmitted5d",
-    "readmitted7d",
-    "readmitted3d",
+    # "readmitted30d",
+    # "readmitted5d",
+    # "readmitted7d",
+    # "readmitted3d",
     "length_of_stay_over_3_days",
     "length_of_stay_over_5_days",
     "length_of_stay_over_7_days",
@@ -73,6 +73,8 @@ for shap_index in shap_indices:
         top_shaps = top_shaps[:shap_index]
         shap_list = top_shaps["feature_names"].tolist()
         shap_list.append(target)  # to make the labels and features sets
+        if target == "length_of_stay_over_3_days" or "length_of_stay_over_5_days" or "length_of_stay_over_7_days":
+            shap_list.append("length_of_stay_in_days")
         # print(shap_list)
 
         filename = config.PROCESSED_FINAL
@@ -136,6 +138,12 @@ for shap_index in shap_indices:
 
         labels = data[target]
         features = data.drop([target], axis=1)
+
+        if target == "length_of_stay_over_3_days" or "length_of_stay_over_5_days" or "length_of_stay_over_7_days":
+            features = features.drop(["length_of_stay_in_days"], axis=1)
+            train_features = train_features.drop(["length_of_stay_in_days"], axis=1)
+            test_features = test_features.drop(["length_of_stay_in_days"], axis=1)
+            valid_features = valid_features.drop(["length_of_stay_in_days"], axis=1)
 
         print("Predicting", target, "with", shap_index, "top features...")
         d_train = lgb.Dataset(train_features, label=train_labels, free_raw_data=True)
@@ -224,9 +232,7 @@ for shap_index in shap_indices:
         explainer = shap.TreeExplainer(gbm_model)
         features_shap = features.sample(n=20000, random_state=seed, replace=False)
         shap_values = explainer.shap_values(features_shap)
-        # takes a couple minutes since SHAP interaction values take a factor of 2 * # features 
-        # # more time than SHAP values to compute, since this is just an example we only explain
-        # the first 2,000 people in order to run quicker
+
         
         shap_expected=explainer.expected_value
         helpshap = shapHelpers(

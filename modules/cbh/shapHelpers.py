@@ -91,14 +91,12 @@ class shapHelpers:
         shap_feat_df = pd.DataFrame(self.features_shap)
         d = [["Expected Value:",self.shap_expected]]
         exp_df = pd.DataFrame(d, columns=("A","B"))
-        print(exp_df)
+        # print(exp_df)
         shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
         shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")
         exp_df.to_hdf(h5_file, key = 'shap_expected_value', format='table')
 
     def save_requirements(self):
-        
-
         try:
             cwd = os.getcwd() # record current workikng directory
             tmp_dir = config.PROJECT_DIR/"tmp/"

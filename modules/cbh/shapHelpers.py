@@ -44,6 +44,11 @@ class shapHelpers:
         self.modelfolder = modelfolder
         self.n_features = str(len(self.features_shap.columns))
         self.timestr = time.strftime("_%Y-%m-%d-%H%M")
+        file_title = f"{self.target}_{self.n_features}_everything_"
+        timestr = time.strftime("_%Y-%m-%d")
+        ext = ".h5"
+        title = file_title + timestr + ext
+        self.h5_file = self.modelfolder / title
         """ 
         target = prediction target, for getting file names right (string, e.g. "readmitted30d")
         features_shap = selection of features from original dataset (X)
@@ -74,11 +79,12 @@ class shapHelpers:
             pickle.dump(self.features_shap, f)
         print("File available at", full_path)
         print("Saving SHAP to .h5 file...")
-        file_title = f"{self.target}_{n_features}_everything_"
-        timestr = time.strftime("_%Y-%m-%d")
-        ext = ".h5"
-        title = file_title + timestr + ext
-        h5_file = self.modelfolder / title
+        # file_title = f"{self.target}_{n_features}_everything_"
+        # timestr = time.strftime("_%Y-%m-%d")
+        # ext = ".h5"
+        # title = file_title + timestr + ext
+        # h5_file = self.modelfolder / title
+        h5_file = self.h5_file
         shap_val_df = pd.DataFrame(self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
         d = [["Expected Value:",self.shap_expected]]
@@ -111,11 +117,12 @@ class shapHelpers:
             os.chdir(cwd) # back to the original directory
             shutil.rmtree(tmp_dir) # remove temp directory and files
 
-            file_title = f"{self.target}_{self.n_features}_everything_"
-            timestr = time.strftime("_%Y-%m-%d")
-            ext = ".h5"
-            title = file_title + timestr + ext
-            h5_file = self.modelfolder / title
+            # file_title = f"{self.target}_{self.n_features}_everything_"
+            # timestr = time.strftime("_%Y-%m-%d")
+            # ext = ".h5"
+            # title = file_title + timestr + ext
+            # h5_file = self.modelfolder / title
+            h5_file = self.h5_file
             reqs.to_hdf(h5_file, key='requirements', format="table")
             print("Requirements saved!")
         except Exception as exc:
@@ -141,11 +148,12 @@ class shapHelpers:
         imp_cols.to_csv(self.datafolder / csv_title)
         print("CSV available at", self.datafolder / csv_title)
         print("Saving SHAP df and important columns to .h5 file...")
-        file_title = f"{self.target}_{n_features}_everything_"
-        timestr = time.strftime("_%Y-%m-%d")
-        ext = ".h5"
-        title = file_title + timestr + ext
-        h5_file = self.modelfolder / title
+        # file_title = f"{self.target}_{n_features}_everything_"
+        # timestr = time.strftime("_%Y-%m-%d")
+        # ext = ".h5"
+        # title = file_title + timestr + ext
+        # h5_file = self.modelfolder / title
+        h5_file = self.h5_file
         df_shap_train.to_hdf(h5_file, key='df_shap_train', format="table")
         imp_cols.to_hdf(h5_file, key='ordered_shap_cols', format="table")
 
@@ -291,6 +299,7 @@ class shapHelpers:
         self.features_shap.columns = self.features_shap.columns.to_series().map(
             di["feature_pretty"]
         )
+        self.features_shap.to_hdf(self.h5_file, key='pretty_ordered_shap_cols', format="table")
         return self.features_shap
 
     def shap_plot_summaries(self, title_in_figure):
@@ -305,8 +314,8 @@ class shapHelpers:
             show=False,
             feature_names=self.features_shap.columns,
         )
-        figure_title = f"{self.target} SHAP_summary_bar_"
-        timestr = time.strftime("_%Y-%m-%d-%H%M")
+        figure_title = f"{self.target}_SHAP_summary_bar_"
+        timestr = time.strftime("_%Y-%m-%d-%H%M_")
         ext = ".png"
         title = figure_title + n_features + timestr + ext
         plt.savefig(
@@ -347,7 +356,7 @@ class shapHelpers:
             show=False,
         )
         figure_title = f"{self.target}_SHAP_summary_"
-        timestr = time.strftime("%Y-%m-%d-%H%M")
+        timestr = time.strftime("_%Y-%m-%d-%H%M_")
         ext = ".png"
         title = figure_title + n_features + timestr + ext
         plt.savefig(
@@ -398,11 +407,12 @@ class shapHelpers:
         print("Getting interaction values...")
         try:
             shap_int_vals = shap.TreeExplainer(self.model).shap_interaction_values(df_with_codes.iloc[:2000,:]) 
-            file_title = f"{self.target}_{self.n_features}_everything_"
-            timestr = time.strftime("_%Y-%m-%d")
-            ext = ".h5"
-            title = file_title + timestr + ext
-            h5_file = self.modelfolder / title
+            # file_title = f"{self.target}_{self.n_features}_everything_"
+            # timestr = time.strftime("_%Y-%m-%d")
+            # ext = ".h5"
+            # title = file_title + timestr + ext
+            # h5_file = self.modelfolder / title
+            h5_file = self.h5_file
             shap_int_vals_df = pd.DataFrame(shap_int_vals)
             shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
             tmp = np.abs(shap_int_vals).sum(0)
@@ -498,6 +508,7 @@ class shapHelpers:
                     (forcefolder / title0), dpi=1200, transparent=True, bbox_inches="tight"
                 )
                 title1 = figure_title + timestr + patient_number
+                plt.close()
 
                 # reset mpl params for LaTeX PDF via texfig.py
                 import cbh.texfig as texfig 

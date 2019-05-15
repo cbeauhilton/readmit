@@ -1,9 +1,9 @@
-feature_pretty
+featurepretty
 Age
 Marital status
 Hypertension
 Race
-Number of morbidities
+Number of morbidities!!!!
 Number of ED visits in past 6 months
 Primary diagnosis
 Number of past admissions
@@ -15,7 +15,7 @@ ACS Employed population count
 Has had at least 1 ED encounter in the past 6 months
 ACS Income over twice the poverty level
 ACS Number of married couple families
-"ACS Race, white alone"
+ACS Race, white alone
 ACS Total population count
 Days between current admission and previous discharge
 ACS Income between 50 and 99 percent of poverty level
@@ -24,9 +24,9 @@ BMI on discharge
 BMI on admission
 Depression
 ACS Income below 50 percent of poverty level
-"Cancer, excluding skin cancers"
+Cancer, excluding skin cancers
 RDW value on admission
-"ACS Race, black alone"
+ACS Race, black alone
 Length of stay in days
 Diastolic BP on discharge
 WBC value on admission
@@ -58,91 +58,91 @@ Lymphocyte value on admission
 Discharged with opiate prescription
 ANC value on discharge
 Length of stay of last admission
-"ACS Number of families with female householder, no husband present"
+ACS Number of families with female householder, no husband present
 On dialysis
 Medications administered in hospital on day of admission
 Hospital transfer description
 Temperature on discharge
 Platelet count on admission
-"EGFR, AA discharge value"
+EGFR adjusted for African Americans, discharge value
 Received TPN
 Hematocrit value on admission
 Discharge hour of day
 ACS Median age
-B11001 009e
-"ACS Average size of households, renters and owners"
+ACS Number of householders not living alone
+ACS Average size of households, renters and owners
 MCV value on discharge
-B02001 008e
+ACS Population identifying as two or more races
 Dementia
-Abs lymph admit value
-"ACS Number of families with male householder, no wife present"
+Absolute lymphocyte count on admission
+ACS Number of families with male householder, no wife present
 Creatinine value on discharge
-Egfr aa admit value
-Neut discharge value
-Rbc discharge value
-Lymph discharge value
+EGFR adjusted for African Americans, admit value
+Neutrophil count at discharge
+RBC value at discharge
+Lymphocyte count at discharge
 Medications administered in the first 24 hours
-Platelet count discharge value
+Platelet count at discharge
 Creatinine value on admission
 ACS Median age of males
-Dischargetime weekofyear
+Numeric week of year at discharge
 Length of stay over 3 days
 Diabetes without chronic complication
 Peripheral vascular disease
 Hematocrit discharge value
 ACS Population unemployed
-Cbc admit time hospital burden
+Number of patients having CBCs drawn at this time, admission
 Heart rate on discharge
-Dischargedonbenzo
-Mch admit value
+Discharged on benzodiazepine
+MCH value on admission
 B23025 007e
-Abs lymph discharge value
+Absolute lymphocyte count at discharge
 Benzodiazepines administered during admission
-Cbc discharge time hospital burden
-Egfr other admit value
-Temperature admit
-Acs 185 to 199 ratio income poverty level past 12 mo
-Pt ot consult
+Number of patients having CBCs drawn at this time, discharge
+EGFR adjusted for other races, admit value
+Temperature on admission
+ACS Income between 185 and 199 percent of the poverty ratio
+Patient received a consult from physical or occupational therapy
 Chronic pulmonary disease
 Heart rate on admission
 MCHC value on discharge
-Opiatesduringadmit
+Opiates received during admission
 ACS Median age of females
-Hemoglobin discharge value
-Admission time numeric week of the year
+Hemoglobin value at discharge
+Numeric week of the year on admission
 ACS Number of householders living alone
 Pressure ulcer absent
 Psychosis
-Dischargetime hospital burden
-Egfr other discharge value
-Geoprob new addr
-Mch discharge value
-Glucose discharge value
+Number of other patients discharged on same day
+EGFR adjusted for other race, discharge value
+Listed address is likely a new address
+MCH value at discharge
+Glucose value at discharge
 Length of stay over 5 days
-BUN value on discharge
-Cmp discharge time hospital burden
+BUN value at discharge
+Number of patients having CMPs drawn at this time, discharge
 ICU length of stay in days
-Glucose admit value
-Alkaline phosphatase admit value
-Alkaline phosphatase discharge value
-Hemoglobin admit value
-Baso discharge value
-Cbc admit time on weekend
-Cbc discharge time day of week
-Cbc discharge time at night 6p 10p
-Cbc admit time weekofyear
-Cbc admit time very late night 12a 4a
-Cbc admit time quarter
-Cbc admit time on holiday
-Cbc discharge time during working day 7a 6p
-Cbc admit time month
-Cbc admit time late night 10p 12a
-Cbc admit time hour of day
-Abs mono admit value
-Abs mono discharge value
-Abs eosin discharge value
-Abs eosin admit value
-Cbc discharge time early morning 4a 7a
+Glucose value on admission
+Alkaline phosphatase value on admission
+Alkaline phosphatase value at discharge 
+Hemoglobin value on admission
+Basophil count at discharge
+First CBC drawn on weekend
+Weekday of last CBC result
+Last CBC resulted between 6 and 10pm
+Numeric week of year when first CBC resulted
+First CBC resulted between 12 and 4am
+Numeric quarter of the year when first CBC resulted
+First CBC resulted on a US holiday
+Last CBC resulted between 7am and 6pm
+Month of the year when first CBC resulted
+Last CBC resulted between 10pm and 12am
+Numeric hour of day when first CBC resulted
+Absolute monocyte count on admission
+Absolute monocyte count at discharge
+Absolute eosinophil count at discharge
+Absolute eosinophil count on admission
+Last CBC resulted between 4 and 7am
 Absolute nrbc discharge value
 Cbc discharge time hour of day
 Cbc discharge time late night 10p 12a
@@ -275,24 +275,24 @@ Cmp discharge time very late night 12a 4a
 Abs baso admit value
 Insurance provider
 Financial class information unavailable
-Readmitted90d
+Readmitted within 90 days
 Medicare
-Readmitted365d
-Readmitted1d
-Readmitted28d
-Readmitted20d
-Readmitted30d
-Readmitted3650d
-Readmitted3d
-Readmitted45d
-Readmitted5d
-Readmitted7d
-Readmitted15d
-Readmitted180d
+Readmitted within 365 days
+Readmitted within 1 day
+Readmitted within 28 days
+Readmitted within 20 days
+Readmitted within 30 days
+Readmitted within 3650 days
+Readmitted within 3 days
+Readmitted within 45 days
+Readmitted within 5 days
+Readmitted within 7 days
+Readmitted within 15 days
+Readmitted within 180 days
 Private health insurance
 Insurance other
-Medicaid_
-Readmitted within 12 Hours_
- CMP resulted within 24 hours of admission
- CBC resulted within 24 hours of admission
+Medicaid
+Readmitted within 12 Hours
+CMP resulted within 24 hours of admission
+CBC resulted within 24 hours of admission
 Department of attending physician

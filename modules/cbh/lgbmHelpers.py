@@ -170,7 +170,7 @@ class lgbmClassificationHelpers:
         ax = lgb.plot_importance(
             self.gbm_model, figsize=(5, 20), importance_type="gain", precision=2
         )
-        figure_title = f"{self.target} Feature Importances "
+        figure_title = f"{self.target}_Feature_Importances_"
         ext = ".png"
         title = figure_title + n_features + self.timestr + ext
         plt.savefig(
@@ -255,7 +255,7 @@ class lgbmClassificationHelpers:
         plt.ylabel("True Positive Rate")
         plt.xlabel("False Positive Rate")
         figure_title = (
-            f"{self.target} Receiver_Operating_Characteristic_AUC_%0.2f_" % roc_auc
+            f"{self.target}_Receiver_Operating_Characteristic_AUC_%0.2f_" % roc_auc
         )
         ext = ".png"
         title = figure_title + n_features + self.timestr + ext
@@ -297,7 +297,7 @@ class lgbmClassificationHelpers:
         plt.ylim([0.0, 1.05])
         plt.xlim([0.0, 1.0])
         figure_title = (
-            f"{self.target} Precision_Recall curve AP=%0.2f " % average_precision
+            f"{self.target}_Precision_Recall_curve_AP=%0.2f_" % average_precision
         )
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
@@ -331,7 +331,7 @@ class lgbmClassificationHelpers:
         plt.plot(gb_x, gb_y, marker=".", color="red")
         plt.xlabel("Predicted probability")
         plt.ylabel("True probability")
-        figure_title = f"{self.target} Calibration curve {brier_score:.3f} "
+        figure_title = f"{self.target}_Calibration curve_{brier_score:.3f}_"
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
         print(title1)
@@ -398,7 +398,7 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
-            figure_title = f"{self.target} Calibration curve sigmoid calibration {brier_score_cal_sig:.3f} "
+            figure_title = f"{self.target}_Calibration_curve_sigmoid_calibration_{brier_score_cal_sig:.3f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
             print(title1)
@@ -433,7 +433,7 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
-            figure_title = f"{self.target} Calibration curve isotonic calibration {brier_score_cal_iso:.3f} "
+            figure_title = f"{self.target}_Calibration_curve_isotonic_calibration_{brier_score_cal_iso:.3f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
             print(title1)
@@ -469,7 +469,7 @@ class lgbmClassificationHelpers:
         fig = fig.get_figure()
         plt.xlabel("True Label")
         plt.ylabel("Predicted Label")
-        figure_title = f"{self.target} Confusion Matrix AUC %0.2f_" % roc_auc
+        figure_title = f"{self.target}_Confusion_Matrix_AUC_%0.2f" % roc_auc
         ext = ".png"
         title = figure_title + self.timestr + ext
         plt.savefig(
@@ -683,7 +683,7 @@ class lgbmRegressionHelpers:
         ax = lgb.plot_importance(
             self.gbm_model, figsize=(5, 20), importance_type="gain", precision=2
         )
-        figure_title = f"{self.target} Feature Importances "
+        figure_title = f"{self.target}_Feature_Importances_"
         ext = ".png"
         title = figure_title + self.timestr + ext
         plt.savefig(

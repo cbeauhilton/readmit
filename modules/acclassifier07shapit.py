@@ -38,10 +38,10 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    # "readmitted30d",
-    # "readmitted5d",
-    # "readmitted7d",
-    # "readmitted3d",
+    "readmitted30d",
+    "readmitted5d",
+    "readmitted7d",
+    "readmitted3d",
     "length_of_stay_over_3_days",
     "length_of_stay_over_5_days",
     "length_of_stay_over_7_days",

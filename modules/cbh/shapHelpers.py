@@ -42,13 +42,15 @@ class shapHelpers:
         self.figfolder = figfolder
         self.datafolder = datafolder
         self.modelfolder = modelfolder
+
         self.n_features = str(len(self.features_shap.columns))
-        self.timestr = time.strftime("_%Y-%m-%d-%H%M")
+        self.timestr = time.strftime("_%Y-%m-%d-%H%M_")
+        self.timestr_d = time.strftime("_%Y-%m-%d_")
         file_title = f"{self.target}_{self.n_features}_everything_"
-        timestr = time.strftime("_%Y-%m-%d")
         ext = ".h5"
-        title = file_title + timestr + ext
+        title = file_title + self.timestr_d + ext
         self.h5_file = self.modelfolder / title
+
         """ 
         target = prediction target, for getting file names right (string, e.g. "readmitted30d")
         features_shap = selection of features from original dataset (X)
@@ -143,8 +145,9 @@ class shapHelpers:
         print("Pickle available at", self.datafolder / pickle_title)
         imp_cols = pd.DataFrame(imp_cols)
         print(imp_cols)
-        timestr = time.strftime("%Y-%m-%d-%H%M")
-        csv_title = f"{timestr}_{self.target}_{n_features}_shap.csv"
+        # timestr = time.strftime("_%Y-%m-%d-%H%M_")
+        timestr = self.timestr
+        csv_title = f"{self.target}_{n_features}{timestr}shap.csv"
         imp_cols.to_csv(self.datafolder / csv_title)
         print("CSV available at", self.datafolder / csv_title)
         print("Saving SHAP df and important columns to .h5 file...")
@@ -188,7 +191,8 @@ class shapHelpers:
 
                 print(f"Making dependence plot for {self.target} feature ranked {i}...")
                 figure_title = f"{self.target}_SHAP_dependence_{i}_"
-                timestr = time.strftime("_%Y-%m-%d-%H%M_")
+                # timestr = time.strftime("_%Y-%m-%d-%H%M_")
+                timestr = self.timestr
                 ext = ".png"
                 title = figure_title + n_features + timestr + ext
                 plt.savefig(
@@ -254,7 +258,8 @@ class shapHelpers:
 
                 print(f"Making self dependence plot for {self.target} feature ranked {i}...")
                 figure_title = f"{self.target}_SHAP_dependence_self_{i}_"
-                timestr = time.strftime("_%Y-%m-%d-%H%M_")
+                # timestr = time.strftime("_%Y-%m-%d-%H%M_")
+                timestr = self.timestr
                 ext = ".png"
                 title = figure_title + n_features + timestr + ext
                 plt.savefig(
@@ -315,7 +320,8 @@ class shapHelpers:
             feature_names=self.features_shap.columns,
         )
         figure_title = f"{self.target}_SHAP_summary_bar_"
-        timestr = time.strftime("_%Y-%m-%d-%H%M_")
+        # timestr = time.strftime("_%Y-%m-%d-%H%M_")
+        timestr = self.timestr
         ext = ".png"
         title = figure_title + n_features + timestr + ext
         plt.savefig(
@@ -356,7 +362,8 @@ class shapHelpers:
             show=False,
         )
         figure_title = f"{self.target}_SHAP_summary_"
-        timestr = time.strftime("_%Y-%m-%d-%H%M_")
+        # timestr = time.strftime("_%Y-%m-%d-%H%M_")
+        timestr = self.timestr
         ext = ".png"
         title = figure_title + n_features + timestr + ext
         plt.savefig(
@@ -425,7 +432,7 @@ class shapHelpers:
             pl.yticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="right")
             pl.xticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="left")
             pl.gca().xaxis.tick_top()
-            figure_title = f"{self.target} SHAP_int_vals_heatmap"
+            figure_title = f"{self.target}_SHAP_int_vals_heatmap_"
             try:
                 title1 = figure_title + self.n_features + self.timestr
                 title1 = str(self.figfolder) + "/" + title1
@@ -441,6 +448,7 @@ class shapHelpers:
 
     def shap_random_force_plots(self, n_plots, expected_value):
         n_features = self.n_features
+        timestr = self.timestr
         n_plots = n_plots
         # Needs explainer.expected_value
         expected_value = expected_value
@@ -465,11 +473,11 @@ class shapHelpers:
                 link="logit",
                 feature_names=self.features_shap.columns,
             )
-            figure_title = f"{self.target}_{n_features}_SHAP_"
-            patient_number = f"_Pt_{pt_num}"
-            timestr = time.strftime("%Y-%m-%d-%H%M")
+            
+            figure_title = f"{self.target}_SHAP_forceplot_Pt_{pt_num}_{n_features}{self.timestr}"
+            # timestr = time.strftime("%Y-%m-%d-%H%M")
             ext = ".png"
-            title = figure_title + timestr + patient_number + ext
+            title = figure_title + ext
             forcefolder = self.figfolder / "force_plots"
             if not os.path.exists(forcefolder):
                 print("Making folder called", forcefolder)
@@ -500,14 +508,13 @@ class shapHelpers:
                 )
             
                 ext0 = ".svg"
-                title0 = figure_title + timestr + patient_number + ext0
+                title0 = figure_title + ext0
                 if not os.path.exists(forcefolder):
                     print("Making folder called", forcefolder)
                     os.makedirs(forcefolder)
                 plt.savefig(
                     (forcefolder / title0), dpi=1200, transparent=True, bbox_inches="tight"
                 )
-                title1 = figure_title + timestr + patient_number
                 plt.close()
 
                 # reset mpl params for LaTeX PDF via texfig.py
@@ -524,7 +531,7 @@ class shapHelpers:
                     link="logit",
                     feature_names=self.features_shap.columns, 
                 )
-                title1 = figure_title + n_features + timestr
+                title1 = figure_title
                 title1 = str(forcefolder) + "/" + title1
                 texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
             except Exception as exc:

@@ -2608,3 +2608,57 @@ dtype: float64","0    0.123001
 dtype: float64","0    0.869617
 1    0.869617
 dtype: float64",0.8115206702937058,0.4168869663681314,0.09676943165137383,[],[]
+,Time,Target,Number of Features,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss,Brier Score Loss Sigmoid Calibration,Brier Score Loss Isotonic Calibration
+0,_2019-05-16-0722_,length_of_stay_over_3_days,174,0.2,117426,"0    0.651856
+1    0.845052
+dtype: float64","0    0.845052
+1    0.651856
+dtype: float64","0    0.749576
+1    0.773321
+dtype: float64","0    0.773321
+1    0.749576
+dtype: float64","0    0.154948
+1    0.348144
+dtype: float64","0    0.348144
+1    0.154948
+dtype: float64","0    0.250424
+1    0.226679
+dtype: float64","0    0.764737
+1    0.764737
+dtype: float64",0.8404605208157623,0.8737199734761395,0.15851071325515798,[],[]
+,Time,Target,Number of Features,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss,Brier Score Loss Sigmoid Calibration,Brier Score Loss Isotonic Calibration
+0,_2019-05-16-0830_,length_of_stay_over_5_days,172,0.2,117426,"0    0.88079
+1    0.56863
+dtype: float64","0    0.56863
+1    0.88079
+dtype: float64","0    0.806270
+1    0.700618
+dtype: float64","0    0.700618
+1    0.806270
+dtype: float64","0    0.43137
+1    0.11921
+dtype: float64","0    0.11921
+1    0.43137
+dtype: float64","0    0.193730
+1    0.299382
+dtype: float64","0    0.778047
+1    0.778047
+dtype: float64",0.8434517612317168,0.7207351485854118,0.14834271112782166,[],[]
+,Time,Target,Number of Features,Threshold,Number of Patients,TPR,TNR,PPV,NPV,FPR,FNR,FDR,ACC,ROC AUC,Average Precision,Brier Score Loss,Brier Score Loss Sigmoid Calibration,Brier Score Loss Isotonic Calibration
+0,_2019-05-16-0932_,length_of_stay_over_7_days,172,0.2,117426,"0    0.952851
+1    0.356996
+dtype: float64","0    0.356996
+1    0.952851
+dtype: float64","0    0.853807
+1    0.657674
+dtype: float64","0    0.657674
+1    0.853807
+dtype: float64","0    0.643004
+1    0.047149
+dtype: float64","0    0.047149
+1    0.643004
+dtype: float64","0    0.146193
+1    0.342326
+dtype: float64","0    0.83226
+1    0.83226
+dtype: float64",0.841952926856043,0.5826956018665549,0.11860599467602484,[],[]

@@ -13,7 +13,7 @@ tqdm.pandas()
 import pandas as pd
 
 sys.path.append("modules")
-import config
+from cbh import config
 
 archive = config.RAW_ZIP_FILE
 

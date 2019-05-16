@@ -93,14 +93,19 @@ class lgbmClassificationHelpers:
         self.calibrate_please = calibrate_please
         self.n_features = str(len(self.train_features.columns))
         self.timestr = time.strftime("_%Y-%m-%d-%H%M_")
-        self.timestrfolder = time.strftime("_%Y-%m-%d")
+        self.timestr_d = time.strftime("_%Y-%m-%d_")
+        file_title = f"{self.target}_{self.n_features}_everything_"
+        ext = ".h5"
+        title = file_title + self.timestr_d + ext
+        self.h5_file = self.modelfolder / title
 
     def lgbm_save_ttv_split(self):
         n_features = self.n_features
-        file_title = f"{self.target}_{n_features}_everything_"
-        ext = ".h5"
-        title = file_title + self.timestrfolder + ext
-        h5_file = self.modelfolder / title
+        # file_title = f"{self.target}_{n_features}_everything_"
+        # ext = ".h5"
+        # title = file_title + self.timestr_d + ext
+        # h5_file = self.modelfolder / title
+        h5_file = self.h5_file
         # delete the h5 file if it exists
         try:
             os.remove(h5_file)
@@ -145,10 +150,13 @@ class lgbmClassificationHelpers:
         print("JSONpickling the model...")
         frozen = jsonpickle.encode(self.gbm_model)
         print("Saving GBM model to .h5 file...")
-        file_title = f"{self.target}_{n_features}_everything_"
-        ext = ".h5"
-        title = file_title + self.timestrfolder + ext
-        h5_file = self.modelfolder / title
+
+        # file_title = f"{self.target}_{n_features}_everything_"
+        # ext = ".h5"
+        # title = file_title + self.timestr_d + ext
+        # h5_file = self.modelfolder / title
+
+        h5_file = self.h5_file
         with h5py.File(h5_file, 'a') as f:
             try:
                 f.create_dataset('gbm_model', data=frozen)
@@ -255,7 +263,7 @@ class lgbmClassificationHelpers:
         plt.ylabel("True Positive Rate")
         plt.xlabel("False Positive Rate")
         figure_title = (
-            f"{self.target}_Receiver_Operating_Characteristic_AUC_%0.2f_" % roc_auc
+            f"{self.target}_Receiver_Operating_Characteristic_AUC_{roc_auc*100:.0f}_"
         )
         ext = ".png"
         title = figure_title + n_features + self.timestr + ext
@@ -297,7 +305,7 @@ class lgbmClassificationHelpers:
         plt.ylim([0.0, 1.05])
         plt.xlim([0.0, 1.0])
         figure_title = (
-            f"{self.target}_Precision_Recall_curve_AP=%0.2f_" % average_precision
+            f"{self.target}_Precision_Recall_curve_AP_{average_precision*100:.0f}_" % average_precision
         )
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
@@ -331,7 +339,7 @@ class lgbmClassificationHelpers:
         plt.plot(gb_x, gb_y, marker=".", color="red")
         plt.xlabel("Predicted probability")
         plt.ylabel("True probability")
-        figure_title = f"{self.target}_Calibration curve_{brier_score:.3f}_"
+        figure_title = f"{self.target}_Calibration_curve_{brier_score*100:.0f}_"
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
         print(title1)
@@ -398,7 +406,7 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
-            figure_title = f"{self.target}_Calibration_curve_sigmoid_calibration_{brier_score_cal_sig:.3f}_"
+            figure_title = f"{self.target}_Calibration_curve_sigmoid_calibration_{brier_score_cal_sig*100:.0f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
             print(title1)
@@ -433,7 +441,7 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
-            figure_title = f"{self.target}_Calibration_curve_isotonic_calibration_{brier_score_cal_iso:.3f}_"
+            figure_title = f"{self.target}_Calibration_curve_isotonic_calibration_{brier_score_cal_iso*100:.0f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
             print(title1)
@@ -469,7 +477,7 @@ class lgbmClassificationHelpers:
         fig = fig.get_figure()
         plt.xlabel("True Label")
         plt.ylabel("Predicted Label")
-        figure_title = f"{self.target}_Confusion_Matrix_AUC_%0.2f" % roc_auc
+        figure_title = f"{self.target}_Confusion_Matrix_AUC_{roc_auc*100:.0f}_"
         ext = ".png"
         title = figure_title + self.timestr + ext
         plt.savefig(
@@ -655,7 +663,7 @@ class lgbmRegressionHelpers:
         self.modelfolder = modelfolder
         self.tablefolder = tablefolder
         self.timestr = time.strftime("%Y-%m-%d-%H%M")
-        self.timestrfolder = time.strftime("%Y-%m-%d")
+        self.timestr_d = time.strftime("%Y-%m-%d")
 
     def save_model_to_pickle(self):
         """
@@ -671,7 +679,7 @@ class lgbmRegressionHelpers:
         print("Dumping model with pickle...")
         file_title = f"{self.target}_MODEL_"
         ext = ".pickle"
-        title = file_title + self.timestrfolder + ext
+        title = file_title + self.timestr_d + ext
         pkl_model = self.modelfolder / title
         with open(pkl_model, "wb") as fout:
             pickle.dump(self.gbm_model, fout)

@@ -16,7 +16,6 @@ import traceback
 import pandas as pd
 import shap
 
-# from sklearn.exceptions import UndefinedMetricWarning
 from sklearn.externals import joblib
 
 import cbh.config as config
@@ -33,9 +32,6 @@ from cbh.generalHelpers import (
 from cbh.lgbmHelpers import lgbmClassificationHelpers
 from cbh.shapHelpers import shapHelpers
 
-# When training starts, certain metrics are often zero for a while, which throws a warning and clutters the terminal output
-# warnings.filterwarnings(action="ignore", category=UndefinedMetricWarning)
-
 try:
     import cPickle as pickle
 except BaseException:
@@ -44,18 +40,25 @@ except BaseException:
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
-# target = "length_of_stay_over_5_days"
-# name_for_figs = "Length of stay over 5 days"
-
-# target = "age_gt_65_y"
-# name_for_figs = "Age"
-target = "readmitted30d"
-name_for_figs = "Readmission"
-
 seed = config.SEED
 debug = False
 print("Debug:", debug)
-class_thresh = 0.65
+
+
+"""
+Select your target and threshold from the list
+"""
+# target = "length_of_stay_over_5_days"
+# name_for_figs = "Length of stay over 5 days"
+# class_thresh = 0.2
+
+# target = "age_gt_65_y"
+# name_for_figs = "Age"
+# class_thresh = 0.5
+
+target = "readmitted30d"
+name_for_figs = "Readmission"
+class_thresh = 0.2
 
 # target = [
 #     # "readmitted30d",
@@ -73,54 +76,96 @@ class_thresh = 0.65
 #     # "race_binary",
 # ]
 
-shap_index = 500
+"""
+find the h5 file you are interested in at models\<date>\<target>\*.h5
+"""
 
-print("Loading files...")
+# print("Loading path to h5...")
+# filename = Path(
+#     r"C:\Users\hiltonc\Desktop\readmit\readmit\models\2019-05-14\readmitted30d\readmitted30d_284_everything__2019-05-14.h5"
+# )
+# f = h5py.File(filename, "r")
+# keylist = list(f.keys())
+# print("This h5 file contains", keylist)
+
+print("Loading path to h5...")
 filename = Path(
-    r"C:\Users\hiltonc\Desktop\readmit\readmit\models\2019-05-14\readmitted30d\readmitted30d_284_everything__2019-05-14.h5"
+    r"C:\Users\hiltonc\Desktop\readmit\readmit\models\2019-05-14\length_of_stay_over_5_days\length_of_stay_over_5_days_172_everything__2019-05-14.h5"
 )
 f = h5py.File(filename, "r")
 keylist = list(f.keys())
 print("This h5 file contains", keylist)
+#################################=================================#################################
 
+print("Loading model...")
 h5_model_key = "gbm_model"
-# gbm_model = load_jsonified_sklearn_model_from_h5(filename, h5_model_key)
+gbm_model = load_jsonified_sklearn_model_from_h5(filename, h5_model_key)
 
-# print("Loading first file...")
-# features = pd.read_hdf(filename, key="features")
-# print("now the next one...")
-# labels = pd.read_hdf(filename, key="labels")
-# print("now the next one...")
-# train_features = pd.read_hdf(filename, key="train_features")
-# print("now the next one...")
-# train_labels = pd.read_hdf(filename, key="train_labels")
-# print("now the next one...")
-# test_features = pd.read_hdf(filename, key="test_features")
-# print("now the next one...")
-# test_labels = pd.read_hdf(filename, key="test_labels")
-# print("now the next one...")
-# valid_features = pd.read_hdf(filename, key="valid_features")
-# print("now the next one...")
-# valid_labels = pd.read_hdf(filename, key="valid_labels")
-# print("now the next one...")
-# features_shap = pd.read_hdf(filename, key="features_shap")
-# print("now the next one...")
-# shap_values = pd.read_hdf(filename, key="shap_values")
-# print("now the next one...")
-requirements = pd.read_hdf(filename, key="requirements")
-# print("now the next one...")
-# df_shap_train = pd.read_hdf(filename, key="df_shap_train")
+print("Loading first file...")
+features = pd.read_hdf(filename, key="features")
+# print(features.head())
+print(features['patientclassdescription'].value_counts(drop))
+
 print("now the next one...")
+labels = pd.read_hdf(filename, key="labels")
+# print(labels.head())
+
+print("and the next one...")
+train_features = pd.read_hdf(filename, key="train_features")
+# print(train_features.head())
+
+print("and the next one...")
+train_labels = pd.read_hdf(filename, key="train_labels")
+# print(train_labels.head())
+
+print("and the next one...")
+test_features = pd.read_hdf(filename, key="test_features")
+# print(test_features.head())
+
+print("and the next one...")
+test_labels = pd.read_hdf(filename, key="test_labels")
+# print(test_labels.head())
+
+print("and the next one...")
+valid_features = pd.read_hdf(filename, key="valid_features")
+# print(valid_features.head())
+
+print("and the next one...")
+valid_labels = pd.read_hdf(filename, key="valid_labels")
+# print(valid_labels.head())
+
+print("and the next one...")
+features_shap = pd.read_hdf(filename, key="features_shap")
+# print(features_shap.head())
+
+print("and the next one...")
+shap_vals = pd.read_hdf(filename, key="shap_values")
+# convert to numpy array, as required by shap
+shap_values = shap_vals.to_numpy(copy=True)
+# print(shap_values[:10]) # no "head()" for np arrays
+
+print("and the next one...")
+requirements = pd.read_hdf(filename, key="requirements")
+# print(requirements.head())
+
+print("and the next one...")
+df_shap_train = pd.read_hdf(filename, key="df_shap_train")
+# print(df_shap_train.head())
+
+print("and the next one...")
 ordered_shap_cols = pd.read_hdf(filename, key="ordered_shap_cols")
+# print(ordered_shap_cols.head())
+
 print("and finally...")
 shap_expected_val  = pd.read_hdf(filename, key="shap_expected_value")
 # expected value is in the first row, second column:
 shap_expected_value = shap_expected_val.iloc[0][1]
+# print(shap_expected_value)
+
 print("Files loaded.")
 
 
-# print(ordered_shap_cols)
-print(requirements)
+#################################=================================#################################
 
 
 figfolder = make_figfolder_for_target(debug, target)
@@ -151,23 +196,34 @@ metricsgen = lgbmClassificationHelpers(
     calibrate_please=False,
 )
 
+helpshap = shapHelpers(target, features_shap, shap_values, shap_expected_value, gbm_model, figfolder, datafolder, modelfolder)
 
-# explainer = shap.TreeExplainer(gbm_model)
-# features_shap = features.sample(n=20000, random_state=seed, replace=False)
-# shap_values = explainer.shap_values(features_shap)
-# print(explainer.expected_value)
+helpshap.shap_save_ordered_values()
 
-helpshap = shapHelpers(
-    target, features_shap, shap_values, gbm_model, figfolder, datafolder, modelfolder
-)
-# helpshap.shap_save_to_disk()
-# helpshap.shap_save_ordered_values()
 helpshap.shap_prettify_column_names(prettycols_file=config.PRETTIFYING_COLUMNS_CSV)
+
+print("Loading path to h5...")
+filenamex = Path(
+    r"C:\Users\hiltonc\Desktop\readmit\readmit\models\2019-05-15\readmitted30d\readmitted30d_284_everything__2019-05-15_.h5"
+)
+fx = h5py.File(filenamex, "r")
+keylistx = list(fx.keys())
+print("This h5 file contains", keylistx)
+pretty_ordered_shap_cols = pd.read_hdf(filenamex, key="pretty_shap_cols")
+# print(pretty_ordered_shap_cols.head(111))
+pretty_imp_cols = pd.read_hdf(filenamex, key="pretty_imp_cols")
+print(pretty_imp_cols.head(111))
+
 helpshap.shap_plot_summaries(
     title_in_figure=f"Impact of Variables on {name_for_figs} Prediction"
 )
 helpshap.shap_random_force_plots(n_plots=20, expected_value=shap_expected_value)
+
 helpshap.shap_top_dependence_plots(n_plots=10)
+
+helpshap.shap_top_dependence_plots_self(n_plots=20)
+
+helpshap.shap_int_vals_heatmap()
 
 # How long did this take?
 print("This program,", os.path.basename(__file__), "took")
@@ -206,5 +262,25 @@ print("\n")
 # with open(gbm_model_file, 'rb') as f:
 #     gbm_model = pickle.load(f)
 #     print(gbm_model)
+
+
+# filename1 = Path(
+#     r"C:\Users\hiltonc\Desktop\readmit\readmit\models\2019-05-14\readmitted30d\readmitted30d_SHAP_values_284_2019-05-14-1554.pickle"
+# )
+# print("Loading", filename1)
+# shap_vals_pkl = pd.read_pickle(filename1)
+# print("File loaded.")
+# print(shap_vals_pkl.head())
+
+# print("Loading path to h5...")
+# filenamex = Path(
+#     r"C:\Users\hiltonc\Desktop\readmit\readmit\models\2019-05-15\readmitted30d\readmitted30d_284_everything__2019-05-15_.h5"
+# )
+# fx = h5py.File(filenamex, "r")
+# keylistx = list(fx.keys())
+# print("This h5 file contains", keylistx)
+# pretty_ordered_shap_cols = pd.read_hdf(filenamex, key="pretty_ordered_shap_cols")
+# print(pretty_ordered_shap_cols.head())
+
 
 ###########################################################################################################################

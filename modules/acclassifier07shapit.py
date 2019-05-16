@@ -38,10 +38,10 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    "readmitted30d",
-    "readmitted5d",
-    "readmitted7d",
-    "readmitted3d",
+    # "readmitted30d",
+    # "readmitted5d",
+    # "readmitted7d",
+    # "readmitted3d",
     "length_of_stay_over_3_days",
     "length_of_stay_over_5_days",
     "length_of_stay_over_7_days",
@@ -61,10 +61,9 @@ shap_indices = [500]  # 10, 20, 30, 40, 50, 60
 
 for shap_index in shap_indices:
 
-    startTime1 = datetime.now()
-
     for target in targets:
         # Load CSV of top SHAP values, and select the first n
+        startTime1 = datetime.now()
         csv_dir = config.SHAP_CSV_DIR
         shap_file = f"{target}_shap.csv"
         print("SHAP CSV:", csv_dir / shap_file)
@@ -102,9 +101,14 @@ for shap_index in shap_indices:
             or "length_of_stay_over_3_days"
         ):
             name_for_figs = "Length of Stay"
-            print("Dropping expired and obs patients...")
+            print("Dropping expired, obs, outpt, ambulatory, emergency patients...")
             data = data[data["dischargedispositiondescription"] != "Expired"]
-            data = data[data["patientclassdescription"] != "Observation"]
+            data = data[data["patientclassdescription"] != "Observation"] #
+            data = data[data["patientclassdescription"] != "Outpatient"] # ~10,000
+            data = data[data["patientclassdescription"] != "Ambulatory Surgical Procedures"] # ~8,000
+            data = data[data["patientclassdescription"] != "Emergency"] # ~7,000
+            print(data["dischargedispositiondescription"].value_counts(dropna=False))
+            print(data["patientclassdescription"].value_counts(dropna=False))
         elif (
             target == "died_within_48_72h_of_admission_combined"
         ):

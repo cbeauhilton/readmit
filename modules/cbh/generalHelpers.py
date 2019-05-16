@@ -235,8 +235,34 @@ def load_jsonified_sklearn_model_from_h5(filename, h5_model_key):
         print(clf)
         return clf
 
+    # above function works on model jsonified by the following (in lgbmHelpers.py)
+    # def lgbm_save_model_to_pkl_and_h5(self):
+    #     print("JSONpickling the model...")
+    #     frozen = jsonpickle.encode(self.gbm_model)
+    #     print("Saving GBM model to .h5 file...")
+
+    #     # file_title = f"{self.target}_{n_features}_everything_"
+    #     # ext = ".h5"
+    #     # title = file_title + self.timestr_d + ext
+    #     # h5_file = self.modelfolder / title
+
+    #     h5_file = self.h5_file
+    #     with h5py.File(h5_file, 'a') as f:
+    #         try:
+    #             f.create_dataset('gbm_model', data=frozen)
+    #         except Exception as exc:
+    #             print(traceback.format_exc())
+    #             print(exc)
+    #             try:
+    #                 del f["gbm_model"]
+    #                 f.create_dataset('gbm_model', data=frozen)
+    #                 print("Successfully deleted old gbm model and saved new one!")
+    #             except:
+    #                 print("Old gbm model persists...")
+    #     print(h5_file)
 
 ##############################################################################################################################
+
 
 # print("Saving to file...")
 # filename1 = config.CLEAN_PHASE_10

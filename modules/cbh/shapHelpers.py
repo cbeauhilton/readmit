@@ -6,7 +6,9 @@ import sys
 import time
 import traceback
 from subprocess import call
+from tqdm import tqdm
 
+tqdm.pandas()
 import cbh.config as config
 # import cbh.texfig first to configure Matplotlib's backend
 import cbh.texfig as texfig
@@ -42,7 +44,6 @@ class shapHelpers:
         self.figfolder = figfolder
         self.datafolder = datafolder
         self.modelfolder = modelfolder
-
         self.n_features = str(len(self.features_shap.columns))
         self.timestr = time.strftime("_%Y-%m-%d-%H%M_")
         self.timestr_d = time.strftime("_%Y-%m-%d_")
@@ -139,15 +140,15 @@ class shapHelpers:
             df_shap_train.abs().mean().sort_values(ascending=False).index.tolist()
         )
         pickle_title = f"{self.target}_shap_df.pickle"
-        df_shap_train.to_pickle(self.datafolder / pickle_title)
-        print("Pickle available at", self.datafolder / pickle_title)
+        df_shap_train.to_pickle(self.modelfolder / pickle_title)
+        print("Pickle available at", self.modelfolder / pickle_title)
         imp_cols = pd.DataFrame(imp_cols)
-        print(imp_cols)
+        # print(imp_cols)
         # timestr = time.strftime("_%Y-%m-%d-%H%M_")
         timestr = self.timestr
         csv_title = f"{self.target}_{n_features}{timestr}shap.csv"
-        imp_cols.to_csv(self.datafolder / csv_title)
-        print("CSV available at", self.datafolder / csv_title)
+        imp_cols.to_csv(self.modelfolder / csv_title)
+        print("CSV available at", self.modelfolder / csv_title)
         print("Saving SHAP df and important columns to .h5 file...")
         # file_title = f"{self.target}_{n_features}_everything_"
         # timestr = time.strftime("_%Y-%m-%d")
@@ -156,7 +157,44 @@ class shapHelpers:
         # h5_file = self.modelfolder / title
         h5_file = self.h5_file
         df_shap_train.to_hdf(h5_file, key='df_shap_train', format="table")
+
+
+
         imp_cols.to_hdf(h5_file, key='ordered_shap_cols', format="table")
+                
+        # This part is just to make the names match the ugly half of the prettifying file        
+        imp_cols = (imp_cols.progress_apply(
+            lambda x: x.str.strip()
+            .str.replace("\t", "")
+            .str.replace("_", " ")
+            .str.replace("__", " ")
+            .str.replace(", ", " ")
+            .str.replace(",", " ")
+            .str.replace("'", "")
+            .str.capitalize()
+            ))
+        # print(imp_cols)
+        # Define and load the prettifying file
+        prettycols_file = config.PRETTIFYING_COLUMNS_CSV
+        prettycols = pd.read_csv(prettycols_file)
+
+        # Now the magic happens
+        # make a dict out of the old and new columns
+        # and map the new onto the old
+        di = dict(zip(prettycols.feature_ugly, prettycols.feature_pretty))
+        # di = prettycols.set_index("feature_ugly").to_dict()
+        # di = pd.Series(di)
+        # print(di)
+        # pretty_imp_cols = imp_cols[0].update(pd.Series(di))
+        pretty_imp_cols = imp_cols[0].map(di).fillna(imp_cols[0])
+        # self.features_shap.columns = self.features_shap.columns.to_series().map(
+        #     di["feature_pretty"]
+        # )
+        # print(pretty_imp_cols)
+        # select first column
+        pretty_imp_cols.to_hdf(self.h5_file, key='pretty_imp_cols', format="table")
+        
+        print("Columns prettified and saved to h5!")
 
     def shap_top_dependence_plots(self, n_plots):
         n_features = self.n_features
@@ -189,7 +227,6 @@ class shapHelpers:
 
                 print(f"Making dependence plot for {self.target} feature ranked {i}...")
                 figure_title = f"{self.target}_SHAP_dependence_{i}_"
-                # timestr = time.strftime("_%Y-%m-%d-%H%M_")
                 timestr = self.timestr
                 ext = ".png"
                 title = figure_title + n_features + timestr + ext
@@ -210,7 +247,9 @@ class shapHelpers:
                     print(exc)
                     print("Aww, LaTeX!..")
                 plt.close()
-            except:
+            except Exception as exc:
+                print(traceback.format_exc())
+                print(exc)
                 print(f"Plot for feature {i} failed, moving on...")
 
     def shap_top_dependence_plots_self(self, n_plots):
@@ -277,7 +316,9 @@ class shapHelpers:
                     print(exc)
                     print("Aww, LaTeX!..")
                 plt.close()
-            except:
+            except Exception as exc:
+                print(traceback.format_exc())
+                print(exc)
                 print(f"Plot for feature {i} failed, moving on...")
 
     def shap_prettify_column_names(self, prettycols_file):
@@ -302,11 +343,21 @@ class shapHelpers:
         self.features_shap.columns = self.features_shap.columns.to_series().map(
             di["feature_pretty"]
         )
-        self.features_shap.to_hdf(self.h5_file, key='pretty_ordered_shap_cols', format="table")
+
+        # Prepare to save to h5
+        pretty_shap_col_series = self.features_shap.columns.to_series()
+        pretty_shap_cols = pretty_shap_col_series.to_frame().reset_index()
+        # select first column
+        pretty_shap_cols = pretty_shap_cols[[0]]
+        # print(pretty_shap_cols.head())
+        pretty_shap_cols.to_hdf(self.h5_file, key='pretty_shap_cols', format="table")
+        
+        print("Columns prettified and saved to h5!")
         return self.features_shap
 
     def shap_plot_summaries(self, title_in_figure):
         n_features = self.n_features
+        timestr = self.timestr
         print(f"{self.target} Making SHAP summary bar plot PNG...")
         mpl.rcParams.update(mpl.rcParamsDefault)
         shap.summary_plot(
@@ -318,8 +369,6 @@ class shapHelpers:
             feature_names=self.features_shap.columns,
         )
         figure_title = f"{self.target}_SHAP_summary_bar_"
-        # timestr = time.strftime("_%Y-%m-%d-%H%M_")
-        timestr = self.timestr
         ext = ".png"
         title = figure_title + n_features + timestr + ext
         plt.savefig(
@@ -337,7 +386,7 @@ class shapHelpers:
             show=False,
             feature_names=self.features_shap.columns,
         )
-        figure_title = f"{self.target} SHAP_summary_bar_"
+        figure_title = f"{self.target}_SHAP_summary_bar_"
         try:
             title1 = figure_title + n_features + timestr
             title1 = str(self.figfolder) + "/" + title1
@@ -349,9 +398,12 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary plot PNG...")
+        # reset mpl backend and params...
+        mpl.rcParams.update(mpl.rcParamsDefault)
         mpl.rcdefaults()
         mpl.use("Qt5Agg")
         print("Current mpl backend:", mpl.get_backend())
+        
         shap.summary_plot(
             self.shap_values,
             self.features_shap,
@@ -455,9 +507,11 @@ class shapHelpers:
         )  # select 5 random patients
         for pt_num in shap_indices:
             # set params to default for png...
+            mpl.rcParams.update(mpl.rcParamsDefault)
             mpl.rcdefaults()
             mpl.use("Qt5Agg")
-            print("Current mpl backend:", mpl.get_backend())
+            print("mpl backend for png:", mpl.get_backend())
+
             print(f"{self.target} Making force plot for patient", pt_num, "...")
             shap.force_plot(
                 expected_value,  # this version uses the standard base value
@@ -487,7 +541,7 @@ class shapHelpers:
                 print(f"{self.target} Making SVG force plot for patient", pt_num, "...")
                 # update params for svg...
                 mpl.use("svg")
-                print("Current mpl backend:", mpl.get_backend())
+                print("mpl backend for svg:", mpl.get_backend())
                 new_rc_params = {'text.usetex': False,
                     "svg.fonttype": 'none'
                     }
@@ -531,6 +585,8 @@ class shapHelpers:
                 )
                 title1 = figure_title
                 title1 = str(forcefolder) + "/" + title1
+                print("mpl backend for PDF:", mpl.get_backend())
+                print("The forceplots need the svg backend, even for PDF...")
                 texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
             except Exception as exc:
                 print(traceback.format_exc())

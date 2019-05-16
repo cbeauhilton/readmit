@@ -243,7 +243,7 @@ class lgbmClassificationHelpers:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
             texfig.savefig(title1, bbox_inches="tight")
-            print(title1)
+            # print(title1)
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
@@ -255,8 +255,8 @@ class lgbmClassificationHelpers:
 
         print("Generating ROC curve...")
         # plt.figure(figsize=(5,5))
-        plt.plot(fpr, tpr, "b", label="AUC = %0.2f" % roc_auc)
-        plt.legend(loc="lower right")
+        plt.plot(fpr, tpr, "b", label="AUC: %0.2f" % roc_auc)
+        plt.legend(handletextpad=0, handlelength=0, loc="lower right")
         plt.plot([0, 1], [0, 1], "r--")
         plt.xlim([-0.011, 1.011])
         plt.ylim([-0.011, 1.011])
@@ -285,7 +285,6 @@ class lgbmClassificationHelpers:
 
         print("Generating PR curve...")
         average_precision = average_precision_score(self.test_labels, predicted_labels)
-
         precision, recall, _ = precision_recall_curve(
             self.test_labels, predicted_labels
         )
@@ -293,17 +292,14 @@ class lgbmClassificationHelpers:
         step_kwargs = (
             {"step": "post"} if "step" in signature(plt.fill_between).parameters else {}
         )
-        plt.title(
-            " {0} Precision Recall Curve AP {1:0.2f}".format(
-                self.target, average_precision
-            )
-        )
+        # plt.title(f"Precision-Recall Curve")
         plt.step(recall, precision, color="b", alpha=0.2, where="post")
         plt.fill_between(recall, precision, alpha=0.2, color="b", **step_kwargs)
         plt.xlabel("Recall")
         plt.ylabel("Precision")
         plt.ylim([0.0, 1.05])
         plt.xlim([0.0, 1.0])
+        plt.legend([f"Average Precision: {average_precision:0.2f}"],handletextpad=0, handlelength=0, loc="lower right")
         figure_title = (
             f"{self.target}_Precision_Recall_curve_AP_{average_precision*100:.0f}_" % average_precision
         )
@@ -339,6 +335,7 @@ class lgbmClassificationHelpers:
         plt.plot(gb_x, gb_y, marker=".", color="red")
         plt.xlabel("Predicted probability")
         plt.ylabel("True probability")
+        plt.legend([f"Brier Score Loss: {brier_score:.2f}"], handletextpad=0, handlelength=0,  loc="lower right")
         figure_title = f"{self.target}_Calibration_curve_{brier_score*100:.0f}_"
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
@@ -406,6 +403,7 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
+            plt.legend([f"Brier Score Loss: {brier_score:.2f}"], handletextpad=0, handlelength=0,  loc="lower right")
             figure_title = f"{self.target}_Calibration_curve_sigmoid_calibration_{brier_score_cal_sig*100:.0f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
@@ -441,6 +439,7 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
+            plt.legend([f"Brier Score Loss: {brier_score:.2f}"], handletextpad=0, handlelength=0,  loc="lower right")
             figure_title = f"{self.target}_Calibration_curve_isotonic_calibration_{brier_score_cal_iso*100:.0f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
@@ -468,6 +467,7 @@ class lgbmClassificationHelpers:
             else:
                 predicted_labels[i] = 0
 
+        f1 = f1_score(self.test_labels, predicted_labels)
         accuracy = metrics.accuracy_score(self.test_labels, predicted_labels)
         print(f"Accuracy of GBM classifier for {self.target}: ", accuracy)
         print(classification_report_imbalanced(self.test_labels, predicted_labels))
@@ -494,7 +494,8 @@ class lgbmClassificationHelpers:
         plt.close()
 
         conf_mx = pd.DataFrame(conf_mx)
-
+        print(self.test_labels)
+        # prevalence = len(self.test_labels[1] == 1) / len(self.test_labels)
         FP = conf_mx.sum(axis=0) - np.diag(conf_mx)
         FN = conf_mx.sum(axis=1) - np.diag(conf_mx)
         TP = np.diag(conf_mx)
@@ -521,14 +522,15 @@ class lgbmClassificationHelpers:
         print(self.target)
         n_pts = len(predicted_labels)
         print("N:", n_pts)
-        print("TPR:", TPR)
-        print("TNR:", TNR)
-        print("PPV:", PPV)
-        print("NPV:", NPV)
-        print("FPR:", FPR)
-        print("FNR:", FNR)
-        print("FDR:", FDR)
-        print("ACC:", ACC)
+        # print("Prevalence:", prevalence)
+        print("TPR:", TPR[1])
+        print("TNR:", TNR[1])
+        print("PPV:", PPV[1])
+        print("NPV:", NPV[1])
+        print("FPR:", FPR[1])
+        print("FNR:", FNR[1])
+        print("FDR:", FDR[1])
+        print("ACC:", ACC[1])
 
         d = [
             [
@@ -537,16 +539,22 @@ class lgbmClassificationHelpers:
                 n_features,
                 self.class_thresh,
                 n_pts,
-                TPR,
-                TNR,
-                PPV,
-                NPV,
-                FPR,
-                FNR,
-                FDR,
-                ACC,
+                # prevalence,
+                TPR[1],
+                TNR[1],
+                PPV[1],
+                NPV[1],
+                FPR[1],
+                FNR[1],
+                FDR[1],
+                ACC[1],
+                TP[1],
+                TN[1],
+                FP[1],
+                FN[1],
                 roc_auc,
                 average_precision,
+                f1,
                 brier_score,
                 brier_score_cal_sig,
                 brier_score_cal_iso,
@@ -561,16 +569,22 @@ class lgbmClassificationHelpers:
                 "Number of Features",
                 "Threshold",
                 "Number of Patients",
-                "TPR",
-                "TNR",
-                "PPV",
+                # "Prevalence of Target",
+                "TPR_Recall_Sensitivity",
+                "TNR_Specificity",
+                "PPV_Precision",
                 "NPV",
                 "FPR",
                 "FNR",
                 "FDR",
                 "ACC",
+                "TP",
+                "TN",
+                "FP",
+                "FN",
                 "ROC AUC",
                 "Average Precision",
+                "F1 Score",
                 "Brier Score Loss",
                 "Brier Score Loss Sigmoid Calibration",
                 "Brier Score Loss Isotonic Calibration",

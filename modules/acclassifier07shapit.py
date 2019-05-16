@@ -38,10 +38,10 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    # "readmitted30d",
-    # "readmitted5d",
-    # "readmitted7d",
-    # "readmitted3d",
+    "readmitted30d",
+    "readmitted5d",
+    "readmitted7d",
+    "readmitted3d",
     "length_of_stay_over_3_days",
     "length_of_stay_over_5_days",
     "length_of_stay_over_7_days",
@@ -72,7 +72,11 @@ for shap_index in shap_indices:
         top_shaps = top_shaps[:shap_index]
         shap_list = top_shaps["feature_names"].tolist()
         shap_list.append(target)  # to make the labels and features sets
-        if target == "length_of_stay_over_3_days" or "length_of_stay_over_5_days" or "length_of_stay_over_7_days":
+        if (
+            target == "length_of_stay_over_3_days"
+            or "length_of_stay_over_5_days"
+            or "length_of_stay_over_7_days"
+        ):
             shap_list.append("length_of_stay_in_days")
         # print(shap_list)
 
@@ -103,15 +107,15 @@ for shap_index in shap_indices:
             name_for_figs = "Length of Stay"
             print("Dropping expired, obs, outpt, ambulatory, emergency patients...")
             data = data[data["dischargedispositiondescription"] != "Expired"]
-            data = data[data["patientclassdescription"] != "Observation"] #
-            data = data[data["patientclassdescription"] != "Outpatient"] # ~10,000
-            data = data[data["patientclassdescription"] != "Ambulatory Surgical Procedures"] # ~8,000
-            data = data[data["patientclassdescription"] != "Emergency"] # ~7,000
+            data = data[data["patientclassdescription"] != "Observation"]  #
+            data = data[data["patientclassdescription"] != "Outpatient"]  # ~10,000
+            data = data[
+                data["patientclassdescription"] != "Ambulatory Surgical Procedures"
+            ]  # ~8,000
+            data = data[data["patientclassdescription"] != "Emergency"]  # ~7,000
             print(data["dischargedispositiondescription"].value_counts(dropna=False))
             print(data["patientclassdescription"].value_counts(dropna=False))
-        elif (
-            target == "died_within_48_72h_of_admission_combined"
-        ):
+        elif target == "died_within_48_72h_of_admission_combined":
             name_for_figs = "Death within 48--72 Hours of Admission"
             # print("Dropping expired and obs patients for death prediction...")
             # data = data[data["dischargedispositiondescription"] != "Expired"]
@@ -143,7 +147,11 @@ for shap_index in shap_indices:
         labels = data[target]
         features = data.drop([target], axis=1)
 
-        if target == "length_of_stay_over_3_days" or "length_of_stay_over_5_days" or "length_of_stay_over_7_days":
+        if (
+            target == "length_of_stay_over_3_days"
+            or "length_of_stay_over_5_days"
+            or "length_of_stay_over_7_days"
+        ):
             features = features.drop(["length_of_stay_in_days"], axis=1)
             train_features = train_features.drop(["length_of_stay_in_days"], axis=1)
             test_features = test_features.drop(["length_of_stay_in_days"], axis=1)
@@ -237,10 +245,19 @@ for shap_index in shap_indices:
         features_shap = features.sample(n=20000, random_state=seed, replace=False)
         shap_values = explainer.shap_values(features_shap)
 
-        
-        shap_expected=explainer.expected_value
+        shap_expected = explainer.expected_value
         helpshap = shapHelpers(
-            target, features_shap, shap_values, shap_expected, gbm_model, figfolder, datafolder, modelfolder) 
+            target,
+            name_for_figs,
+            class_thresh,
+            features_shap,
+            shap_values,
+            shap_expected,
+            gbm_model,
+            figfolder,
+            datafolder,
+            modelfolder,
+        )
         helpshap.shap_save_to_disk()
         helpshap.shap_save_ordered_values()
         helpshap.save_requirements()
@@ -250,9 +267,7 @@ for shap_index in shap_indices:
         helpshap.shap_plot_summaries(
             title_in_figure=f"Impact of Variables on {name_for_figs} Prediction"
         )
-        helpshap.shap_random_force_plots(
-            n_plots=20, expected_value=shap_expected
-        )
+        helpshap.shap_random_force_plots(n_plots=20, expected_value=shap_expected)
         helpshap.shap_top_dependence_plots(n_plots=10)
         helpshap.shap_top_dependence_plots_self(n_plots=20)
         helpshap.shap_int_vals_heatmap()

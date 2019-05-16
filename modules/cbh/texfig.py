@@ -96,7 +96,7 @@ def savefig(filename, *args, **kwargs):
     # mpl.use('pgf')
     print("mpl backend for PDF:", mpl.get_backend())
     plt.savefig(filename + '.pdf', *args, **kwargs)
-    
+    print(filename + '.pdf')
     # print("Saving PGF...")
     # plt.savefig(filename + '.pgf', *args, **kwargs)
     # print("Saving SVG...")

@@ -34,9 +34,11 @@ except BaseException:
 
 class shapHelpers:
     def __init__(
-        self, target, features_shap, shap_values, shap_expected, model, figfolder, datafolder, modelfolder
+        self, target, name_for_figs, class_thresh, features_shap, shap_values, shap_expected, model, figfolder, datafolder, modelfolder
     ):
         self.target = target
+        self.name_for_figs = name_for_figs
+        self.class_thresh = class_thresh
         self.features_shap = features_shap
         self.shap_values = shap_values
         self.shap_expected = shap_expected
@@ -90,8 +92,9 @@ class shapHelpers:
         h5_file = self.h5_file
         shap_val_df = pd.DataFrame(self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
-        d = [["Expected Value:",self.shap_expected]]
-        exp_df = pd.DataFrame(d, columns=("A","B"))
+        # define what goes in the first row with "d"
+        d = [[self.target, self.name_for_figs, self.shap_expected,self.class_thresh]]
+        exp_df = pd.DataFrame(d, columns=("target","name_for_figs", "shap_exp_val","class_thresh"))
         # print(exp_df)
         shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
         shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")

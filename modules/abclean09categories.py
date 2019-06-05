@@ -87,7 +87,6 @@ for thresh in age_thresholds:
     # convert to 1/0 rather than True/False
 
 print("Converting diagnosis codes to diagnosis descriptions as available...")
-
 dxcode_file = config.DX_CODES_CONVERTED
 dxcodes = pd.read_pickle(dxcode_file)
 di = pd.Series(

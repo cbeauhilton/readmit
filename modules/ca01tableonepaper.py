@@ -1,14 +1,14 @@
 import os
 import sys
 
-sys.path.append("modules")
+# sys.path.append("modules")
 from datetime import datetime
 
 import pandas as pd
 from plotly.offline import iplot
 from tableone import TableOne
 import time
-import config
+from cbh import config
 import io
 
 print("About to run", os.path.basename(__file__))
@@ -199,7 +199,7 @@ final_file_tex = str(final_file_tex_fol) + ".tex"
 #   filedata = file.read()
 tex_line_one = r"\rowcolors{3}{}{NEJMAlternatingRows}%" + "\n"
 tex_line_two = (
-    r"\begin{adjustbox}{width={\textwidth},totalheight={\textheight},keepaspectratio,frame}%"
+    r"\begin{adjustbox}{width={\textwidth},totalheight={\textheight},keepaspectratio,frame,padding=0ex 0ex -910ex 0ex}%"
     + "\n"
 )
 tex_line_thr = r"\sffamily %" + "\n"

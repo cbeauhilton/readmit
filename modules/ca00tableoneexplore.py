@@ -8,7 +8,7 @@ import pandas as pd
 from plotly.offline import iplot
 from tableone import TableOne
 import time
-import config
+from cbh import config
 
 
 print("About to run", os.path.basename(__file__))

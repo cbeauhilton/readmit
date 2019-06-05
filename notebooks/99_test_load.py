@@ -11,9 +11,9 @@ except:
 # Imports
 import sys
 
-sys.path.append("C:\\Users\\hiltonc\\Desktop\\readmit\\modules")
+sys.path.append("C:\\Users\\hiltonc\\Desktop\\readmit\\readmit\\modules")
 
-import config
+from cbh import config
 import importlib
 
 importlib.reload(config)
@@ -51,7 +51,11 @@ data = pd.read_pickle(file_name)
 # print(len(data))
 # print(data.financialclass.nunique())
 # data
+print(data.diff_type_admit_value.value_counts(dropna=False,normalize=False))
 
+print(data.diff_type_discharge_value.value_counts(dropna=False,normalize=False))
+
+print(data.diff_type_discharge_value)
 
 # feature_list = list(data)
 # df = pd.DataFrame(feature_list, columns=["features"])

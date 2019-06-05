@@ -8,7 +8,7 @@ import os
 import pandas as pd
 import lightgbm as lgb
 
-import config
+from cbh import config
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()

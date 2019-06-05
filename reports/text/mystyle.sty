@@ -22,6 +22,9 @@
 \usepackage{pgffor}
 \usepackage{grffile}
 \usepackage{afterpage}
+\usepackage{setspace}
+\usepackage{etoolbox}
+\usepackage{makecell}
 \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
 \newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
 \newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
@@ -68,7 +71,28 @@
 \newfontfamily\subsubsectionfont[]{TeX Gyre Heros}
 \newfontfamily\subsubsubsectionfont[]{TeX Gyre Heros}
 \renewcommand{\sfdefault}{TeX Gyre Heros}
-
+%
+%
+%
+%
+% this section allows printing the figures/captions only for easy copying
+%%%%%%%%%%%% FIGURES ONLY %%%%%%%%%%%%
+\captionsetup[figure]{labelsep=none,textformat=empty} % omit captions 
+\captionsetup[sub]{labelsep=space,textformat=simple} % keep subcaptions
+%%%%%%%%%%%% CAPTION ONLY %%%%%%%%%%%%
+% \usepackage[nolists,nomarkers]{endfloat}
+% \AtBeginDelayedFloats{%
+%   \renewcommand{\includegraphics}[2][]{}% Remove \includegraphics functionality
+%   \renewcommand{\resizebox}[3]{}% Remove \resizebox functionality
+% %   \RenewEnviron{tabular}[2][]{}% Gobble tabular environment
+% }
+% \setcounter{totalnumber}{10}% Allow up to 10 floats per page
+% \renewcommand{\efloatseparator}{\mbox{}}% From the documentation
+%
+% Double space tables
+% \AtBeginEnvironment{tabular}{\doublespacing}
+%
+%
 % (maybe the below are old? New colors are considerably brighter)
 % NEJM top row: {HTML}{F5F1EB} {RGB}{209, 38, 70}. 
 % Alternating row: {HTML}{FEF9EC} {RGB}{254, 249, 236}. 

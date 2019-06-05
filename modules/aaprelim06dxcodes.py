@@ -29,6 +29,9 @@ startTime = datetime.now()
 # anything bigger than your number of columns
 pd.options.display.max_columns = 2000
 
+'''
+Download and merge ICD10 first, then ICD9
+'''
 
 if not os.path.isfile(config.ICD10_DATABASE):
     print("Downloading ICD10 code CSV from Github...")
@@ -119,6 +122,10 @@ dffinal = dffinal.progress_apply(
 # print("File saved to", config.DX_CODES_CONVERTED)
 
 
+'''
+ICD 9 codes
+'''
+
 filename = Path(r"C:\Users\hiltonc\Desktop\readmit\docs\DDW_Diagnoses.csv")
 ddw = pd.read_csv(filename)
 ddw = ddw.rename(index=str, columns={"Diagnosis_Code": "diagnosis code", "Diagnosis_Description": "diagnosis description"})
@@ -126,16 +133,14 @@ ddw = ddw.drop(["Diagnosis_Key"], axis=1)
 # print(ddw.CodeSet.unique())
 ddw = ddw[ddw["CodeSet"]=="9"]
 ddw = ddw.drop(["CodeSet"], axis=1)
-# print(ddw.tail())
 
-# print(dffinal.tail())
-# print(len(dffinal))
+
+
+# grab rows with missing values - these are the ICD9 codes
 dffinalnull = dffinal[dffinal["diagnosis description"].isnull()]
 dffinalnull = dffinalnull.drop(["diagnosis description"], axis=1)
-df99 = pd.merge(dffinalnull, ddw, on="diagnosis code", indicator=False, how="right")
-# print(df99.head())
-# print(len(df99))
 
+df99 = pd.merge(dffinalnull, ddw, on="diagnosis code", indicator=False, how="right")
 df100 = pd.concat(
     [df99, dffinal], ignore_index=True, keys=["x", "y"], verify_integrity=True, axis=0
 )

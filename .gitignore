@@ -11,8 +11,10 @@ models
 
 # Exclude new figures
 /reports/figures/
+/reports/summary_pdfs/
 manuscript.pdf
 /reports/text/*.pdf
+/reports/*.pdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

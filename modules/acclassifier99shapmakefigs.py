@@ -1,3 +1,4 @@
+#%%
 import os
 import time
 import warnings
@@ -16,7 +17,9 @@ import pandas as pd
 import shap
 
 from sklearn.externals import joblib
-
+# print(os.getcwd())
+# modules_dir = Path(os.getcwd()) / "modules"
+# os.chdir(modules_dir)
 import cbh.config as config
 import configcols
 from cbh.generalHelpers import (
@@ -28,7 +31,7 @@ from cbh.generalHelpers import (
     train_test_valid_80_10_10_split,
     load_jsonified_sklearn_model_from_h5,
 )
-from cbh.lgbmHelpers import lgbmClassificationHelpers
+# from cbh.lgbmHelpers import lgbmClassificationHelpers
 from cbh.shapHelpers import shapHelpers
 
 try:
@@ -36,7 +39,7 @@ try:
 except BaseException:
     import pickle
 
-print("About to run", os.path.basename(__file__))
+# print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 seed = config.SEED
@@ -60,7 +63,7 @@ keylist = list(f.keys())
 print("This h5 file contains", keylist)
 keylist.remove("gbm_model")  # will be loaded separately
 
-print("Loading all keys from .h5...")
+print("\n Loading all keys from .h5...")
 for k in keylist:
     # this will make a new variable for every key in the .h5 file
     # and load the corresponding dataframes.
@@ -92,31 +95,31 @@ figfolder = make_figfolder_for_target(debug, target)
 datafolder = make_datafolder_for_target(debug, target)
 modelfolder = make_modelfolder_for_target(debug, target)
 tablefolder = make_report_tables_folder(debug)
-print(figfolder, datafolder, modelfolder, tablefolder)
+print("\n", figfolder, "\n", datafolder, "\n", modelfolder, "\n", tablefolder)
 
 evals_result = gbm_model._evals_result
 
-metricsgen = lgbmClassificationHelpers(
-    target,
-    class_thresh,
-    gbm_model,
-    evals_result,
-    features,
-    labels,
-    train_features,
-    train_labels,
-    test_features,
-    test_labels,
-    valid_features,
-    valid_labels,
-    figfolder,
-    datafolder,
-    modelfolder,
-    tablefolder,
-    calibrate_please=False,
-)
+# metricsgen = lgbmClassificationHelpers(
+#     target,
+#     class_thresh,
+#     gbm_model,
+#     evals_result,
+#     features,
+#     labels,
+#     train_features,
+#     train_labels,
+#     test_features,
+#     test_labels,
+#     valid_features,
+#     valid_labels,
+#     figfolder,
+#     datafolder,
+#     modelfolder,
+#     tablefolder,
+#     calibrate_please=False,
+# )
 
-metricsgen.lgbm_classification_results()
+# metricsgen.lgbm_classification_results()
 
 helpshap = shapHelpers(
     target,
@@ -133,16 +136,18 @@ helpshap = shapHelpers(
 
 helpshap.shap_prettify_column_names(prettycols_file=config.PRETTIFYING_COLUMNS_CSV)
 
-helpshap.shap_plot_summaries(
-    title_in_figure=f"Impact of Variables on {name_for_figs} Prediction"
-)
+# helpshap.shap_plot_summaries(
+#     title_in_figure=f"Impact of Variables on {name_for_figs} Prediction"
+# )
+#%%
+shap.initjs()
 helpshap.shap_random_force_plots(n_plots=20, expected_value=shap_expected_val)
+#%%
+# helpshap.shap_top_dependence_plots(n_plots=10)
 
-helpshap.shap_top_dependence_plots(n_plots=10)
+# helpshap.shap_top_dependence_plots_self(n_plots=20)
 
-helpshap.shap_top_dependence_plots_self(n_plots=20)
-
-helpshap.shap_int_vals_heatmap()
+# helpshap.shap_int_vals_heatmap()
 
 # How long did this take?
 print("This program,", os.path.basename(__file__), "took")

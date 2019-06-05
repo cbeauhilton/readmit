@@ -38,21 +38,21 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 
 targets = [
-    "readmitted30d",
-    "readmitted5d",
-    "readmitted7d",
-    "readmitted3d",
-    "length_of_stay_over_3_days",
-    "length_of_stay_over_5_days",
-    "length_of_stay_over_7_days",
-    "financialclass_binary",
-    "age_gt_10_y",
-    "age_gt_30_y",
-    "age_gt_65_y",
-    "gender_binary",
-    "race_binary",
-    "discharged_in_past_30d",
-    # "died_within_48_72h_of_admission_combined",
+    # "readmitted30d",
+    # "length_of_stay_over_5_days",
+    # "financialclass_binary",
+    # "age_gt_65_y",
+    # "gender_binary",
+    # "race_binary",
+    # "discharged_in_past_30d",
+    # "readmitted5d",
+    # "readmitted7d",
+    # "readmitted3d",
+    # "length_of_stay_over_3_days",
+    # "length_of_stay_over_7_days",
+    # "age_gt_10_y",
+    # "age_gt_30_y",
+    "died_within_48_72h_of_admission_combined",
 ]
 
 shap_indices = [500]  # 10, 20, 30, 40, 50, 60
@@ -72,10 +72,11 @@ for shap_index in shap_indices:
         top_shaps = top_shaps[:shap_index]
         shap_list = top_shaps["feature_names"].tolist()
         shap_list.append(target)  # to make the labels and features sets
-        if (
-            target == "length_of_stay_over_3_days"
-            or "length_of_stay_over_5_days"
-            or "length_of_stay_over_7_days"
+        if target in (
+            "length_of_stay_over_3_days",
+            "length_of_stay_over_5_days",
+            "length_of_stay_over_7_days",
+            "died_within_48_72h_of_admission_combined",
         ):
             shap_list.append("length_of_stay_in_days")
         # print(shap_list)
@@ -99,10 +100,10 @@ for shap_index in shap_indices:
             print("Dropping expired patients...")
             data = data[data["dischargedispositiondescription"] != "Expired"]
             # data = data[data["days_between_current_admission_and_previous_discharge"] > 1]
-        elif (
-            target == "length_of_stay_over_7_days"
-            or "length_of_stay_over_5_days"
-            or "length_of_stay_over_3_days"
+        elif target in (
+            "length_of_stay_over_3_days",
+            "length_of_stay_over_5_days",
+            "length_of_stay_over_7_days",
         ):
             name_for_figs = "Length of Stay"
             print("Dropping expired, obs, outpt, ambulatory, emergency patients...")
@@ -117,9 +118,10 @@ for shap_index in shap_indices:
             print(data["patientclassdescription"].value_counts(dropna=False))
         elif target == "died_within_48_72h_of_admission_combined":
             name_for_figs = "Death within 48--72 Hours of Admission"
-            # print("Dropping expired and obs patients for death prediction...")
-            # data = data[data["dischargedispositiondescription"] != "Expired"]
-            # data = data[data["patientclassdescription"] != "Observation"]
+            print("Dropping expired and obs patients for death prediction...")
+            data = data[data["dischargedispositiondescription"] != "Expired"]
+            data = data[data["patientclassdescription"] != "Observation"]
+            data = data[data["length_of_stay_in_days"]<=2.5]
         elif target == "financialclass_binary":
             name_for_figs = "Insurance"
         elif target == "gender_binary":
@@ -147,11 +149,13 @@ for shap_index in shap_indices:
         labels = data[target]
         features = data.drop([target], axis=1)
 
-        if (
-            target == "length_of_stay_over_3_days"
-            or "length_of_stay_over_5_days"
-            or "length_of_stay_over_7_days"
+        if target in (
+            "length_of_stay_over_3_days",
+            "length_of_stay_over_5_days",
+            "length_of_stay_over_7_days",
+            "died_within_48_72h_of_admission_combined",
         ):
+            print("Dropping length of stay in days for LoS targets...")
             features = features.drop(["length_of_stay_in_days"], axis=1)
             train_features = train_features.drop(["length_of_stay_in_days"], axis=1)
             test_features = test_features.drop(["length_of_stay_in_days"], axis=1)
@@ -170,13 +174,13 @@ for shap_index in shap_indices:
 
         class_thresh = 0.5
 
-        if target is "readmitted30d" or "length_of_stay_over_7_days":
+        if target in ("readmitted30d", "length_of_stay_over_7_days", "discharged_in_past_30d"):
             class_thresh = 0.2
-            print("class_thresh changed to:", class_thresh)
+            print(f" Target = {target},\n class_thresh changed to {class_thresh}")
 
-        if target is "discharged_in_past_30d":
-            class_thresh = 0.2
-            print("class_thresh changed to:", class_thresh)
+        if target == "died_within_48_72h_of_admission_combined":
+            class_thresh = 0.001
+            print(f" Target = {target},\n class_thresh changed to {class_thresh}")
 
         params = config.C_READMIT_PARAMS_LGBM
         early_stopping_rounds = 200

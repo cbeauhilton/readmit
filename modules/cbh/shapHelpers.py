@@ -7,34 +7,43 @@ import time
 import traceback
 from subprocess import call
 from tqdm import tqdm
+from pathlib import Path
 
 tqdm.pandas()
 import cbh.config as config
+
 # import cbh.texfig first to configure Matplotlib's backend
 import cbh.texfig as texfig
 import conda.cli
 import h5py
 import matplotlib as mpl
+
 # then, import PyPlot
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import shap
 
+# shap.initjs()
+
 try:
     import cPickle as pickle
 except BaseException:
     import pickle
 
-# mpl.use("pgf")
-# pgf_with_custom_preamble = {"pgf.rcfonts": False}
-# # don't setup fonts from rc parameters
-# mpl.rcParams.update(pgf_with_custom_preamble)
-
-
 class shapHelpers:
     def __init__(
-        self, target, name_for_figs, class_thresh, features_shap, shap_values, shap_expected, model, figfolder, datafolder, modelfolder
+        self,
+        target,
+        name_for_figs,
+        class_thresh,
+        features_shap,
+        shap_values,
+        shap_expected,
+        model,
+        figfolder,
+        datafolder,
+        modelfolder,
     ):
         self.target = target
         self.name_for_figs = name_for_figs
@@ -84,42 +93,41 @@ class shapHelpers:
             pickle.dump(self.features_shap, f)
         print("File available at", full_path)
         print("Saving SHAP to .h5 file...")
-        # file_title = f"{self.target}_{n_features}_everything_"
-        # timestr = time.strftime("_%Y-%m-%d")
-        # ext = ".h5"
-        # title = file_title + timestr + ext
-        # h5_file = self.modelfolder / title
         h5_file = self.h5_file
         shap_val_df = pd.DataFrame(self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
         # define what goes in the first row with "d"
-        d = [[self.target, self.name_for_figs, self.shap_expected,self.class_thresh]]
-        exp_df = pd.DataFrame(d, columns=("target","name_for_figs", "shap_exp_val","class_thresh"))
+        d = [[self.target, self.name_for_figs, self.shap_expected, self.class_thresh]]
+        exp_df = pd.DataFrame(
+            d, columns=("target", "name_for_figs", "shap_exp_val", "class_thresh")
+        )
         # print(exp_df)
-        shap_val_df.to_hdf(h5_file, key='shap_values', format="table")
-        shap_feat_df.to_hdf(h5_file, key='features_shap', format="table")
-        exp_df.to_hdf(h5_file, key = 'shap_expected_value', format='table')
+        shap_val_df.to_hdf(h5_file, key="shap_values", format="table")
+        shap_feat_df.to_hdf(h5_file, key="features_shap", format="table")
+        exp_df.to_hdf(h5_file, key="shap_expected_value", format="table")
+        ###TODO:
+        # assert np.array_equal(shap_values, shap_values2)  # load everything and make sure it's all the same
 
     def save_requirements(self):
         try:
-            cwd = os.getcwd() # record current workikng directory
-            tmp_dir = config.PROJECT_DIR/"tmp/"
+            cwd = os.getcwd()  # record current workikng directory
+            tmp_dir = config.PROJECT_DIR / "tmp/"
             if os.path.isdir(tmp_dir):
                 shutil.rmtree(tmp_dir)
             os.mkdir(tmp_dir)
             os.chdir(tmp_dir)
             jsonf = tmp_dir / "requirements.json"
 
-            sys.stdout = open(jsonf, 'w') 
+            sys.stdout = open(jsonf, "w")
             # open the json file to write to
-            reqs = conda.cli.main('conda', 'list', '--json', '-e') 
+            reqs = conda.cli.main("conda", "list", "--json", "-e")
             # calls conda list, output as json, which is recorded by stdout
-            sys.stdout.close() # close the redirected stdout
-            sys.stdout = sys.__stdout__ 
+            sys.stdout.close()  # close the redirected stdout
+            sys.stdout = sys.__stdout__
             # restore the previous stdout.
             reqs = pd.read_json(jsonf)
-            os.chdir(cwd) # back to the original directory
-            shutil.rmtree(tmp_dir) # remove temp directory and files
+            os.chdir(cwd)  # back to the original directory
+            shutil.rmtree(tmp_dir)  # remove temp directory and files
 
             # file_title = f"{self.target}_{self.n_features}_everything_"
             # timestr = time.strftime("_%Y-%m-%d")
@@ -127,7 +135,7 @@ class shapHelpers:
             # title = file_title + timestr + ext
             # h5_file = self.modelfolder / title
             h5_file = self.h5_file
-            reqs.to_hdf(h5_file, key='requirements', format="table")
+            reqs.to_hdf(h5_file, key="requirements", format="table")
             print("Requirements saved!")
         except Exception as exc:
             print(traceback.format_exc())
@@ -159,14 +167,12 @@ class shapHelpers:
         # title = file_title + timestr + ext
         # h5_file = self.modelfolder / title
         h5_file = self.h5_file
-        df_shap_train.to_hdf(h5_file, key='df_shap_train', format="table")
+        df_shap_train.to_hdf(h5_file, key="df_shap_train", format="table")
 
+        imp_cols.to_hdf(h5_file, key="ordered_shap_cols", format="table")
 
-
-        imp_cols.to_hdf(h5_file, key='ordered_shap_cols', format="table")
-                
-        # This part is just to make the names match the ugly half of the prettifying file        
-        imp_cols = (imp_cols.progress_apply(
+        # This part is just to make the names match the ugly half of the prettifying file
+        imp_cols = imp_cols.progress_apply(
             lambda x: x.str.strip()
             .str.replace("\t", "")
             .str.replace("_", " ")
@@ -175,7 +181,7 @@ class shapHelpers:
             .str.replace(",", " ")
             .str.replace("'", "")
             .str.capitalize()
-            ))
+        )
         # print(imp_cols)
         # Define and load the prettifying file
         prettycols_file = config.PRETTIFYING_COLUMNS_CSV
@@ -195,8 +201,8 @@ class shapHelpers:
         # )
         # print(pretty_imp_cols)
         # select first column
-        pretty_imp_cols.to_hdf(self.h5_file, key='pretty_imp_cols', format="table")
-        
+        pretty_imp_cols.to_hdf(self.h5_file, key="pretty_imp_cols", format="table")
+
         print("Columns prettified and saved to h5!")
 
     def shap_top_dependence_plots(self, n_plots):
@@ -296,7 +302,9 @@ class shapHelpers:
                     feature_names=self.features_shap.columns,
                 )
 
-                print(f"Making self dependence plot for {self.target} feature ranked {i}...")
+                print(
+                    f"Making self dependence plot for {self.target} feature ranked {i}..."
+                )
                 figure_title = f"{self.target}_SHAP_dependence_self_{i}_"
                 # timestr = time.strftime("_%Y-%m-%d-%H%M_")
                 timestr = self.timestr
@@ -353,8 +361,8 @@ class shapHelpers:
         # select first column
         pretty_shap_cols = pretty_shap_cols[[0]]
         # print(pretty_shap_cols.head())
-        pretty_shap_cols.to_hdf(self.h5_file, key='pretty_shap_cols', format="table")
-        
+        pretty_shap_cols.to_hdf(self.h5_file, key="pretty_shap_cols", format="table")
+
         print("Columns prettified and saved to h5!")
         return self.features_shap
 
@@ -380,7 +388,8 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary bar plot PDF...")
-        import cbh.texfig as texfig # set rcParams to texfig version...
+        import cbh.texfig as texfig  # set rcParams to texfig version...
+
         shap.summary_plot(
             self.shap_values,
             self.features_shap,
@@ -406,7 +415,7 @@ class shapHelpers:
         mpl.rcdefaults()
         mpl.use("Qt5Agg")
         print("Current mpl backend:", mpl.get_backend())
-        
+
         shap.summary_plot(
             self.shap_values,
             self.features_shap,
@@ -425,7 +434,8 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary plot PDF...")
-        import cbh.texfig as texfig # set rcParams to texfig version...
+        import cbh.texfig as texfig  # set rcParams to texfig version...
+
         shap.summary_plot(
             self.shap_values,
             self.features_shap,
@@ -461,12 +471,14 @@ class shapHelpers:
         # in "features_shap" or earlier
         for col in list(df_with_codes.select_dtypes(include="category")):
             df_with_codes[col] = df_with_codes[col].cat.codes
-        # takes a couple minutes since SHAP interaction values take a factor of 2 * # features 
+        # takes a couple minutes since SHAP interaction values take a factor of 2 * # features
         # # more time than SHAP values to compute, since this is just an example we only explain
         # the first 2,000 people in order to run quicker
         print("Getting interaction values...")
         try:
-            shap_int_vals = shap.TreeExplainer(self.model).shap_interaction_values(df_with_codes.iloc[:2000,:]) 
+            shap_int_vals = shap.TreeExplainer(self.model).shap_interaction_values(
+                df_with_codes.iloc[:2000, :]
+            )
             # file_title = f"{self.target}_{self.n_features}_everything_"
             # timestr = time.strftime("_%Y-%m-%d")
             # ext = ".h5"
@@ -474,16 +486,26 @@ class shapHelpers:
             # h5_file = self.modelfolder / title
             h5_file = self.h5_file
             shap_int_vals_df = pd.DataFrame(shap_int_vals)
-            shap_int_vals_df.to_hdf(h5_file, key = 'shap_int_vals', format='table')
+            shap_int_vals_df.to_hdf(h5_file, key="shap_int_vals", format="table")
             tmp = np.abs(shap_int_vals).sum(0)
             for i in range(tmp.shape[0]):
-                tmp[i,i] = 0
+                tmp[i, i] = 0
             inds = np.argsort(-tmp.sum(0))[:50]
-            tmp2 = tmp[inds,:][:,inds]
-            pl.figure(figsize=(12,12))
+            tmp2 = tmp[inds, :][:, inds]
+            pl.figure(figsize=(12, 12))
             pl.imshow(tmp2)
-            pl.yticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="right")
-            pl.xticks(range(tmp2.shape[0]), df_with_codes.columns[inds], rotation=50.4, horizontalalignment="left")
+            pl.yticks(
+                range(tmp2.shape[0]),
+                df_with_codes.columns[inds],
+                rotation=50.4,
+                horizontalalignment="right",
+            )
+            pl.xticks(
+                range(tmp2.shape[0]),
+                df_with_codes.columns[inds],
+                rotation=50.4,
+                horizontalalignment="left",
+            )
             pl.gca().xaxis.tick_top()
             figure_title = f"{self.target}_SHAP_int_vals_heatmap_"
             try:
@@ -505,17 +527,49 @@ class shapHelpers:
         n_plots = n_plots
         # Needs explainer.expected_value
         expected_value = expected_value
+        # select N random patients
         shap_indices = np.random.choice(
             self.shap_values.shape[0], n_plots
-        )  # select 5 random patients
+        )  
         for pt_num in shap_indices:
+            forcefolder = self.figfolder / "force_plots"
+            if not os.path.exists(forcefolder):
+                print("Making folder called", forcefolder)
+                os.makedirs(forcefolder)
+            figure_title = (
+                f"{self.target}_SHAP_forceplot_Pt_{pt_num}_{n_features}{self.timestr}"
+            )
+
+            # HTML force plots
+            shap.initjs()
+            filezzz = forcefolder / figure_title
+            filezzz = str(filezzz) + ".html"
+            out_path = str(Path(filezzz))
+            print(out_path)
+            shap.save_html(
+                out_path,
+                shap.force_plot(
+                    expected_value,  # this version uses the standard base value
+                    self.shap_values[pt_num, :],
+                    self.features_shap.iloc[
+                        pt_num, :
+                    ],  # grabs the identities and values of components
+                    text_rotation=15,  # easier to read
+                    matplotlib=False,  # keep the Javascript
+                    show=False,  # allows saving, etc.
+                    link="logit",
+                    feature_names=self.features_shap.columns,
+                ),
+            )
+
+            # PNG force plots
             # set params to default for png...
             mpl.rcParams.update(mpl.rcParamsDefault)
             mpl.rcdefaults()
             mpl.use("Qt5Agg")
             print("mpl backend for png:", mpl.get_backend())
 
-            print(f"{self.target} Making force plot for patient", pt_num, "...")
+            print(f"{self.target} Making PNG force plot for patient", pt_num, "...")
             shap.force_plot(
                 expected_value,  # this version uses the standard base value
                 self.shap_values[pt_num, :],
@@ -528,26 +582,20 @@ class shapHelpers:
                 link="logit",
                 feature_names=self.features_shap.columns,
             )
-            
-            figure_title = f"{self.target}_SHAP_forceplot_Pt_{pt_num}_{n_features}{self.timestr}"
-            # timestr = time.strftime("%Y-%m-%d-%H%M")
+
             ext = ".png"
             title = figure_title + ext
-            forcefolder = self.figfolder / "force_plots"
-            if not os.path.exists(forcefolder):
-                print("Making folder called", forcefolder)
-                os.makedirs(forcefolder)
             plt.savefig(
                 (forcefolder / title), dpi=1200, transparent=True, bbox_inches="tight"
             )
+
+            # SVG and PDF force plots
             try:
                 print(f"{self.target} Making SVG force plot for patient", pt_num, "...")
                 # update params for svg...
                 mpl.use("svg")
                 print("mpl backend for svg:", mpl.get_backend())
-                new_rc_params = {'text.usetex': False,
-                    "svg.fonttype": 'none'
-                    }
+                new_rc_params = {"text.usetex": False, "svg.fonttype": "none"}
                 mpl.rcParams.update(new_rc_params)
                 shap.force_plot(
                     expected_value,  # this version uses the standard base value
@@ -559,21 +607,25 @@ class shapHelpers:
                     matplotlib=True,  # instead of Javascript
                     show=False,  # allows saving, etc.
                     link="logit",
-                    feature_names=self.features_shap.columns, 
+                    feature_names=self.features_shap.columns,
                 )
-            
+
                 ext0 = ".svg"
                 title0 = figure_title + ext0
                 if not os.path.exists(forcefolder):
                     print("Making folder called", forcefolder)
                     os.makedirs(forcefolder)
                 plt.savefig(
-                    (forcefolder / title0), dpi=1200, transparent=True, bbox_inches="tight"
+                    (forcefolder / title0),
+                    dpi=1200,
+                    transparent=True,
+                    bbox_inches="tight",
                 )
                 plt.close()
 
                 # reset mpl params for LaTeX PDF via texfig.py
-                import cbh.texfig as texfig 
+                import cbh.texfig as texfig
+
                 shap.force_plot(
                     expected_value,  # this version uses the standard base value
                     self.shap_values[pt_num, :],
@@ -584,7 +636,7 @@ class shapHelpers:
                     matplotlib=True,  # instead of Javascript
                     show=False,  # allows saving, etc.
                     link="logit",
-                    feature_names=self.features_shap.columns, 
+                    feature_names=self.features_shap.columns,
                 )
                 title1 = figure_title
                 title1 = str(forcefolder) + "/" + title1

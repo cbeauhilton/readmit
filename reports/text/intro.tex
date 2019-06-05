@@ -4,22 +4,38 @@
 % \paragraph{}
 \lettrine[lines=3,lraise=0.05,nindent=0pt]{\textcolor{NEJMGreyText}{P}}{atients} and providers
 face a great amount of uncertainty before, during, and after hospital encounters.\@
-Predictive modeling holds promise for identifying patients at highest risk for adverse events, %
-such as extended length of stay, 30-day readmission, and death within the hospital encounter.\@
-Despite the success of predictive models in achieving discriminatory power in these and other areas, %
-simplistic models cannot account for complicated intersections of medical, %
-institutional, and demographic factors. Conversely, %
-complex models that account for these interactions are difficult or impossible to interpret or audit.\@
-They may therefore be inactionable or harmful if put into use.\@
-Recent studies suggest that a focus on metrics such as readmission without addressing
-underlying causes may lead to patient harm.\supercite{Wadhera2018} \@ 
-New techniques in interpretable machine learning allow for %
-complex models that are globally and locally interpretable, and may %
-therefore be useful for prediction as well as exploration of the underlying phenomena.\@
+Predictive modeling holds promise for identifying patients at highest risk for adverse events, 
+such as extended length of stay (LOS), 30-day readmission, and death within the hospital encounter.
+Despite the success of predictive models in achieving discriminatory power in these and other areas,
+simplistic models cannot account for complicated intersections of medical, institutional, and demographic factors. 
+Conversely, complex models that account for these interactions are difficult or impossible to interpret or audit, 
+and therefore may be inactionable or harmful if put into use, 
+and can also be difficult for healthcare providers understand or accept. \supercite{auerbach2018balancing,cabitza2017unintended,sniderman2015role}
+Recent studies suggest that a focus on metrics such as 30-day readmission without addressing underlying causes 
+may lead to increased patient mortality and increased cost without improving patient outcomes. \supercite{Wadhera2018}
 
-We hypothesized that interpretable predictive models would achieve comparable or superior performance to 
-existing models, and enable an understanding of factors leading to adverse outcomes for hospitalized patients.\@
-We also hypothesized that these models would reveal disparities in outcomes due to demographic factors,
-and show interactions between key variables. Here, we report models with high predictive power for readmission and
-extended length of stay, along with local and global interpretations, and discuss the use of 
-machine learning as a tool to aid understanding and find actionable insights.
+Significant recent advances in artificial intelligence (AI), machine learning (ML), and deep learning (DL) 
+have yielded compelling innovations from self-driving cars \supercite{bojarski2016end} to optimizing online search,\supercite{agirre2009personalizing}
+product recommendations,\supercite{bobadilla2013recommender}
+and beating the world champions in complex games such as chess and Go.\supercite{silver2018general}
+These advances have also started to impact healthcare: 
+detecting diabetic retinopathy in ophthalmology images,\supercite{gulshan2016development}
+detecting cancers in biopsy slides,\supercite{coudray2018classification} 
+and identifying malignant versus benign skin lesions
+with accuracy comparable to or exceeding trained physicians.\supercite{esteva2017dermatologist} 
+As electronic healthcare record data increase in size and complexity, 
+AI and ML may open opportunities to provide predictive modeling that can improve 
+patient safety and outcomes while decreasing healthcare cost. 
+A major hurdle to implement ML algorithms in healthcare is the “black box phenomenon,” 
+or lack of explainability of these models to physicians and healthcare providers. 
+However, recent advances have provided algorithms that extract important variables and explain model decisions. 
+Such an approach can ensure that variables included in the final model are clinically relevant 
+and can be recognized and understood by patients and healthcare providers. 
+
+In this study, we hypothesized that interpretable predictive models using ML would achieve comparable 
+or superior performance to existing models, and enable an understanding of factors leading to adverse 
+outcomes for hospitalized patients. 
+We also hypothesized that these models would reveal disparities in outcomes due to demographic factors, 
+and show interactions between key variables. 
+Here, we report ML models with high predictive power for readmission and extended LOS, 
+along with local and global interpretations, and discuss the use of ML as a tool to aid understanding and find actionable insights.

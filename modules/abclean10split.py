@@ -11,8 +11,8 @@ import numpy as np
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import StratifiedShuffleSplit
 
-import config
-from zz_generalHelpers import *
+from cbh import config
+from cbh import generalHelpers
 
 seed = config.SEED
 pd.options.display.max_columns = 2000

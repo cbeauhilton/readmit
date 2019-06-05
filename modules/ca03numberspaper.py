@@ -5,20 +5,22 @@ import sys
 sys.path.append("modules")
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 from plotly.offline import iplot
 from tableone import TableOne
 import time
+
 from cbh import config
 
-
-print("About to run ", os.path.basename(__file__))
+# print("About to run ", os.path.basename(__file__))
 startTime = datetime.now()
 
 
 # display all columns when viewing dataframes: make the number
 # anything bigger than your number of columns
 pd.options.display.max_columns = 2000
+
 
 figures_path = config.FIGURES_DIR
 tables_path = config.TABLES_DIR
@@ -29,7 +31,7 @@ print("Loaded.")
 print(list(data))
 #%%
 
-import numpy as np
+
 
 dummy = 1
 n_pts = data["patientid"].nunique()
@@ -92,8 +94,75 @@ median_los_per_pt = data.length_of_stay_in_days.median()
 q3_los_per_pt = data.length_of_stay_in_days.quantile(0.75)
 max_los_per_pt = data.length_of_stay_in_days.max()
 
+noobs = data.copy()
+noobs = noobs[noobs["patientclassdescription"] != "Observation"]
+noobs_min_los_per_pt = noobs.length_of_stay_in_days.min()
+noobs_mean_los_per_pt = noobs.length_of_stay_in_days.mean()
+noobs_q1_los_per_pt = noobs.length_of_stay_in_days.quantile(0.25)
+noobs_median_los_per_pt = noobs.length_of_stay_in_days.median()
+noobs_q3_los_per_pt = noobs.length_of_stay_in_days.quantile(0.75)
+noobs_max_los_per_pt = noobs.length_of_stay_in_days.max()
+print(noobs_median_los_per_pt)
+print(noobs_mean_los_per_pt)
+#%%
+nobabs = data.copy()
+print(len(nobabs))
 
-data0 = data
+babs_list = [
+    "Single liveborn infant delivered vaginally",
+    "Single lbby c section",
+    "Single liveborn infant delivered by cesarean",
+    "Prev c sect nos deliver",
+    "Post term preg delivered" ,
+    "Post term pregnancy" ,
+    "Del w 1 deg lacerat del" ,
+    "Oth curr cond delivered" ,
+    "Abn fetal hrt rate del" ,
+    "Elderly multigravida del" ,
+    "Breech presentat deliver" ,
+    "Thrt prem labor antepart" ,
+    "Twin pregnancy delivered",
+    "High head at term deliv" ,
+    "Twin liveborn infant delivered vaginally",
+    "Early onset delivery del",
+    "Poor fetal growth deliv",
+]
+
+for bybybab in babs_list:
+        nobabs = nobabs[nobabs["primary_diagnosis_code"] != bybybab]
+        print(bybybab)
+        print(len(nobabs))
+#%%
+
+# print(len(nobabs))
+print(f"Num deliveries dropped: {len(data) - len(nobabs)}")
+nobabs = nobabs[nobabs["patientclassdescription"] != "Observation"]
+# ~10,000 outpt
+nobabs = nobabs[nobabs["patientclassdescription"] != "Outpatient"]
+# ~8,000 amb surg
+nobabs = nobabs[nobabs["patientclassdescription"] != "Ambulatory Surgical Procedures"]  
+# ~7,000
+nobabs = nobabs[nobabs["patientclassdescription"] != "Emergency"]
+print(len(nobabs))
+print(f"Num deliveries, obs, outpt, abm surg, emergency dropped: {len(data) - len(nobabs)}")
+#%%
+# pd.options.display.max_rows = 2000
+# print(nobabs["primary_diagnosis_code"].value_counts().to_frame())
+#%%
+nobabs_min_los_per_pt = nobabs.length_of_stay_in_days.min()
+nobabs_mean_los_per_pt = nobabs.length_of_stay_in_days.mean()
+nobabs_q1_los_per_pt = nobabs.length_of_stay_in_days.quantile(0.25)
+nobabs_median_los_per_pt = nobabs.length_of_stay_in_days.median()
+nobabs_q3_los_per_pt = nobabs.length_of_stay_in_days.quantile(0.75)
+nobabs_max_los_per_pt = nobabs.length_of_stay_in_days.max()
+print(nobabs_median_los_per_pt)
+print(nobabs_mean_los_per_pt)
+#%%
+
+
+#%%
+
+data0 = data.copy()
 data0.length_of_stay_in_days = data0.length_of_stay_in_days.apply(
     np.floor
 )  # round down
@@ -147,6 +216,8 @@ d = [
         min_enc_per_pt,
         q1_enc_per_pt,
         median_enc_per_pt,
+        noobs_median_los_per_pt,
+        nobabs_median_los_per_pt,
         q3_enc_per_pt,
         max_enc_per_pt,
         idx_pt_w_max_encs,
@@ -179,6 +250,8 @@ csv_df = pd.DataFrame(
         "Minimum Encounters per Patient",
         "Q1 Encounters per Patient",
         "Median Encounters per Patient",
+        "Median Encounters per Patient Excluding Observation",
+        "Median Encounters per Patient Excluding Observation and Labor and Delivery",
         "Q3 Encounters per Patient",
         "Max Encounters per Patient",
         "Index of Patient with Max Encounters",
@@ -205,20 +278,24 @@ sentence01 = f"In the study period there were {n_encs:,} hospitalizations for {n
 sentence02 = f"The median number of hospitalizations per patient was {median_enc_per_pt:.0f} (range {min_enc_per_pt:.0f}-{max_enc_per_pt:.0f}, [{q1_enc_per_pt} , {q3_enc_per_pt}]). "
 sentence03 = f"There were {n_30dreadmits:,} thirty-day readmissions for an overall readmission rate of {readmit_rate*100:.0f}%. "
 sentence03a = f"Among patients aged 65 years or older, the thirty-day readmission rate was {readmit_rate_over_65*100:.0f}%. "
-sentence04 = f"The median length of stay was {median_los_per_pt:,.2f} days (range {min_los_per_pt:.0f}-{max_los_per_pt:.0f}, [{q1_los_per_pt} , {q3_los_per_pt}]). "
+sentence04 = f"The median LOS, including patients in observation status and labor and delivery patients, was {median_los_per_pt:,.2f} days (range {min_los_per_pt:.0f}-{max_los_per_pt:.0f}, [{q1_los_per_pt} , {q3_los_per_pt}]). "
+sentence04a = f"The median LOS excluding patients in observation status was {noobs_median_los_per_pt:,.2f} days (range {noobs_min_los_per_pt:.0f}-{noobs_max_los_per_pt:.0f}, [{noobs_q1_los_per_pt} , {noobs_q3_los_per_pt}]). "
+sentence04b = f"The median LOS excluding patients in observation status and labor and delivery patients, was {nobabs_median_los_per_pt:,.2f} days (range {nobabs_min_los_per_pt:.0f}-{nobabs_max_los_per_pt:.0f}, [{nobabs_q1_los_per_pt} , {nobabs_q3_los_per_pt}]). "
 sentence05 = f"The demographic and clinical characteristics of the patient cohort are summarized in Table 1. "
 sentence06a = f"Higher rates of 30-day readmissions were observed in patients who were older (median age {age_median_readmit:.0f} vs. {age_median_nonreadmit:.0f} years), "
-sentence06b = f"black (rate of {black_readmission*100:.0f}% vs. {white_readmission*100:.0f}% in whites), "
+sentence06b = f"African American (rate of {black_readmission*100:.0f}% vs. {white_readmission*100:.0f}% in whites), "
 # sentence06c = f"divorced/separated or widowed (rates of {divorced_readmission*100:.0f}%, {widowed_readmission*100:.0f}% vs. rates of {married_readmission*100:.0f}%, {single_readmission*100:.0f}% for married/partnered or single patients, respectively), "
 sentence06c = f"divorced/separated or widowed (rates of {divorced_readmission*100:.0f}% vs. rates of {married_readmission*100:.0f}% for married/partnered or single patients), "
 sentence06d = f"on Medicare insurance (rate of {medicare_readmission*100:.0f}% vs. {private_readmission*100:.0f}% for private insurance), "
-sentence06e = "and had conditions such as cancer, renal disease, congestive heart failure, and COPD (\hyperref[table:table1]{Table 1})."
+sentence06e = "and had one or multiple chronic conditions such as cancer, renal disease, congestive heart failure, and chronic obstructive pulmonary disease, etc. (\hyperref[table:table1]{Table 1})."
 paragraph01 = (
     sentence01
     + sentence02
     + sentence03
     + sentence03a
     + sentence04
+    + sentence04a
+    + sentence04b
     + sentence05
     + sentence06a
     + sentence06b

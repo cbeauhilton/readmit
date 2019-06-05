@@ -33,7 +33,7 @@ from sklearn.metrics import (
     precision_recall_curve,
 )
 from sklearn.model_selection import train_test_split
-from sklearn.utils.fixes import signature
+from inspect import signature
 
 try:
     import cPickle as pickle
@@ -150,12 +150,6 @@ class lgbmClassificationHelpers:
         print("JSONpickling the model...")
         frozen = jsonpickle.encode(self.gbm_model)
         print("Saving GBM model to .h5 file...")
-
-        # file_title = f"{self.target}_{n_features}_everything_"
-        # ext = ".h5"
-        # title = file_title + self.timestr_d + ext
-        # h5_file = self.modelfolder / title
-
         h5_file = self.h5_file
         with h5py.File(h5_file, 'a') as f:
             try:
@@ -519,7 +513,7 @@ class lgbmClassificationHelpers:
         # Overall accuracy
         ACC = (TP + TN) / (TP + FP + FN + TN)
 
-        print(self.target)
+        # print(self.target)
         n_pts = len(predicted_labels)
         print("N:", n_pts)
         # print("Prevalence:", prevalence)
@@ -614,6 +608,7 @@ class lgbmClassificationHelpers:
             df2.to_csv(feature_selection_csv, mode="a", header=True)
         elif os.path.isfile(feature_selection_csv):
             df2.to_csv(feature_selection_csv, mode="a", header=False)
+        ###TODO: save this to h5 file as well
 
         import cbh.config as config
 

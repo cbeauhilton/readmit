@@ -72,10 +72,18 @@
 \end{minipage}
 \vspace{-2.5mm}
 
-\caption{\textbf{30-day Readmission.} \\
+\caption{\textbf{30-day Readmission.} \\\\
 Model performance curves are shown for binary classification (Panel~\ref{fig:roc30d}) and probability calibration (Panel~\ref{fig:cal30d}).
-Panels~\ref{fig:shapsumbar30d} and~\ref{fig:shapsum30d} show the most impactful features on prediction, along with the impact of high or low values for numeric features.
-Panels~\ref{fig:shapforce30d1}--\ref{fig:shapforce30d3} show the composition of invididualized predictions for three patients. 
+Panels~\ref{fig:shapsumbar30d} and~\ref{fig:shapsum30d} show the most impactful features on prediction, 
+along with the impact of high or low values for numeric features.\\\\
+Panels~\ref{fig:shapforce30d1}--\ref{fig:shapforce30d3} show the composition of invididualized predictions for three patients.\@
+The patient in~\ref{fig:shapforce30d1} was admitted from the emergency outpatient unit with a headache and stayed for over 7 days.\@
+Additionally, they had been hospitalized 3 times prior to this admission, and had been discharged from their last admission only 8 days prior.\@
+The model predicted their probability of 30-day readmission (0.30) was three times the baseline value predicted by the model (\textasciitilde0.1).\@
+All of the listed features increased the model's prediction of risk by the relative amounts shown by the size of the red bars.\@
+Conversely, the patient in~\ref{fig:shapforce30d3} was admitted for a complete uterovaginal prolapse, stayed less than a full day, and had
+no reported comorbidities such as hypertension, depression, or a history of cancer.\@
+The model predicted their probability of 30-day readmission at 0.3, or roughly one third of the baseline prediction.
 }\label{fig:30dreadmission}
 \end{adjustbox}
 \end{figure}

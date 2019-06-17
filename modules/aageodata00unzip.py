@@ -34,7 +34,6 @@ print("Zip file extracted.")
 print("Reading text file into dataframe...")
 with open(extracted_file) as f:
     input = StringIO(f.read())
-
     geo_raw = pd.read_csv(input, sep="\t", index_col=0, engine="python")
 
 print("Dataframe created.")

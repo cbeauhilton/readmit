@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
-import config
+from cbh import config
 import configcols
 
 print("About to run", os.path.basename(__file__))

@@ -3,11 +3,16 @@
 \usepackage[table]{xcolor}
 \definecolor{blue}{HTML}{0000FF}
 \definecolor{red}{HTML}{FF0000}
-\definecolor{NEJMRed}{HTML}{FC0031}
-\definecolor{NEJMTopRow}{HTML}{F7F1EC}
-\definecolor{NEJMAlternatingRows}{HTML}{FFF9ED}
-\definecolor{NEJMCaptionBackground}{HTML}{F7F1EC} 
-\definecolor{NEJMSectionTitleBackground}{HTML}{FFFEF2}
+% \definecolor{NEJMRed}{HTML}{FC0031}
+\definecolor{NEJMRed}{HTML}{D71634} % actually JAMA 
+% \definecolor{NEJMTopRow}{HTML}{F7F1EC}
+\definecolor{NEJMTopRow}{HTML}{FFFFFF} % actually JAMA
+% \definecolor{NEJMAlternatingRows}{HTML}{FFF9ED}
+\definecolor{NEJMAlternatingRows}{HTML}{F2F1E9} % actually JAMA
+% \definecolor{NEJMCaptionBackground}{HTML}{F7F1EC} 
+\definecolor{NEJMCaptionBackground}{HTML}{FFFFFF} % actually JAMA
+% \definecolor{NEJMSectionTitleBackground}{HTML}{FFFEF2} %
+\definecolor{NEJMSectionTitleBackground}{HTML}{FFFFFF} % actually JAMA
 \definecolor{NEJMGreyText}{HTML}{A9ABAF} %
 \definecolor{NEJMAuthorText}{HTML}{76797C} %
 
@@ -230,3 +235,8 @@
 \fancyfoot[C]{\tiny\today}
 \renewcommand{\headrulewidth}{0pt}
 \frenchspacing
+
+
+\let\oldtabular\tabular
+\let\endoldtabular\endtabular
+\renewenvironment{tabular}{\rowcolors{2}{NEJMAlternatingRows}{NEJMAlternatingRows}\oldtabular}{\endoldtabular}

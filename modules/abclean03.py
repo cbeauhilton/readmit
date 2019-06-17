@@ -12,7 +12,7 @@ import numpy as np
 
 tqdm.pandas()
 
-import config
+from cbh import config
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()

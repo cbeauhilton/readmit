@@ -1,0 +1,32 @@
+Target ; ROC AUC ; Brier Score Loss ;   RMSE 
+
+                        
+Readmitted within 30 days ;    0.76 ;              0.11 ;        -- 
+
+Readmitted within 7 days  ;    0.70 ;              0.05 ;        -- 
+
+Readmitted within 5 days  ;    0.69 ;              0.03 ;        -- 
+
+Readmitted within 3 days  ;    0.67 ;              0.02 ;        -- 
+
+Days to readmission       ;      -- ;                -- ;      8.98 
+
+Death within 48--72 hours ;    0.91 ;              0.001 ;        -- 
+
+Hospital stay over 7 days ;    0.84 ;              0.12 ;        -- 
+
+Hospital stay over 5 days ;    0.84 ;              0.15 ;        -- 
+
+Hospital stay over 3 days ;    0.84 ;              0.16 ;        -- 
+
+Length of stay (days)     ;      -- ;                -- ;      3.94 
+
+Gender                    ;    0.88 ;              0.14 ;        -- 
+
+Race                      ;    0.92 ;              0.09 ;        -- 
+
+Payer Class               ;    0.92 ;              0.10 ;        -- 
+
+Age over 65 years         ;    0.94 ;              0.09 ;        -- 
+
+Age (years)               ;      -- ;                -- ;     10.37 

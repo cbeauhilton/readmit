@@ -61,11 +61,11 @@ def runall():
     # import aageodata02get_noaa
     # import aaprelim06dxcodes
     # import aaziptopickle
-    import abclean00
-    import abclean01
-    import abclean02
-    import abclean03
-    import abclean04geo
+    # import abclean00
+    # import abclean01
+    # import abclean02
+    # import abclean03
+    # import abclean04geo
 
     # # # import abclean05xx # placeholder
     import aaprelim06dxcodes
@@ -75,7 +75,7 @@ def runall():
     import abclean09categories
     import abclean10split
     import abclean11tableone
-
+    import zzdeidentify
     # # # import abclean12targetedpickling
 
     # # # """ Pictures and tables """

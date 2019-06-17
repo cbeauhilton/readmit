@@ -15,7 +15,7 @@ import time
 
 tqdm.pandas()
 
-import config
+from cbh import config
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
@@ -50,8 +50,10 @@ for col in death_date_cols:
     data[col] = pd.to_datetime(data[col])
     # data[col] = pd.to_datetime(data[col], yearfirst=True)
     timecolname = f"time_from_admission_to_{col}"
+    timecolname_2 = f"time_from_discharge_to_{col}"
     print(timecolname)
     data[timecolname] = data[col] - data["admissiontime"]
+    data[timecolname_2] = data[col] - data["dischargetime"]
     hourscolname = f"hours_from_admission_to_{col}"
     print(hourscolname)
     data[hourscolname] = data.progress_apply(

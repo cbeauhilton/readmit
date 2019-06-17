@@ -66,6 +66,9 @@ CLEAN_PHASE_09 = INTERIM_DATA_DIR / "ccf_clean_phase_09.pickle"
 CLEAN_PHASE_10 = INTERIM_DATA_DIR / "ccf_clean_phase_10.pickle"
 CLEAN_PHASE_11_TABLEONE = INTERIM_DATA_DIR / "ccf_clean_tableone_phase_11.pickle"
 
+UNSCRUBBED_H5 = INTERIM_DATA_DIR / "readmit_unscrubbed.h5"
+SCRUBBED_H5 = INTERIM_DATA_DIR / "readmit_scrubbed.h5"
+
 # change this as needed
 # TODO: make selecting the most recent file automatic
 PROCESSED_FINAL = CLEAN_PHASE_10

@@ -18,7 +18,7 @@ import csv
 tqdm.pandas()
 
 sys.path.append("modules")
-import config
+from cbh import config
 import configcols
 
 print("About to run", os.path.basename(__file__))
@@ -67,7 +67,7 @@ df0 = df0.drop([0], axis=1)
 # print(df0_0.head())
 
 ccf_code_list = Path(
-    r"C:\Users\hiltonc\Desktop\readmit\docs\value counts\primary_diagnosis_code.csv"
+    r"C:\Users\hiltonc\Desktop\readmit\readmit\docs\value counts\primary_diagnosis_code.csv"
 )
 df1 = pd.read_csv(ccf_code_list)
 print("CCF:", len(df1))
@@ -126,7 +126,7 @@ dffinal = dffinal.progress_apply(
 ICD 9 codes
 '''
 
-filename = Path(r"C:\Users\hiltonc\Desktop\readmit\docs\DDW_Diagnoses.csv")
+filename = Path(r"C:\Users\hiltonc\Desktop\readmit\readmit\docs\DDW_Diagnoses.csv")
 ddw = pd.read_csv(filename)
 ddw = ddw.rename(index=str, columns={"Diagnosis_Code": "diagnosis code", "Diagnosis_Description": "diagnosis description"})
 ddw = ddw.drop(["Diagnosis_Key"], axis=1)

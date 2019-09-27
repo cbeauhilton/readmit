@@ -60,7 +60,7 @@ targets = [
     # "died_within_48_72h_of_admission_combined",
 ]
 
-shap_indices = [50] #[500]  # 10, 20, 30, 40, 50, 60
+shap_indices = [22] #[500]  # 10, 20, 30, 40, 50, 60
 
 # for last one, could use large number or "None"
 
@@ -81,6 +81,9 @@ for shap_index in shap_indices:
         top_shaps = top_shaps[:shap_index]
         shap_list = top_shaps["feature_names"].tolist()
         shap_list.append(target)  # to make the labels and features sets
+        dont_misses = ["platelet_count_admit_value","pressureulcer_Present_on_Admission_to_the_Hospital"]
+        for dont_miss in dont_misses:
+            shap_list.append(dont_miss)
         if target in (
             "length_of_stay_over_3_days",
             "length_of_stay_over_5_days",
@@ -263,32 +266,32 @@ for shap_index in shap_indices:
         
 
         # PMML stuff
-        cat_columns = list(train_features.select_dtypes(include="category"))
-        cont_columns = list(train_features.select_dtypes(include="number"))
-        mapped_cols_len = len(cat_columns) + len(cont_columns)
-        all_mapped_cols = [*cat_columns, *cont_columns]
-        missing_from_mapper = list(set(list(train_features)) - set(all_mapped_cols))
-        if mapped_cols_len != len(list(train_features)):
-            print(
-                f"Mapped {mapped_cols_len}, but total number of columns == {len(list(train_features))}"
-            )
-            print(f"Missing the columns: {missing_from_mapper}.")
+        # cat_columns = list(train_features.select_dtypes(include="category"))
+        # cont_columns = list(train_features.select_dtypes(include="number"))
+        # mapped_cols_len = len(cat_columns) + len(cont_columns)
+        # all_mapped_cols = [*cat_columns, *cont_columns]
+        # missing_from_mapper = list(set(list(train_features)) - set(all_mapped_cols))
+        # if mapped_cols_len != len(list(train_features)):
+        #     print(
+        #         f"Mapped {mapped_cols_len}, but total number of columns == {len(list(train_features))}"
+        #     )
+        #     print(f"Missing the columns: {missing_from_mapper}.")
 
 
 
-        mapper = DataFrameMapper(
-            [([cat_column], [CategoricalDomain(), PMMLLabelEncoder()]) for cat_column in cat_columns]            
-            + [(cont_columns, ContinuousDomain())]
-        )
-        # Xt = mapper.fit_transform(train_features)
-        # cat_indices = [i for i in range(0, Xt.shape[1] - len(cont_columns))]
+        # mapper = DataFrameMapper(
+        #     [([cat_column], [CategoricalDomain(), PMMLLabelEncoder()]) for cat_column in cat_columns]            
+        #     + [(cont_columns, ContinuousDomain())]
+        # )
+        # # Xt = mapper.fit_transform(train_features)
+        # # cat_indices = [i for i in range(0, Xt.shape[1] - len(cont_columns))]
 
-        cat_indices = [i for i in range(0, len(cat_columns))]
-        pipeline = PMMLPipeline([("mapper", mapper), ("classifier", gbm_model)])
-        # 
-        pipeline.fit(train_features, train_labels.values.ravel(), classifier__categorical_feature = cat_indices)
-        pmml_file = config.MODELS_DIR / f"{target}.pmml"
-        sklearn2pmml(pipeline, pmml_file)
+        # cat_indices = [i for i in range(0, len(cat_columns))]
+        # pipeline = PMMLPipeline([("mapper", mapper), ("classifier", gbm_model)])
+        # # 
+        # pipeline.fit(train_features, train_labels.values.ravel(), classifier__categorical_feature = cat_indices)
+        # pmml_file = config.MODELS_DIR / f"{target}.pmml"
+        # sklearn2pmml(pipeline, pmml_file)
 
         metricsgen.lgbm_save_feature_importance_plot()
         metricsgen.lgbm_classification_results()
@@ -301,6 +304,7 @@ for shap_index in shap_indices:
         shap_values = explainer.shap_values(features_shap)
 
         shap_expected = explainer.expected_value
+        print(shap_expected)
         helpshap = shapHelpers(
             target,
             name_for_figs,
@@ -335,3 +339,5 @@ print("This program,", os.path.basename(__file__), "took")
 print(datetime.now() - startTime)
 print("to run.")
 print("\n")
+
+# LOS 5d expected: [1.124068978234447, -1.124068978234447]

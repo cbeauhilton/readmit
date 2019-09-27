@@ -1,1 +1,0 @@
-The cohort of hospitalizations was split into three groups for analysis: 80% for model development (n=1,169,189), 10% for testing (n=146,149), and 10% for validation (n=146,149). Selection of hospitalizations for inclusion in each group was random with the exception of ensuring the readmission rate was consistently 17%.

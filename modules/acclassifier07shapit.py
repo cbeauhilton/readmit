@@ -12,7 +12,12 @@ import numpy as np
 import pandas as pd
 import shap
 from sklearn.exceptions import UndefinedMetricWarning
-
+from sklearn_pandas import DataFrameMapper
+from sklearn.preprocessing import LabelBinarizer
+from sklearn2pmml import sklearn2pmml
+from sklearn2pmml.decoration import CategoricalDomain, ContinuousDomain
+from sklearn2pmml.preprocessing import PMMLLabelEncoder
+from sklearn2pmml.pipeline import PMMLPipeline
 import cbh.config as config
 import configcols
 from cbh.generalHelpers import (
@@ -39,7 +44,7 @@ startTime = datetime.now()
 
 targets = [
     # "readmitted30d",
-    # "length_of_stay_over_5_days",
+    "length_of_stay_over_5_days",
     # "financialclass_binary",
     # "age_gt_65_y",
     # "gender_binary",
@@ -52,12 +57,16 @@ targets = [
     # "length_of_stay_over_7_days",
     # "age_gt_10_y",
     # "age_gt_30_y",
-    "died_within_48_72h_of_admission_combined",
+    # "died_within_48_72h_of_admission_combined",
 ]
 
-shap_indices = [500]  # 10, 20, 30, 40, 50, 60
+shap_indices = [50] #[500]  # 10, 20, 30, 40, 50, 60
 
 # for last one, could use large number or "None"
+
+seed = config.SEED
+debug = False
+print("Debug:", debug)
 
 for shap_index in shap_indices:
 
@@ -87,9 +96,8 @@ for shap_index in shap_indices:
 
         print("File loaded.")
 
-        seed = config.SEED
-        debug = False
-        print("Debug:", debug)
+        if debug:
+            data = data[:20000]
 
         figfolder = make_figfolder_for_target(debug, target)
         datafolder = make_datafolder_for_target(debug, target)
@@ -121,7 +129,7 @@ for shap_index in shap_indices:
             print("Dropping expired and obs patients for death prediction...")
             data = data[data["dischargedispositiondescription"] != "Expired"]
             data = data[data["patientclassdescription"] != "Observation"]
-            data = data[data["length_of_stay_in_days"]<=2.5]
+            data = data[data["length_of_stay_in_days"] <= 2.5]
         elif target == "financialclass_binary":
             name_for_figs = "Insurance"
         elif target == "gender_binary":
@@ -131,8 +139,14 @@ for shap_index in shap_indices:
         elif target == "discharged_in_past_30d":
             name_for_figs == "Discharged in Past 30 Days"
 
-        data = data[shap_list]
-
+        dropem = list(set(list(data)) - set(shap_list))
+        for col in dropem:
+            try:
+                data = data.drop(columns=col)
+            except:
+                print(f"Couldn't drop {col}. Hmm.")
+                
+        # data = data[shap_list]
         train_set, test_set, valid_set = train_test_valid_80_10_10_split(
             data, target, seed
         )
@@ -174,7 +188,11 @@ for shap_index in shap_indices:
 
         class_thresh = 0.5
 
-        if target in ("readmitted30d", "length_of_stay_over_7_days", "discharged_in_past_30d"):
+        if target in (
+            "readmitted30d",
+            "length_of_stay_over_7_days",
+            "discharged_in_past_30d",
+        ):
             class_thresh = 0.2
             print(f" Target = {target},\n class_thresh changed to {class_thresh}")
 
@@ -184,6 +202,9 @@ for shap_index in shap_indices:
 
         params = config.C_READMIT_PARAMS_LGBM
         early_stopping_rounds = 200
+        if debug:
+            early_stopping_rounds = 2
+        print(f"Early stopping rounds: {early_stopping_rounds}.")
         # gbm_model = lgb.LGBMClassifier(**params) # <-- could also do this, but it's kind of nice to have it all explicit
         gbm_model = lgb.LGBMClassifier(
             boosting_type=params["boosting_type"],
@@ -239,6 +260,36 @@ for shap_index in shap_indices:
         )
         metricsgen.lgbm_save_ttv_split()
         pkl_model = metricsgen.lgbm_save_model_to_pkl_and_h5()
+        
+
+        # PMML stuff
+        cat_columns = list(train_features.select_dtypes(include="category"))
+        cont_columns = list(train_features.select_dtypes(include="number"))
+        mapped_cols_len = len(cat_columns) + len(cont_columns)
+        all_mapped_cols = [*cat_columns, *cont_columns]
+        missing_from_mapper = list(set(list(train_features)) - set(all_mapped_cols))
+        if mapped_cols_len != len(list(train_features)):
+            print(
+                f"Mapped {mapped_cols_len}, but total number of columns == {len(list(train_features))}"
+            )
+            print(f"Missing the columns: {missing_from_mapper}.")
+
+
+
+        mapper = DataFrameMapper(
+            [([cat_column], [CategoricalDomain(), PMMLLabelEncoder()]) for cat_column in cat_columns]            
+            + [(cont_columns, ContinuousDomain())]
+        )
+        # Xt = mapper.fit_transform(train_features)
+        # cat_indices = [i for i in range(0, Xt.shape[1] - len(cont_columns))]
+
+        cat_indices = [i for i in range(0, len(cat_columns))]
+        pipeline = PMMLPipeline([("mapper", mapper), ("classifier", gbm_model)])
+        # 
+        pipeline.fit(train_features, train_labels.values.ravel(), classifier__categorical_feature = cat_indices)
+        pmml_file = config.MODELS_DIR / f"{target}.pmml"
+        sklearn2pmml(pipeline, pmml_file)
+
         metricsgen.lgbm_save_feature_importance_plot()
         metricsgen.lgbm_classification_results()
 

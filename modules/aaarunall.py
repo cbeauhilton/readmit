@@ -68,29 +68,32 @@ def runall():
     # import abclean04geo
 
     # # # import abclean05xx # placeholder
-    import aaprelim06dxcodes
+    # import aaprelim06dxcodes
 
     # # # import abclean07xx # placeholder
     # # # import abclean08xx # placeholder
-    import abclean09categories
-    import abclean10split
-    import abclean11tableone
-    import zzdeidentify
+    # import abclean09categories
+    # import abclean10split
+    # import abclean11tableone
+    # import zzdeidentify
     # # # import abclean12targetedpickling
 
     # # # """ Pictures and tables """
     # # # import ca00tableoneexplore
     # # # import ca01tableonepaper
-    # # # # import ca02plotly
+    # # # import ca02plotly
     # import ca03numberspaper
 
     # """ Classifiers """
+
+    import acclassifier07shapit
+
     # from acclassifier01 import classifiermany
 
     # test_targets = config.CLASSIFIER_TEST_TARGETS
     # debugfraction = 0.015  # default is 0.005
     # class_thresh = 0.26
-    # debug=True
+    # debug=False
     # # default is 0.15. ###UPDATE: added automatic thresh calculation in loop. May need adjusting.
 
     # classifiermany(

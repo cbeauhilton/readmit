@@ -37,6 +37,7 @@ print("Replacing govt NaN placeholder with np.nan...")
 # govt data uses "-666666666.0" as a NaN placeholder
 geodata = geodata.replace(-666666666.0, np.nan)
 
+
 # make the merge easier, match the geodata date col names to the data date col names
 print("Renaming geodata cols...")
 geodata = geodata.rename(
@@ -44,6 +45,7 @@ geodata = geodata.rename(
     columns={
         "Admit_Date": "admissiontime_date",
         "Discharge_Date": "dischargetime_date",
+        'PatientID': 'patientid',
         # Rename the ACS data so it's interpretable:
         "B01003_001E": "acs_total_population_count",
         "B02001_002E": "acs_race_white_alone",
@@ -62,10 +64,20 @@ geodata = geodata.rename(
 )
 
 print("Merging...")
+
+data = data.drop(columns="patientid_")
+
 # The "for loop" did not generate these as pd datetimes, fix here
 date_cols = ["admissiontime_date", "dischargetime_date"]
+# print(list(data))
+
 for col in date_cols:
     data[col] = pd.to_datetime(data[col], yearfirst=True)
+    # print(data[col])
+    geodata[col] = geodata[col].replace("Not available", np.nan)
+    geodata[col] = pd.to_datetime(geodata[col], yearfirst=True)
+    # print(geodata[col])
+    
 result = data.merge(
     geodata, on=["patientid", "admissiontime_date", "dischargetime_date"], how="left"
 )

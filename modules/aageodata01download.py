@@ -15,7 +15,7 @@ from pandas.io.json import json_normalize
 from tqdm import tqdm
 
 sys.path.append("modules")
-import config
+from cbh import config
 
 pd.set_option("display.expand_frame_repr", False)
 pd.set_option("display.precision", 2)

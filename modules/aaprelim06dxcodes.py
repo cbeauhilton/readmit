@@ -66,9 +66,10 @@ df0 = df0.drop([0], axis=1)
 # print(df0.head())
 # print(df0_0.head())
 
-ccf_code_list = Path(
-    r"C:\Users\hiltonc\Desktop\readmit\readmit\docs\value counts\primary_diagnosis_code.csv"
-)
+ccf_code_list = config.CCF_CODE_LIST
+
+# Path(r"C:\Users\hiltonc\Desktop\readmit\readmit\docs\value counts\primary_diagnosis_code.csv")
+
 df1 = pd.read_csv(ccf_code_list)
 print("CCF:", len(df1))
 df1 = df1.drop(["primary_diagnosis_code", "Unnamed: 0"], axis=1)
@@ -126,7 +127,7 @@ dffinal = dffinal.progress_apply(
 ICD 9 codes
 '''
 
-filename = Path(r"C:\Users\hiltonc\Desktop\readmit\readmit\docs\DDW_Diagnoses.csv")
+filename = config.DDW_DIAGNOSES_CSV
 ddw = pd.read_csv(filename)
 ddw = ddw.rename(index=str, columns={"Diagnosis_Code": "diagnosis code", "Diagnosis_Description": "diagnosis description"})
 ddw = ddw.drop(["Diagnosis_Key"], axis=1)

@@ -1,3 +1,14 @@
+*.pickle
+*.csv
+*.h5
+*.zip
+*.parq
+*.pdf
+*.html
+*.png
+*.jpg
+*.ipynb
+
 
 # For HIPAA: exclude data and ipynb
 /data/
@@ -133,3 +144,6 @@ target/
 *.run.xml
 *.bcf
 *.bib.bak
+
+
+

@@ -242,7 +242,28 @@ for groupby in groupbys:
         isnull=False,
         pval=False,
     )
-
+    if groupby == "length_of_stay_over_7_days":
+        print("Dropping obs for LOS...")
+        
+        los_data = data[data["dischargedispositiondescription"] != "Expired"]
+        los_data = los_data[los_data["patientclassdescription"] != "Observation"]  #
+        los_data = los_data[los_data["patientclassdescription"] != "Outpatient"]  # ~10,000
+        los_data = los_data[
+            los_data["patientclassdescription"] != "Ambulatory Surgical Procedures"
+        ]  # ~8,000
+        los_data = los_data[los_data["patientclassdescription"] != "Emergency"]  # ~7,000
+        mytable = TableOne(
+                los_data,
+                groupby=groupby,
+                columns=columns,
+                categorical=categorical,
+                nonnormal=nonnormal,
+                labels=labels,
+                label_suffix=True,
+                decimals=decimals,
+                isnull=False,
+                pval=False,
+            )
     print("Saving to file...")
     figure_title = "_tableone_"
     timestr = time.strftime("%Y-%m-%d-%H%M")

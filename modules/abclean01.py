@@ -23,26 +23,17 @@ startTime = datetime.now()
 pd.options.display.max_columns = 2000
 
 # Load file
-filename = config.CLEAN_PHASE_00
-print("Loading", filename)
-data = pd.read_pickle(filename)
+# filename = config.CLEAN_PHASE_00
+# print("Loading", filename)
+# data = pd.read_pickle(filename)
+
+
+interim_file = config.INTERIM_H5
+print("Loading", interim_file)
+data = pd.read_hdf(interim_file, key='phase_00')
 print("File loaded.")
 
-print("Condensing gender category...")
-data = data[
-    (data.gender == "Female") | (data.gender == "Male")
-]  # Judith Butler is crying
 
-print("Condensing primary_language category...")
-data.loc[
-    data.groupby("primary_language").primary_language.transform("count").lt(1500),
-    "primary_language",
-] = "Language.other"  # make all languages with <1500 speakers into one category
-d = {
-    "Language not recorded": "Language_other",
-    "Language.other": "Language_other",
-}  # lump the unrecorded and rare languages
-data.primary_language = data.primary_language.replace(d)
 
 death_date_cols = ["epicdeathdate", "ohiodeathindexdate", "socialsecuritydeathdate"]
 
@@ -129,6 +120,10 @@ print("CSV of features available at: ", feature_list_file)
 # print(list(data))
 
 print("Saving to file...")
+
+data.to_hdf(interim_file, key='phase_01', mode='a', format='table')
+
+
 filename1 = config.CLEAN_PHASE_01
 data.to_pickle(filename1)
 print("Clean phase_01 available at:", filename1)

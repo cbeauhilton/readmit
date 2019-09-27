@@ -4,7 +4,7 @@ import os
 print("Loading", os.path.basename(__file__))
 
 # Directories
-PROJECT_DIR = Path(r"C:/Users/hiltonc/Desktop/readmit/readmit/")
+PROJECT_DIR = Path(r"/home/hiltonc/ccf_readmit_1/")
 RAW_DATA_DIR = PROJECT_DIR / "data/raw/"
 INTERIM_DATA_DIR = PROJECT_DIR / "data/interim/"
 EXTERNAL_DATA_DIR = PROJECT_DIR / "data/external/"
@@ -24,6 +24,7 @@ TABLES_ONE_DIR = TABLES_DIR / "tables_one/"
 TEXT_DIR = PROJECT_DIR / "reports/text/pygen/"
 TEX_TABLE_DIR = PROJECT_DIR / "reports/text/tables/"
 
+DOCS_DIR = PROJECT_DIR / "docs"
 # Specific files
 
 # TODO: autorename zip file
@@ -52,7 +53,11 @@ CENSUS_API_KEY = "c92c0a70527edc1d91a8c7272af0cb463a4251cf"
 # CENSUS_API_KEY = "812c978a2a0d7d99d24fd6e7e22df82b14e1b968"
 # CENSUS_API_KEY = "701d6962daf4d31a62672fb901121fd95abcd7c2"
 PRETTIFYING_COLUMNS_CSV = PROCESSED_DATA_DIR / "prettifying1.csv"
+CCF_CODE_LIST = DOCS_DIR / "value counts/primary_diagnosis_code.csv"
+DDW_DIAGNOSES_CSV = DOCS_DIR / "DDW_Diagnoses.csv"
 
+INTERIM_H5 = INTERIM_DATA_DIR / "interim.h5"
+INTERIM_PARQ = INTERIM_DATA_DIR / "interim.parq"
 CLEAN_PHASE_00 = INTERIM_DATA_DIR / "ccf_clean_phase_00.pickle"
 CLEAN_PHASE_01 = INTERIM_DATA_DIR / "ccf_clean_phase_01.pickle"
 CLEAN_PHASE_02 = INTERIM_DATA_DIR / "ccf_clean_phase_02.pickle"
@@ -171,28 +176,28 @@ ONE_HOT_ENCODER = 1
 SEED = 42
 
 CLASSIFIER_TEST_TARGETS = [
-    "readmitted30d",
-    "length_of_stay_over_3_days",  # median is ~3
+    # "readmitted30d",
+    # "length_of_stay_over_3_days",  # median is ~3
     "length_of_stay_over_5_days",  # mean is ~4.5
-    "length_of_stay_over_7_days",
-    "length_of_stay_over_14_days",
-    "financialclass_binary",
-    "gender_binary",
-    "race_binary",
+    # "length_of_stay_over_7_days",
+    # "length_of_stay_over_14_days",
+    # "financialclass_binary",
+    # "gender_binary",
+    # "race_binary",
     # "died_within_48_72h_of_admission_combined",
-    "readmitted0_5d",
-    "readmitted1d",
-    "readmitted3d",
-    "readmitted5d",
-    "readmitted7d",
-    "readmitted15d",
-    "readmitted28d",
-    "readmitted45d",
-    "readmitted90d",
-    "readmitted180d",
-    "readmitted365d",
-    "readmitted3650d",
-    "discharged_in_past_30d",
+    # "readmitted0_5d",
+    # "readmitted1d",
+    # "readmitted3d",
+    # "readmitted5d",
+    # "readmitted7d",
+    # "readmitted15d",
+    # "readmitted28d",
+    # "readmitted45d",
+    # "readmitted90d",
+    # "readmitted180d",
+    # "readmitted365d",
+    # "readmitted3650d",
+    # "discharged_in_past_30d",
 ]
 
 C_READMIT_PARAMS_LGBM = {

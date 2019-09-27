@@ -29,17 +29,7 @@ print("Zip file extracted.")
 
 # file = config.RAW_TXT_FILE
 print("Reading text file into dataframe...")
-with open(extracted_file) as f:
-    input = StringIO(
-        f.read()
-        .replace('", ""', "")
-        .replace('"', "")
-        .replace(", ", ",")
-        .replace("\0", "")
-    )
-
-    ccf_raw = pd.read_csv(input, sep="\t", index_col=0, engine="python")
-
+ccf_raw = pd.read_csv(extracted_file, sep="\t", header=0, lineterminator='\r')
 print("Dataframe created.")
 
 print("Basic text cleaning for column names...")
@@ -50,10 +40,21 @@ ccf_raw.columns = (
     .str.replace(" ", "_")
     .str.replace("__", "_")
 )
+#         .replace('", ""', "")
+#         .replace('"', "")
+#         .replace(", ", ",")
+#         .replace("\0", "")
 
-print("Fixing indices...")
+# print("Fixing indices...")
 # The "patientID" column is the index
-ccf_raw = ccf_raw.rename_axis("patientid")
+
+ccf_raw.dropna(subset=['encounterid'], inplace=True)
+ccf_raw.dropna(subset=['patientid'], inplace=True)
+ccf_raw['encounterid'] = ccf_raw['encounterid'].apply(str)
+# print(list(ccf_raw))
+print(ccf_raw)
+
+# ccf_raw = ccf_raw.rename_axis("patientid")
 
 print("Setting datetime columns to correct dtypes...")
 
@@ -74,7 +75,7 @@ ccf_raw = ccf_raw.progress_apply(
 # and assign an index value starting from the first admission
 # and pull out the "patientid" column
 ccf_raw = ccf_raw.sort_values(["admissiontime"])
-ccf_raw = ccf_raw.reset_index()  # does not drop the "patientid" column
+# ccf_raw = ccf_raw.reset_index()  # does not drop the "patientid" column
 
 # All the pts admitted in 2010 have super long stays -
 # I'm guessing the pull was for _discharges_ starting in 2011

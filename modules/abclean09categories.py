@@ -31,6 +31,7 @@ print("Loading", data_file)
 result = pd.read_pickle(data_file)
 
 before_dedup = len(result)
+print(result["encounterid"])
 result = result.drop_duplicates(subset=["encounterid"], keep="first")
 after_dedup = len(result)
 print(f"Dropped {before_dedup - after_dedup} duplicate encounters")
@@ -122,6 +123,12 @@ datecols = result.filter(items=configcols.DATETIME_COLS)
 print("Dropping datetime cols...")
 result = result.drop(configcols.DATETIME_COLS, axis=1, errors="ignore")
 
+print("Dropping empties...")
+result = result.loc[
+    :, result.isnull().sum() < 0.999 * result.shape[0]
+]  # keep the ones that are <99.9% null
+
+
 # fix values wrt casing, bad spacing, etc.
 print("Cleaning text within cells...")
 result = result.progress_apply(
@@ -139,16 +146,29 @@ result = result.progress_apply(
     else x
 )
 
-result = pd.merge(result, datecols, left_index=True, right_index=True)
-
 print("Setting categorical cols astype _category_...")
 cat_cols = configcols.CATEGORICAL_COLS
-result[cat_cols] = result[cat_cols].astype("category")
+for col in cat_cols:
+    try:
+        result[col] = result[col].astype("category")
+    except:
+        print(f"[col] not in cols. But that's OK.")
 
 print("Setting numeric cols...")
 num_cols = configcols.NUMERIC_COLS
-result[num_cols] = result[num_cols].apply(pd.to_numeric, errors="coerce")
-result[num_cols] = result[num_cols].round(2)
+for col in num_cols:
+    try:
+        result[col] = result[col].apply(pd.to_numeric, errors="coerce")
+        result[col] = result[col].round(2)
+    except:
+        print(f"[col] not in cols. But that's OK.")
+
+
+print("Merging...")
+result = pd.merge(result, datecols, left_index=True, right_index=True)
+
+
+
 
 print("Dropping empty columns...")
 print(len(list(result)))

@@ -17,27 +17,32 @@ tqdm.pandas()
 
 sys.path.append("modules")
 from cbh import config
-import configcols
+from cbh import configcols
 
 print("About to run", os.path.basename(__file__))
 
 startTime = datetime.now()
 
-interim_dir = config.INTERIM_DATA_DIR
+# data_file = config.CLEAN_PHASE_04
+# print("Loading", data_file)
+# data = pd.read_pickle(data_file)
 
-data_file = config.CLEAN_PHASE_04
-print("Loading", data_file)
-result = pd.read_pickle(data_file)
+interim_file = config.INTERIM_H5
+print("Loading", interim_file)
+data = pd.read_hdf(interim_file, key='phase_04')
+print("File loaded.")
 
-before_dedup = len(result)
-print(result["encounterid"])
-result = result.drop_duplicates(subset=["encounterid"], keep="first")
-after_dedup = len(result)
+print(list(data))
+
+before_dedup = len(data)
+# print(data["encounterid"])
+data = data.drop_duplicates(subset=["encounterid"], keep="first")
+after_dedup = len(data)
 print(f"Dropped {before_dedup - after_dedup} duplicate encounters")
 
-result = result[result.patient_age < 130]  # https://en.wikipedia.org/wiki/Oldest_people
-result = result[result.patient_age >= 0]
-agism = len(result)
+data = data[data.patient_age < 130]  # https://en.wikipedia.org/wiki/Oldest_people
+data = data[data.patient_age >= 0]
+agism = len(data)
 # negative ages snuck in somehow. Using (>= 0) allows newborns.
 print(f"Dropped {after_dedup - agism} impossibly aged encounters")
 
@@ -45,46 +50,48 @@ print(f"Dropped {after_dedup - agism} impossibly aged encounters")
 readmission_thresholds = [3, 5, 7, 15, 20, 28, 30, 45, 90, 180, 365, 3650]
 for thresh in readmission_thresholds:
     print(f"Making column for readmission threshold at {thresh} days...")
-    result[f"readmitted{thresh}d"] = (
-        result["days_between_current_discharge_and_next_admission"] <= thresh
+    data[f"readmitted{thresh}d"] = (
+        data["days_between_current_discharge_and_next_admission"] <= thresh
     ) & (
-        result["days_between_current_discharge_and_next_admission"] > 0.15
+        data["days_between_current_discharge_and_next_admission"] > 0.15
     )  # adding 4 hours accounts for transfers, based on histogram analysis
-    result[f"readmitted{thresh}d"] = (
-        result[f"readmitted{thresh}d"] * 1
+    data[f"readmitted{thresh}d"] = (
+        data[f"readmitted{thresh}d"] * 1
     )  # convert to 1/0 rather than True/False
 
+print(data["acs_200_and_over_ratio_income_poverty_level_past_12_mo"])
+
 # Mobilize some of the ACS data
-result["over_200_ratio"] = (
-    result["acs_200_and_over_ratio_income_poverty_level_past_12_mo"]
-    / result["acs_total_population_count"]
+data["over_200_ratio"] = (
+    data["acs_200_and_over_ratio_income_poverty_level_past_12_mo"]
+    / data["acs_total_population_count"]
 )
-result["white_alone_ratio"] = (
-    result["acs_race_white_alone"] / result["acs_total_population_count"]
+data["white_alone_ratio"] = (
+    data["acs_race_white_alone"] / data["acs_total_population_count"]
 )
 
 # BMI delta
-result["BMI_delta"] = pd.to_numeric(
-    result["bmi_discharge"], errors="coerce"
-) - pd.to_numeric(result["bmi_admit"], errors="coerce")
-# print(result["BMI_delta"])
+data["BMI_delta"] = pd.to_numeric(
+    data["bmi_discharge"], errors="coerce"
+) - pd.to_numeric(data["bmi_admit"], errors="coerce")
+# print(data["BMI_delta"])
 
 # BP deltas
-result["discharge_diastolic_delta"] = pd.to_numeric(
-    result["discharge_diastolic_bp"], errors="coerce"
-) - pd.to_numeric(result["admit_diastolic_bp"], errors="coerce")
-result["discharge_systolic_delta"] = pd.to_numeric(
-    result["discharge_systolic_bp"], errors="coerce"
-) - pd.to_numeric(result["admit_systolic_bp"], errors="coerce")
-# print(result.discharge_diastolic_delta)
+data["discharge_diastolic_delta"] = pd.to_numeric(
+    data["discharge_diastolic_bp"], errors="coerce"
+) - pd.to_numeric(data["admit_diastolic_bp"], errors="coerce")
+data["discharge_systolic_delta"] = pd.to_numeric(
+    data["discharge_systolic_bp"], errors="coerce"
+) - pd.to_numeric(data["admit_systolic_bp"], errors="coerce")
+# print(data.discharge_diastolic_delta)
 
 print("Binarizing patient age...")
 age_thresholds = [10, 30, 65]
 for thresh in age_thresholds:
     print(f"Making binary column for age at {thresh} years...")
-    result[f"age_gt_{thresh}_y"] = result["patient_age"] >= thresh
+    data[f"age_gt_{thresh}_y"] = data["patient_age"] >= thresh
     # convert to 1/0 rather than True/False
-    result[f"age_gt_{thresh}_y"] = result[f"age_gt_{thresh}_y"] * 1
+    data[f"age_gt_{thresh}_y"] = data[f"age_gt_{thresh}_y"] * 1
     
 
 print("Converting diagnosis codes to diagnosis descriptions as available...")
@@ -94,45 +101,45 @@ di = pd.Series(
     dxcodes["diagnosis description"].values, index=dxcodes["diagnosis code"]
 ).to_dict()
 
-# result["primary_diagnosis_code"].replace(di, inplace=True) # super slow - use map instead
+# data["primary_diagnosis_code"].replace(di, inplace=True) # super slow - use map instead
 # https://stackoverflow.com/questions/20250771/remap-values-in-pandas-column-with-a-dict
 
-result["primary_diagnosis_code"] = (
-    result["primary_diagnosis_code"].map(di).fillna(result["primary_diagnosis_code"])
+data["primary_diagnosis_code"] = (
+    data["primary_diagnosis_code"].map(di).fillna(data["primary_diagnosis_code"])
 )
 
 print("Dropping negative LoS rows (n=97, all same-day)...")
-result = result[result["length_of_stay_in_days"] >= 0]
+data = data[data["length_of_stay_in_days"] >= 0]
 
 print(
     "Dropping encounters with a discharge disposition of Expired and somehow were also readmitted within 30d (n=43)"
 )
-print("Before", len(result))
-result = result.drop(
-    result[
+print("Before", len(data))
+data = data.drop(
+    data[
         (
-            (result.dischargedispositiondescription == "Expired")
-            & (result.readmitted30d > 0)
+            (data.dischargedispositiondescription == "Expired")
+            & (data.readmitted30d > 0)
         )
     ].index
 )
-print("After", len(result))
+print("After", len(data))
 
-datecols = result.filter(items=configcols.DATETIME_COLS)
+datecols = data.filter(items=configcols.DATETIME_COLS)
 
 print("Dropping datetime cols...")
-result = result.drop(configcols.DATETIME_COLS, axis=1, errors="ignore")
+data = data.drop(configcols.DATETIME_COLS, axis=1, errors="ignore")
 
 print("Dropping empties...")
 # 1 of 2 - drop before making categoricals
-result = result.loc[
-    :, result.isnull().sum() < 0.999 * result.shape[0]
+data = data.loc[
+    :, data.isnull().sum() < 0.999 * data.shape[0]
 ]  # keep the ones that are <99.9% null
 
 
 # fix values wrt casing, bad spacing, etc.
 print("Cleaning text within cells...")
-result = result.progress_apply(
+data = data.progress_apply(
     lambda x: x.str.strip()
     .str.replace("\t", "")
     .str.replace("_", " ")
@@ -151,7 +158,7 @@ print("Setting categorical cols astype _category_...")
 cat_cols = configcols.CATEGORICAL_COLS
 for col in cat_cols:
     try:
-        result[col] = result[col].astype("category")
+        data[col] = data[col].astype("category")
     except:
         print(f"{col} not in cols. But that's OK.")
 
@@ -159,27 +166,27 @@ print("Setting numeric cols...")
 num_cols = configcols.NUMERIC_COLS
 for col in num_cols:
     try:
-        result[col] = result[col].apply(pd.to_numeric, errors="coerce")
-        result[col] = result[col].round(2)
+        data[col] = data[col].apply(pd.to_numeric, errors="coerce")
+        data[col] = data[col].round(2)
     except:
         print(f"{col} not in cols. But that's OK.")
 
 
 print("Merging...")
-result = pd.merge(result, datecols, left_index=True, right_index=True)
+data = pd.merge(data, datecols, left_index=True, right_index=True)
 
 
 print("Dropping empty columns...")
 # 2 of 2 - drop any cols rendered empty by previous operations
-print(len(list(result)))
+print(len(list(data)))
 # drop columns if > 99.9% null
 print(
-    list(result.loc[:, result.isnull().sum() > 0.999 * result.shape[0]])
+    list(data.loc[:, data.isnull().sum() > 0.999 * data.shape[0]])
 )  # print the cols that are >99.9% null
-result = result.loc[
-    :, result.isnull().sum() < 0.999 * result.shape[0]
+data = data.loc[
+    :, data.isnull().sum() < 0.999 * data.shape[0]
 ]  # keep the ones that are <99.9% null
-print(len(list(result)))
+print(len(list(data)))
 
 # Save features to csv
 import time
@@ -189,7 +196,7 @@ datafolder = config.PROCESSED_DATA_DIR / timestrfolder
 if not os.path.exists(datafolder):
     print("Making folder called", datafolder)
     os.makedirs(datafolder)
-feature_list = list(result)
+feature_list = list(data)
 df = pd.DataFrame(feature_list, columns=["features"])
 spreadsheet_title = "Feature list 03 clean09 "
 timestr = time.strftime("%Y-%m-%d-%H%M")
@@ -200,13 +207,14 @@ feature_list_file = datafolder / title
 df.to_csv(feature_list_file, index=False)
 print("CSV of features available at: ", feature_list_file)
 
-# Save pickle
+# Save to disk
 # '09' just in case I want to go add some other preprocessing later
-# oh, BASIC, how I miss thee.
-data.to_hdf(interim_file, key='phase_09', mode='a', format='table')
+# o BASIC, thy wisdom shines eternal.
+
 result_file = config.CLEAN_PHASE_09
-result.to_pickle(result_file)
-print("File available at :", result_file)
+data.to_pickle(result_file)
+data.to_hdf(interim_file, key='phase_09', mode='a', format='table')
+print(f"Files available at : {result_file} and {interim_file}")
 
 # How long did this take?
 print("This program,", os.path.basename(__file__), "took")

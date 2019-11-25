@@ -26,23 +26,6 @@ print("Loading", filename)
 data = pd.read_pickle(filename)
 print("File loaded.")
 
-print("Dropping outliers wrt age and LoS...")
-print("Data length before dropping LoS outliers :", len(data))
-data = data[data.length_of_stay_in_days < 40]
-data = data[data.length_of_stay_in_days > 0]
-print(
-    "Data length after dropping LoS outliers and before dropping patient age outliers :",
-    len(data),
-)
-# data = data[data.patient_age < 130]  # https://en.wikipedia.org/wiki/Oldest_people
-# data = data[
-#     data.patient_age >= 0
-# ]  # negative ages snuck in somehow. Using (>= 0) allows newborns.
-# print("Data length after dropping patient age outliers :", len(data))
-# data = data[data.days_between_current_discharge_and_next_admission > 1]
-# data = data[data.days_between_current_admission_and_previous_discharge > 1]
-# print("Data length after dropping probable CCF transfers :", len(data))
-
 # Split data to validation and train/test sets, 10% and 90%
 split = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=seed)
 for train_test_index, valid_index in split.split(data, data.readmitted30d):
@@ -128,13 +111,6 @@ print(readmittednum)
 print("Valid percent readmitted is ", percentreadmitted)
 print("\n")
 
-
-print("Saving to file...")
-filename1 = config.CLEAN_PHASE_10
-data.to_pickle(filename1)
-print("Clean phase_0x available at:", filename1)
-print("\n")
-
 train_set_file = config.TRAIN_SET
 train_set.to_pickle(train_set_file)
 print("Train set available at:", train_set_file)
@@ -203,3 +179,11 @@ print("to run.")
 print("\n")
 
 
+# data = data[data.patient_age < 130]  # https://en.wikipedia.org/wiki/Oldest_people
+# data = data[
+#     data.patient_age >= 0
+# ]  # negative ages snuck in somehow. Using (>= 0) allows newborns.
+# print("Data length after dropping patient age outliers :", len(data))
+# data = data[data.days_between_current_discharge_and_next_admission > 1]
+# data = data[data.days_between_current_admission_and_previous_discharge > 1]
+# print("Data length after dropping probable CCF transfers :", len(data))

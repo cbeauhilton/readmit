@@ -47,6 +47,7 @@ GEODATA_RAW = EXTERNAL_DATA_DIR / "geodata_raw.pickle"
 GEODATA_BLOCK_INFO = EXTERNAL_DATA_DIR / "geodata_block_info.pickle"
 GEODATA_BLOCKS_DONE = EXTERNAL_DATA_DIR / "geodata_blocks_done.csv"
 GEODATA_FINAL = EXTERNAL_DATA_DIR / "geodata_final.pickle"
+GEODATA_FINAL_CSV = EXTERNAL_DATA_DIR / "geodata_final.csv"
 ICD10_DATABASE = EXTERNAL_DATA_DIR / "ICD_10_codes.csv"
 DX_CODES_CONVERTED = EXTERNAL_DATA_DIR / "dxcodes.pickle"
 CENSUS_API_KEY = "c92c0a70527edc1d91a8c7272af0cb463a4251cf"
@@ -76,7 +77,7 @@ SCRUBBED_H5 = INTERIM_DATA_DIR / "readmit_scrubbed.h5"
 
 # change this as needed
 # TODO: make selecting the most recent file automatic
-PROCESSED_FINAL = CLEAN_PHASE_10
+PROCESSED_FINAL = CLEAN_PHASE_09
 PROCESSED_FINAL_DESCRIPTIVE = CLEAN_PHASE_11_TABLEONE
 
 TRAIN_SET = PROCESSED_DATA_DIR / "train.pickle"

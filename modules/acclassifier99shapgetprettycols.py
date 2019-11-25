@@ -8,7 +8,7 @@ import pandas as pd
 
 from cbh import config
 
-print("Loading path to h5...")
+print("Loading path to files...")
 model_dir = config.MODELS_DIR
 shap_csv_dir = config.SHAP_CSV_DIR
 prettified_csv_dir = shap_csv_dir / "prettified"

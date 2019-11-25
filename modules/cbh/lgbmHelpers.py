@@ -101,19 +101,15 @@ class lgbmClassificationHelpers:
 
     def lgbm_save_ttv_split(self):
         n_features = self.n_features
-        # file_title = f"{self.target}_{n_features}_everything_"
-        # ext = ".h5"
-        # title = file_title + self.timestr_d + ext
-        # h5_file = self.modelfolder / title
         h5_file = self.h5_file
+
         # delete the h5 file if it exists
         try:
             os.remove(h5_file)
             print("Removed old file", h5_file)
         except OSError:
-            print(traceback.format_exc())
+            # print(traceback.format_exc())
             print("File did not exist, making new...")
-            pass
         print("Saving TTV split to .h5 file...")
         self.train_features.to_hdf(h5_file, key='train_features', mode='w', format="table")
         # using mode="w" for the first one will overwrite an existing file, 
@@ -125,7 +121,7 @@ class lgbmClassificationHelpers:
         self.valid_labels.to_hdf(h5_file, key='valid_labels', format="table")
         self.labels.to_hdf(h5_file, key='labels', format="table")
         self.features.to_hdf(h5_file, key='features', format="table")
-        print("TTV split available at", h5_file)
+        print(f"TTV split available at {h5_file} .")
 
     def lgbm_save_model_to_pkl_and_h5(self):
         """
@@ -186,30 +182,11 @@ class lgbmClassificationHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()
 
     def lgbm_classification_results(self):
         n_features = self.n_features
-        # print("Plotting evolution of log loss over training time...")
-        # # Plot evolution of metric over training time
-        # ax = lgb.plot_metric(self.evals_result, figsize=(5, 7))
-        # figure_title = f"{self.target} Log Loss Metric "
-        # timestr = time.strftime("_%Y-%m-%d-%H%M_")
-        # ext = ".png"
-        # title = figure_title + n_features + timestr + ext
-        # plt.savefig(
-        #     (self.figfolder / title), dpi=1200, transparent=False, bbox_inches="tight"
-        # )
-        # try:
-        #     title1 = figure_title + n_features + timestr
-        #     title1 = str(self.figfolder) + "/" + title1
-        #     texfig.savefig(title1, bbox_inches="tight")
-        # except Exception as exc:
-        #     print(traceback.format_exc())
-        #     print(exc)
-        #     print("Aww, LaTeX!..")
-        # plt.close()
+
         # Predict probabilities
         predicted_labels = self.gbm_model.predict_proba(self.test_features)
         predicted_labels = predicted_labels[:, 1]
@@ -217,10 +194,8 @@ class lgbmClassificationHelpers:
         # histogram of predicted probabilities
 
         print("Generating histogram of probabilities...")
-        # 8 bins
         plt.hist(predicted_labels, bins=8)
-        # x-axis limit from 0 to 1
-        plt.xlim(0, 1)
+        plt.xlim(0, 1) # x-axis limit from 0 to 1
         plt.title("Histogram of predicted probabilities")
         plt.xlabel("Predicted probability")
         plt.ylabel("Frequency")
@@ -241,7 +216,6 @@ class lgbmClassificationHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()
 
         fpr, tpr, threshold = metrics.roc_curve(self.test_labels, predicted_labels)
@@ -249,7 +223,7 @@ class lgbmClassificationHelpers:
 
         print("Generating ROC curve...")
         # plt.figure(figsize=(5,5))
-        plt.plot(fpr, tpr, "b", label="AUC: %0.2f" % roc_auc)
+        plt.plot(fpr, tpr, "b", label=f"AUC {roc_auc:.2f}")
         plt.legend(handletextpad=0, handlelength=0, loc="lower right")
         plt.plot([0, 1], [0, 1], "r--")
         plt.xlim([-0.011, 1.011])
@@ -273,9 +247,8 @@ class lgbmClassificationHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()
-        print(f"{self.target} {n_features} ROC AUC %0.2f" % roc_auc)
+        print(f"{self.target} {n_features} ROC AUC {roc_auc:.2f}")
 
         print("Generating PR curve...")
         average_precision = average_precision_score(self.test_labels, predicted_labels)
@@ -310,7 +283,6 @@ class lgbmClassificationHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()
         print(f"{self.target} Average precision-recall score: {average_precision:.2f}")
 
@@ -344,7 +316,6 @@ class lgbmClassificationHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()
 
         brier_score_cal_sig = []
@@ -484,7 +455,6 @@ class lgbmClassificationHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()
 
         conf_mx = pd.DataFrame(conf_mx)
@@ -713,5 +683,4 @@ class lgbmRegressionHelpers:
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
-            print("Aww, LaTeX!..")
         plt.close()

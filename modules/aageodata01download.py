@@ -285,7 +285,7 @@ def census_download_convert(
         print("Pickle file available at", file_name)
         savedoneblocks = open(config.GEODATA_BLOCKS_DONE, "a")
         savedoneblocks.write("{}\n".format(blockgroupid))
-        print(f"Block {blockgroupid} finished, see: ", config.GEODATA_BLOCKS_DONE)
+        print(f"Block {blockgroupid} finished, see: {config.GEODATA_BLOCKS_DONE}")
         downloadcounter += 1
         print("downloadcounter = ", downloadcounter)
         # if downloadcounter == 1000:
@@ -309,7 +309,9 @@ result = raw_data.merge(geo_by_block, on="ACS_BlockGroup_geoid", how="left")
 # print(result)
 
 result_file = config.GEODATA_FINAL
+result_csv = config.GEODATA_FINAL_CSV
 result.to_pickle(result_file)
+result.to_csv(result_csv)
 
 
 # How long did this take?

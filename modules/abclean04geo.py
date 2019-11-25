@@ -9,7 +9,7 @@ tqdm.pandas()
 
 sys.path.append("modules")
 from cbh import config
-import configcols
+from cbh import configcols
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
@@ -78,10 +78,10 @@ result = data.merge(
 result = result.drop(configcols.USELESS_GEO_COLS, axis=1)
 
 print("Saving data to disk...")
-data.to_hdf(interim_file, key='phase_04', mode='a', format='table')
 result_file = config.CLEAN_PHASE_04
 result.to_pickle(result_file)
-print("File available at :", result_file)
+result.to_hdf(interim_file, key='phase_04', mode='a', format='table')
+print(f"Files available at : {result_file} ; {interim_file}")
 # print(result.dtypes)
 
 # Save features to csv
@@ -95,8 +95,8 @@ if not os.path.exists(datafolder):
 
 feature_list = list(result)
 df = pd.DataFrame(feature_list, columns=["features"])
-spreadsheet_title = "Feature list 02 geo merged "
 
+spreadsheet_title = "Feature list 02 geo merged "
 timestr = time.strftime("%Y-%m-%d-%H%M")
 ext = ".csv"
 title = spreadsheet_title + timestr + ext

@@ -26,8 +26,9 @@ pd.options.display.max_columns = 2000
 # print("File loaded.")
 
 interim_file = config.INTERIM_H5
-print("Loading", interim_file)
-data = pd.read_hdf(interim_file, key='phase_02')
+k = 'phase_02'
+print(f"Loading {interim_file} with key {k}.")
+data = pd.read_hdf(interim_file, key=k)
 print("File loaded.")
 
 # ICU in admission (and ICU LoS?)
@@ -55,6 +56,7 @@ for col in icu_date_cols:
     # divide seconds by 3600 to get hours, then 24 to get days
     data[f"days_to_{col}"] = data[f"days_to_{col}"] / 3600
     data[f"days_to_{col}"] = data[f"days_to_{col}"] / 24
+
     # went to ICU within 24h of admission?
     print(f"on_day_of_admission_{col}")
     data[f"on_day_of_admission_{col}"] = (
@@ -65,6 +67,7 @@ for col in icu_date_cols:
     data[f"on_day_of_admission_{col}"] = (
         data[f"on_day_of_admission_{col}"] * 1.0
     )  # convert to 1/0 instead of true/false
+
     ###TODO: Consider something like an "ICU ever prior to admission" binary col
 
 print("Generating ICU  length of stay...")
@@ -94,13 +97,22 @@ data["icuminuslos"] = np.where(a > 2, "weird", a).tolist()
 data = data[data.icuminuslos != "weird"]
 print(len(data))
 
+print("Dropping outliers wrt age and LoS...")
+print("Data length before dropping LoS outliers :", len(data))
+data = data[data.length_of_stay_in_days < 40]
+data = data[data.length_of_stay_in_days > 0]
+print(
+    "Data length after dropping LoS outliers and before dropping patient age outliers :",
+    len(data),
+)
+
 data = data.sort_index(axis=1) # get all the cols in alphabetical order
 
 print("Saving to file...")
 filename1 = config.CLEAN_PHASE_03
 data.to_pickle(filename1)
-print("Clean phase_03 available at:", filename1)
 data.to_hdf(interim_file, key='phase_03', mode='a', format='table')
+print(f"Clean phase_03 available at {filename1} and {interim_file}.)
 
 # Save features to csv
 import time

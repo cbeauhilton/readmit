@@ -17,7 +17,8 @@ def runall():
     """ Preprocessing """
     # import aageodata00unzip
     # import aageodata01download
-    # # import aageodata03get_noaa - not yet implemented
+    # # import aageodata03get_noaa # not yet implemented
+    # import aageodata02download 
     # import aaprelim06dxcodes
     # import aaziptopickle
     # import abclean00
@@ -32,7 +33,7 @@ def runall():
     # # # import abclean07xx # placeholder
     # # # import abclean08xx # placeholder
     # import abclean09categories
-    # import abclean10split
+    # # import abclean10split # no longer used
     # import abclean11tableone
     # import zzdeidentify
     # # # import abclean12targetedpickling
@@ -40,7 +41,8 @@ def runall():
 
     # """ Classifiers """
 
-    import acclassifier07shapit
+    # import acclassifier07shapit
+    import acclassifier07shaplos5d
 
 
     # How long did this take?

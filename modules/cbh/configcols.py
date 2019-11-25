@@ -377,17 +377,6 @@ CATEGORICAL_COLS = [
     "ast_admit_value",
     "ast_discharge_value",
     "attending_specialty_institute_desc",
-    "acs_total_population_count",
-    "acs_race_white_alone",
-    "acs_race_black_alone",
-    "acs_married_couple_family",
-    "acs_under_50_ratio_income_poverty_level_past_12_mo",
-    "acs_50_to_99_ratio_income_poverty_level_past_12_mo",
-    "acs_100_to_124_ratio_income_poverty_level_past_12_mo",
-    "acs_125_to_149_ratio_income_poverty_level_past_12_mo",
-    "acs_150_to_184_ratio_income_poverty_level_past_12_mo",
-    "acs_185_to_199_ratio_income_poverty_level_past_12_mo",
-    "acs_200_and_over_ratio_income_poverty_level_past_12_mo",
     "baso_admit_value",
     "baso_discharge_value",
     "bilirubin_total_admit_value",
@@ -494,7 +483,20 @@ CATEGORICAL_COLS = [
 ]
 
 NUMERIC_COLS = [
+    "acs_100_to_124_ratio_income_poverty_level_past_12_mo",
+    "acs_125_to_149_ratio_income_poverty_level_past_12_mo",
+    "acs_150_to_184_ratio_income_poverty_level_past_12_mo",
+    "acs_185_to_199_ratio_income_poverty_level_past_12_mo",
+    "acs_200_and_over_ratio_income_poverty_level_past_12_mo",
+    "acs_50_to_99_ratio_income_poverty_level_past_12_mo",
+    "acs_married_couple_family",
+    "acs_race_black_alone",
+    "acs_race_white_alone",
+    "acs_total_population_count",
+    "acs_under_50_ratio_income_poverty_level_past_12_mo",
     "admissiontime_hospital_burden",
+    "admit_diastolic_bp",
+    "admit_systolic_bp",
     "cbc_admit_time_hospital_burden",
     "cbc_discharge_time_hospital_burden",
     "cmp_admit_time_hospital_burden",
@@ -507,11 +509,11 @@ NUMERIC_COLS = [
     "dischargemeds",
     "dischargetime_hospital_burden",
     "ed_6month_total",
+    "heartrate_admit",
     "heartrate_admit",  ###TODO: maybe pull out the few hundred non-numeric vals ("Present;Equal", etc.)
     "heartrate_discharge",
     "hours_from_admission_to_epicdeathdate",
     "hours_from_admission_to_ohiodeathindexdate",
-    # "hours_from_admission_to_socialsecuritydeathdate", # was empty, dropped in cleaning step
     "icu_length_of_stay_in_days",
     "length_of_stay_in_days",
     "length_of_stay_of_last_admission",
@@ -523,9 +525,7 @@ NUMERIC_COLS = [
     "patient_age",
     "temperature_admit",
     "temperature_discharge",
-    "admit_diastolic_bp",
-    "admit_systolic_bp",
-    "heartrate_admit",
+    # "hours_from_admission_to_socialsecuritydeathdate", # was empty, dropped in cleaning step
 ]
 
 DATETIME_COLS = [

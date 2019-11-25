@@ -12,7 +12,7 @@ from tqdm import tqdm
 tqdm.pandas()
 
 from cbh import config
-import configcols
+from cbh import configcols
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()

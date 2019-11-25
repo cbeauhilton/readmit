@@ -1,4 +1,3 @@
-import csv
 import json
 import os
 import sys
@@ -7,20 +6,20 @@ from datetime import datetime
 from io import StringIO
 from pathlib import Path
 from urllib.request import urlopen
+import requests
 
 import censusdata
 import numpy as np
 import pandas as pd
-import requests
 from pandas.io.json import json_normalize
 from tqdm import tqdm
-
-import configcols
-from cbh import config
+import csv
 
 tqdm.pandas()
 
 sys.path.append("modules")
+from cbh import config
+import configcols
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
@@ -68,19 +67,15 @@ df0 = df0.drop([0], axis=1)
 # print(df0_0.head())
 
 ccf_code_list = config.CCF_CODE_LIST
+
 # Path(r"C:\Users\hiltonc\Desktop\readmit\readmit\docs\value counts\primary_diagnosis_code.csv")
 
-dfraw = pd.read_pickle(config.RAW_DATA_FILE)
-df1 = dfraw["primary_diagnosis_code"].value_counts().to_frame()
-
-df1["diagnosis code"] = df1.index
-df1.reset_index(inplace=True)
-
-#df1 = pd.read_csv(ccf_code_list)
+df1 = pd.read_csv(ccf_code_list)
 print("CCF:", len(df1))
-df1 = df1.drop(["primary_diagnosis_code", "index"], axis=1)
+df1 = df1.drop(["primary_diagnosis_code", "Unnamed: 0"], axis=1)
+df1 = df1.rename(index=str, columns={"index": "diagnosis code"})
 df1 = df1.sort_values(by=["diagnosis code"])
-print(df1.head())
+# print(df1.head())
 
 # Merge CCF data and the first ICD dataframe
 df = pd.merge(df0, df1, on="diagnosis code", indicator=True, how="outer")
@@ -132,7 +127,7 @@ dffinal = dffinal.progress_apply(
 ICD 9 codes
 '''
 
-filename = config.DDW_DIAGNOSES_CSV #this is from Alex, sent in an email
+filename = config.DDW_DIAGNOSES_CSV
 ddw = pd.read_csv(filename)
 ddw = ddw.rename(index=str, columns={"Diagnosis_Code": "diagnosis code", "Diagnosis_Description": "diagnosis description"})
 ddw = ddw.drop(["Diagnosis_Key"], axis=1)

@@ -175,7 +175,7 @@ def train_test_valid_80_10_10_split(data, target, seed):
     # The colon allows you to specify options, the comma adds commas, the ".2f" says how many decimal points to keep.
     # Nice tutorial here: https://stackabuse.com/formatting-strings-with-python/
     if target == "readmitted30d":
-        sentence01 = "The cohort of hospitalizations was split into three groups for analysis: {len(train_set) / len(data) *100 :.0f}% for model development, "
+        sentence01 = f"The cohort of hospitalizations was split into three groups for analysis: {len(train_set) / len(data) *100 :.0f}% for model development, "
         sentence02 = f"{len(test_set) / len(data) *100 :.0f}% for testing, and "
         sentence03 = f"{len(valid_set) / len(data) *100 :.0f}% for validation. "
         sentence03a = f"For example, the 30--day readmission cohort had development, testing, and validation cohorts of "

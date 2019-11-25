@@ -20,9 +20,14 @@ startTime = datetime.now()
 pd.options.display.max_columns = 2000
 
 # Load file
-filename = config.CLEAN_PHASE_02
-print("Loading", filename)
-data = pd.read_pickle(filename)
+# filename = config.CLEAN_PHASE_02
+# print("Loading", filename)
+# data = pd.read_pickle(filename)
+# print("File loaded.")
+
+interim_file = config.INTERIM_H5
+print("Loading", interim_file)
+data = pd.read_hdf(interim_file, key='phase_02')
 print("File loaded.")
 
 # ICU in admission (and ICU LoS?)
@@ -95,6 +100,7 @@ print("Saving to file...")
 filename1 = config.CLEAN_PHASE_03
 data.to_pickle(filename1)
 print("Clean phase_03 available at:", filename1)
+data.to_hdf(interim_file, key='phase_03', mode='a', format='table')
 
 # Save features to csv
 import time

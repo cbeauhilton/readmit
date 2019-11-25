@@ -27,7 +27,6 @@ zip_ref.close()
 extracted_file = os.path.join(config.RAW_DATA_DIR, extracted[0])
 print("Zip file extracted.")
 
-# file = config.RAW_TXT_FILE
 print("Reading text file into dataframe...")
 ccf_raw = pd.read_csv(extracted_file, sep="\t", header=0, lineterminator='\r')
 print("Dataframe created.")
@@ -40,10 +39,6 @@ ccf_raw.columns = (
     .str.replace(" ", "_")
     .str.replace("__", "_")
 )
-#         .replace('", ""', "")
-#         .replace('"', "")
-#         .replace(", ", ",")
-#         .replace("\0", "")
 
 # print("Fixing indices...")
 # The "patientID" column is the index
@@ -54,8 +49,6 @@ ccf_raw['encounterid'] = ccf_raw['encounterid'].apply(str)
 # print(list(ccf_raw))
 print(ccf_raw)
 
-# ccf_raw = ccf_raw.rename_axis("patientid")
-
 print("Setting datetime columns to correct dtypes...")
 
 ccf_raw = ccf_raw.progress_apply(
@@ -63,19 +56,13 @@ ccf_raw = ccf_raw.progress_apply(
     axis=0,
 )
 
-# ccf_raw = ccf_raw.progress_apply(
-#     lambda col: pd.to_timedelta(col, errors="ignore")
-#     if (col.dtypes == object)
-#     else col,
-#     axis=0,
-# )
 
 # Using "patientid" as index results in duplicates
 # this will sort the dataframe by admission time
 # and assign an index value starting from the first admission
 # and pull out the "patientid" column
 ccf_raw = ccf_raw.sort_values(["admissiontime"])
-# ccf_raw = ccf_raw.reset_index()  # does not drop the "patientid" column
+
 
 # All the pts admitted in 2010 have super long stays -
 # I'm guessing the pull was for _discharges_ starting in 2011
@@ -128,8 +115,6 @@ ccf_raw["length_of_stay_over_14_days"] = ccf_raw[
 ].progress_apply(lambda x: 1 if x > 14 else 0)
 
 
-print("Generating readmission timing - this might take a while...")
-
 print("Generating time since last discharge...")
 new_column = ccf_raw.groupby("patientid", as_index=False).progress_apply(
     lambda x: x["admissiontime"] - x["dischargetime"].shift(1)
@@ -138,7 +123,8 @@ ccf_raw[
     "time_between_current_admission_and_previous_discharge"
 ] = new_column.reset_index(
     level=0, drop=True
-)  # I'm not sure about the "reset_index" thing here, but pd was throwing errors without it and
+) 
+# I'm not sure about the "reset_index" thing here, but pd was throwing errors without it and
 # checking the numbers for a bunch of patients shows it works fine.
 
 print("Generating time to next admission...")

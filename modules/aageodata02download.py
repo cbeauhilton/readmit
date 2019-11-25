@@ -99,6 +99,8 @@ def unzipem(fname, path=config.EXTERNAL_DATA_DIR):
             names = zip_ref.namelist()
             print(names)
             zip_ref.extractall(path=path)
+    else:
+        print(f"{fname} could not be unzipped. Check the extension.")
     print(f"{fname} extracted.")
 
 

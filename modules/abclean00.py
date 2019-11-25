@@ -43,18 +43,6 @@ data = data.rename(
     columns={
         'any_malignancy,_including_lymphoma_and_leukemia,_except_malignant_neoplasm_of_skin': "any_cancer_not_skin",  # commas and verbosity
         "aids/hiv": "aids_hiv",  # yikes, "/" make things difficult
-        # Rename the ACS data so it's interpretable:
-        "B01003_001E": "acs_total_population_count",
-        "B02001_002E": "acs_race_white_alone",
-        "B02001_003E": "acs_race_black_alone",
-        "B11001_003E": "acs_married_couple_family",
-        "C17002_002E": "acs_under_50_ratio_income_poverty_level_past_12_mo",
-        "C17002_003E": "acs_50_to_99_ratio_income_poverty_level_past_12_mo",
-        "C17002_004E": "acs_100_to_124_ratio_income_poverty_level_past_12_mo",
-        "C17002_005E": "acs_125_to_149_ratio_income_poverty_level_past_12_mo",
-        "C17002_006E": "acs_150_to_184_ratio_income_poverty_level_past_12_mo",
-        "C17002_007E": "acs_185_to_199_ratio_income_poverty_level_past_12_mo",
-        "C17002_008E": "acs_200_and_over_ratio_income_poverty_level_past_12_mo",
     },
 )
 

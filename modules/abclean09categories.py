@@ -9,7 +9,6 @@ from urllib.request import urlopen
 from pathlib import Path
 import numpy as np
 
-import censusdata
 import pandas as pd
 from pandas.io.json import json_normalize
 from tqdm import tqdm
@@ -84,8 +83,9 @@ age_thresholds = [10, 30, 65]
 for thresh in age_thresholds:
     print(f"Making binary column for age at {thresh} years...")
     result[f"age_gt_{thresh}_y"] = result["patient_age"] >= thresh
-    result[f"age_gt_{thresh}_y"] = result[f"age_gt_{thresh}_y"] * 1
     # convert to 1/0 rather than True/False
+    result[f"age_gt_{thresh}_y"] = result[f"age_gt_{thresh}_y"] * 1
+    
 
 print("Converting diagnosis codes to diagnosis descriptions as available...")
 dxcode_file = config.DX_CODES_CONVERTED
@@ -124,6 +124,7 @@ print("Dropping datetime cols...")
 result = result.drop(configcols.DATETIME_COLS, axis=1, errors="ignore")
 
 print("Dropping empties...")
+# 1 of 2 - drop before making categoricals
 result = result.loc[
     :, result.isnull().sum() < 0.999 * result.shape[0]
 ]  # keep the ones that are <99.9% null
@@ -152,7 +153,7 @@ for col in cat_cols:
     try:
         result[col] = result[col].astype("category")
     except:
-        print(f"[col] not in cols. But that's OK.")
+        print(f"{col} not in cols. But that's OK.")
 
 print("Setting numeric cols...")
 num_cols = configcols.NUMERIC_COLS
@@ -161,16 +162,15 @@ for col in num_cols:
         result[col] = result[col].apply(pd.to_numeric, errors="coerce")
         result[col] = result[col].round(2)
     except:
-        print(f"[col] not in cols. But that's OK.")
+        print(f"{col} not in cols. But that's OK.")
 
 
 print("Merging...")
 result = pd.merge(result, datecols, left_index=True, right_index=True)
 
 
-
-
 print("Dropping empty columns...")
+# 2 of 2 - drop any cols rendered empty by previous operations
 print(len(list(result)))
 # drop columns if > 99.9% null
 print(
@@ -201,6 +201,9 @@ df.to_csv(feature_list_file, index=False)
 print("CSV of features available at: ", feature_list_file)
 
 # Save pickle
+# '09' just in case I want to go add some other preprocessing later
+# oh, BASIC, how I miss thee.
+data.to_hdf(interim_file, key='phase_09', mode='a', format='table')
 result_file = config.CLEAN_PHASE_09
 result.to_pickle(result_file)
 print("File available at :", result_file)

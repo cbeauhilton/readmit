@@ -4,8 +4,6 @@ sys.path.append("modules")
 
 from datetime import datetime
 
-
-
 import os
 import pandas as pd
 import lightgbm as lgb
@@ -22,24 +20,15 @@ startTime = datetime.now()
 
 pd.options.display.max_columns = 2000
 
-# Load file
-# filename = config.CLEAN_PHASE_00
-# print("Loading", filename)
-# data = pd.read_pickle(filename)
-
-
 interim_file = config.INTERIM_H5
 print("Loading", interim_file)
 data = pd.read_hdf(interim_file, key='phase_00')
 print("File loaded.")
 
-
-
 death_date_cols = ["epicdeathdate", "ohiodeathindexdate", "socialsecuritydeathdate"]
 
 for col in death_date_cols:
     data[col] = pd.to_datetime(data[col])
-    # data[col] = pd.to_datetime(data[col], yearfirst=True)
     timecolname = f"time_from_admission_to_{col}"
     timecolname_2 = f"time_from_discharge_to_{col}"
     print(timecolname)
@@ -109,7 +98,6 @@ feature_list = list(data)
 df = pd.DataFrame(feature_list, columns=["features"])
 spreadsheet_title = "Feature list 01 "
 timestr = time.strftime("%Y-%m-%d-%H%M")
-timestrfolder = time.strftime("%Y-%m-%d")
 ext = ".csv"
 title = spreadsheet_title + timestr + ext
 feature_list_file = datafolder / title
@@ -121,12 +109,12 @@ print("CSV of features available at: ", feature_list_file)
 
 print("Saving to file...")
 
-data.to_hdf(interim_file, key='phase_01', mode='a', format='table')
 
 
 filename1 = config.CLEAN_PHASE_01
 data.to_pickle(filename1)
 print("Clean phase_01 available at:", filename1)
+data.to_hdf(interim_file, key='phase_01', mode='a', format='table')
 
 # How long did this take?
 print("This program,", os.path.basename(__file__), "took")

@@ -1,6 +1,7 @@
 *.pickle
 *.csv
 *.h5
+*.hdf
 *.zip
 *.parq
 *.pdf
@@ -9,15 +10,8 @@
 *.jpg
 *.ipynb
 
-
-# For HIPAA: exclude data and ipynb
 /data/
-*.ipynb
-*.pickle
-
-# exclude final models
- /models/
-*.hdf
+/models/
 models
 
 # Exclude new figures

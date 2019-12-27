@@ -37,7 +37,7 @@ seed = config.SEED
 
 #### Make a list of all the features we want to include ####
 
-target = ["length_of_stay_over_5_days"]
+target = "length_of_stay_over_5_days"
 name_for_figs = "Length of Stay"
 
 # Load CSV of top SHAP values, and select the first n
@@ -204,6 +204,8 @@ helpshap = shapHelpers(
 )
 helpshap.shap_save_to_disk()
 helpshap.shap_save_ordered_values()
+
+
 helpshap.save_requirements()
 helpshap.shap_prettify_column_names(prettycols_file=config.PRETTIFYING_COLUMNS_CSV)
 helpshap.shap_plot_summaries(

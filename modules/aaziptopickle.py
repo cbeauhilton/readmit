@@ -40,9 +40,6 @@ ccf_raw.columns = (
     .str.replace("__", "_")
 )
 
-# print("Fixing indices...")
-# The "patientID" column is the index
-
 ccf_raw.dropna(subset=['encounterid'], inplace=True)
 ccf_raw.dropna(subset=['patientid'], inplace=True)
 ccf_raw['encounterid'] = ccf_raw['encounterid'].apply(str)
@@ -58,9 +55,6 @@ ccf_raw = ccf_raw.progress_apply(
 
 
 # Using "patientid" as index results in duplicates
-# this will sort the dataframe by admission time
-# and assign an index value starting from the first admission
-# and pull out the "patientid" column
 ccf_raw = ccf_raw.sort_values(["admissiontime"])
 
 
@@ -214,17 +208,3 @@ print("Pickle file available at", file_name)
 print("This program,", os.path.basename(__file__), "took")
 print(datetime.now() - startTime)
 print("to run.")
-
-
-# # fix values wrt casing, bad spacing, etc.
-# print("Cleaning text within cells...")
-# ccf_raw = ccf_raw.progress_apply(
-#     lambda x: x.str.lower()
-#     .str.strip()
-#     .str.replace("\t", "")
-#     .str.replace("  ", " ")
-#     .str.replace(" ", "_")
-#     .str.replace("__", "_")
-#     if (x.dtype == "object")
-#     else x
-# )

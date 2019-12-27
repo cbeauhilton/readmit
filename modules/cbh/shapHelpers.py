@@ -13,7 +13,7 @@ tqdm.pandas()
 import cbh.config as config
 
 # import cbh.texfig first to configure Matplotlib's backend
-import cbh.texfig as texfig
+# import cbh.texfig as texfig
 import conda.cli
 import h5py
 import matplotlib as mpl
@@ -94,7 +94,9 @@ class shapHelpers:
         print("File available at", full_path)
         print("Saving SHAP to .h5 file...")
         h5_file = self.h5_file
-        shap_val_df = pd.DataFrame(self.shap_values)
+        # shap_val_df = pd.DataFrame(self.shap_values)
+        with h5py.File(h5_file, 'a') as hf:
+            hf.create_dataset("shap_values", data=self.shap_values)
         shap_feat_df = pd.DataFrame(self.features_shap)
         # define what goes in the first row with "d"
         d = [[self.target, self.name_for_figs, self.shap_expected, self.class_thresh]]
@@ -102,7 +104,7 @@ class shapHelpers:
             d, columns=("target", "name_for_figs", "shap_exp_val", "class_thresh")
         )
         # print(exp_df)
-        shap_val_df.to_hdf(h5_file, key="shap_values", format="table")
+        #shap_val_df.to_hdf(h5_file, key="shap_values", format="table")
         shap_feat_df.to_hdf(h5_file, key="features_shap", format="table")
         exp_df.to_hdf(h5_file, key="shap_expected_value", format="table")
         ###TODO:
@@ -144,8 +146,11 @@ class shapHelpers:
     def shap_save_ordered_values(self):
         n_features = self.n_features
         print("Saving SHAP values to disk in order of importance...")
+        m,n,r = a.shape
+        out_arr = np.column_stack((np.repeat(np.arange(m),n),a.reshape(m*n,-1)))
+        cols = ["a"] + self.features_shap.columns.values
         df_shap_train = pd.DataFrame(
-            self.shap_values, columns=self.features_shap.columns.values
+            out_arr, columns= cols
         )
         imp_cols = (
             df_shap_train.abs().mean().sort_values(ascending=False).index.tolist()
@@ -248,8 +253,8 @@ class shapHelpers:
                 try:
                     title1 = figure_title + n_features + timestr
                     title1 = str(self.figfolder) + "/" + title1
-                    texfig.savefig(
-                        title1, dpi=1200, transparent=True, bbox_inches="tight"
+                    plt.savefig(
+                        title1 + '.pdf', dpi=1200, transparent=True, bbox_inches="tight"
                     )
                 except Exception as exc:
                     print(traceback.format_exc())
@@ -319,8 +324,8 @@ class shapHelpers:
                 try:
                     title1 = figure_title + n_features + timestr
                     title1 = str(self.figfolder) + "/" + title1
-                    texfig.savefig(
-                        title1, dpi=1200, transparent=True, bbox_inches="tight"
+                    plt.savefig(
+                        title1 + '.pdf', dpi=1200, transparent=True, bbox_inches="tight"
                     )
                 except Exception as exc:
                     print(traceback.format_exc())
@@ -388,7 +393,7 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary bar plot PDF...")
-        import cbh.texfig as texfig  # set rcParams to texfig version...
+        # import cbh.texfig as texfig  # set rcParams to texfig version...
 
         shap.summary_plot(
             self.shap_values,
@@ -402,7 +407,7 @@ class shapHelpers:
         try:
             title1 = figure_title + n_features + timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
+            plt.savefig(title1 + '.pdf', dpi=1200, transparent=True, bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
@@ -434,7 +439,7 @@ class shapHelpers:
         plt.close()
 
         print(f"{self.target} Making SHAP summary plot PDF...")
-        import cbh.texfig as texfig  # set rcParams to texfig version...
+        # import cbh.texfig as texfig  # set rcParams to texfig version...
 
         shap.summary_plot(
             self.shap_values,
@@ -447,7 +452,7 @@ class shapHelpers:
             title1 = figure_title + n_features + timestr
             title1 = str(self.figfolder) + "/" + title1
             # texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + '.pdf', bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
@@ -511,7 +516,7 @@ class shapHelpers:
             try:
                 title1 = figure_title + self.n_features + self.timestr
                 title1 = str(self.figfolder) + "/" + title1
-                texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
+                plt.savefig(title1 + '.pdf', dpi=1200, transparent=True, bbox_inches="tight")
             except Exception as exc:
                 print(traceback.format_exc())
                 print(exc)
@@ -624,7 +629,7 @@ class shapHelpers:
                 plt.close()
 
                 # reset mpl params for LaTeX PDF via texfig.py
-                import cbh.texfig as texfig
+                # import cbh.texfig as texfig
 
                 shap.force_plot(
                     expected_value,  # this version uses the standard base value
@@ -642,7 +647,7 @@ class shapHelpers:
                 title1 = str(forcefolder) + "/" + title1
                 print("mpl backend for PDF:", mpl.get_backend())
                 print("The forceplots need the svg backend, even for PDF...")
-                texfig.savefig(title1, dpi=1200, transparent=True, bbox_inches="tight")
+                plt.savefig(title1 + '.pdf', dpi=1200, transparent=True, bbox_inches="tight")
             except Exception as exc:
                 print(traceback.format_exc())
                 print(exc)

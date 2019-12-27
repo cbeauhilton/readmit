@@ -7,32 +7,32 @@ Read more at https://github.com/knly/texfig
 import matplotlib as mpl
 old_backend = mpl.get_backend()
 print("Current mpl backend:", mpl.get_backend())
-mpl.use('pgf')
+# mpl.use('pgf')
 print("New mpl backend:", mpl.get_backend())
 
 from math import sqrt
 default_width = 5.78853 # in inches
 default_ratio = (sqrt(5.0) - 1.0) / 2.0 # golden mean
 
-mpl.rcParams.update({
-    "text.usetex": True,
-    "pgf.texsystem": "lualatex",
-    "pgf.rcfonts": False,
-    "font.family": "serif",
-    "font.serif": [],
-    "font.sans-serif": [],
-    "font.monospace": [],
-    "figure.figsize": [default_width, default_width * default_ratio],
-    "pgf.preamble": [
-        # put LaTeX preamble declarations here
-        r"\usepackage[utf8x]{inputenc}",
-        r"\usepackage[T1]{fontenc}",
-        # macros defined here will be available in plots, e.g.:
-        r"\newcommand{\vect}[1]{#1}",
-        # You can use dummy implementations, since your LaTeX document
-        # will render these properly, anyway.
-    ],
-})
+# mpl.rcParams.update({
+#     "text.usetex": True,
+#     "pgf.texsystem": "lualatex",
+#     "pgf.rcfonts": False,
+#     "font.family": "serif",
+#     "font.serif": [],
+#     "font.sans-serif": [],
+#     "font.monospace": [],
+#     "figure.figsize": [default_width, default_width * default_ratio],
+#     "pgf.preamble": [
+#         # put LaTeX preamble declarations here
+#         r"\usepackage[utf8x]{inputenc}",
+#         r"\usepackage[T1]{fontenc}",
+#         # macros defined here will be available in plots, e.g.:
+#         r"\newcommand{\vect}[1]{#1}",
+#         # You can use dummy implementations, since your LaTeX document
+#         # will render these properly, anyway.
+#     ],
+# })
 
 import matplotlib.pyplot as plt
 
@@ -60,52 +60,12 @@ def subplots(width=default_width, ratio=default_ratio, *args, **kwargs):
 
 
 """
-Save PDF/PGF/SVG files with the given filename.
+Save PDF files with the given filename.
 """
 def savefig(filename, *args, **kwargs):
-    # # make sure settings are right - this is probs overkill
-    # print("Current mpl backend:", mpl.get_backend())
-    # mpl.use('pgf')
-    # print("New mpl backend:", mpl.get_backend())
-
-    # from math import sqrt
-    # default_width = 5.78853 # in inches
-    # default_ratio = (sqrt(5.0) - 1.0) / 2.0 # golden mean
-
-    # mpl.rcParams.update({
-    #     "text.usetex": True,
-    #     "pgf.texsystem": "lualatex",
-    #     "pgf.rcfonts": False,
-    #     "font.family": "serif",
-    #     "font.serif": [],
-    #     "font.sans-serif": [],
-    #     "font.monospace": [],
-    #     "figure.figsize": [default_width, default_width * default_ratio],
-    #     "pgf.preamble": [
-    #         # put LaTeX preamble declarations here
-    #         r"\usepackage[utf8x]{inputenc}",
-    #         r"\usepackage[T1]{fontenc}",
-    #         # macros defined here will be available in plots, e.g.:
-    #         r"\newcommand{\vect}[1]{#1}",
-    #         # You can use dummy implementations, since your LaTeX document
-    #         # will render these properly, anyway.
-    #     ],
-    # })
-
     print("Saving PDF...")
     # mpl.use('pgf')
     print("mpl backend for PDF:", mpl.get_backend())
     plt.savefig(filename + '.pdf', *args, **kwargs)
     print(filename + '.pdf')
-    # print("Saving PGF...")
-    # plt.savefig(filename + '.pgf', *args, **kwargs)
-    # print("Saving SVG...")
-    # plt.savefig(filename + '.svg', *args, **kwargs)
-
-    # set back to normal
-    # mpl.rcParams.update(mpl.rcParamsDefault)
-    # mpl.rcdefaults()
-    # mpl.use("Qt5Agg")
-    # # mpl.use(old_backend)
-    # print("Reset mpl backend:", mpl.get_backend())
     

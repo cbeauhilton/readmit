@@ -1,53 +1,79 @@
+import json
 import os
 import time
-import cbh.config
 import traceback
-# import cbh.texfig first to configure Matplotlib's backend
-import cbh.texfig as texfig
-# then, import PyPlot
-import matplotlib.pyplot as plt
+from inspect import signature
+
 import h5py
-import json
-import lightgbm as lgb
-import numpy as np
-import pandas as pd
 import jsonpickle
 import jsonpickle.ext.numpy as jsonpickle_numpy
-jsonpickle_numpy.register_handlers()
-import seaborn as sns
-# import cufflinks as cf
 import lightgbm as lgb
 import matplotlib
 import matplotlib.pylab as pl
-# from sklearn.exceptions import UndefinedMetricWarning
+
+# import cbh.texfig first to configure Matplotlib's backend
+# import cbh.texfig as texfig
+# then, import PyPlot
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
 from imblearn.metrics import classification_report_imbalanced
 from sklearn import metrics
+from sklearn.base import clone
 from sklearn.calibration import CalibratedClassifierCV, calibration_curve
-# from plotly.offline import download_plotlyjs, init_notebook_mode, iplot, plot
 from sklearn.dummy import DummyClassifier
 from sklearn.metrics import (
+    accuracy_score,
     auc,
     average_precision_score,
     brier_score_loss,
     f1_score,
+    matthews_corrcoef,
     precision_recall_curve,
+    precision_score,
+    recall_score,
+    roc_auc_score,
 )
 from sklearn.model_selection import train_test_split
-from inspect import signature
+
+import cbh.config
+from mlxtend.evaluate import bootstrap_point632_score
+
+jsonpickle_numpy.register_handlers()
+
 
 try:
     import cPickle as pickle
 except BaseException:
     import pickle
 
-# Select offline option and set the global theme for cufflinks
-# cf.go_offline()
-# cf.set_config_file(world_readable=True, theme="pearl", offline=True)
+def bootstrap_estimate_and_ci(
+    estimator,
+    X,
+    y,
+    scoring_func=None,
+    random_seed=42,
+    method=".632",
+    alpha=0.05,
+    n_splits=200,
+):
+    scores = bootstrap_point632_score(
+        estimator,
+        X,
+        y,
+        scoring_func=scoring_func,
+        n_splits=n_splits,
+        random_seed=random_seed,
+        method=method,
+    )
+    estimate = np.mean(scores)
+    lower_bound = np.percentile(scores, 100 * (alpha / 2))
+    upper_bound = np.percentile(scores, 100 * (1 - alpha / 2))
+    stderr = np.std(scores)
 
-# Always run this the command before at the start of notebook
-# init_notebook_mode(connected=True)
-
-
+    return estimate, lower_bound, upper_bound, stderr
+    
 class lgbmClassificationHelpers:
     """ 
     target: the thing you are predicting (y)
@@ -111,16 +137,18 @@ class lgbmClassificationHelpers:
             # print(traceback.format_exc())
             print("File did not exist, making new...")
         print("Saving TTV split to .h5 file...")
-        self.train_features.to_hdf(h5_file, key='train_features', mode='w', format="table")
-        # using mode="w" for the first one will overwrite an existing file, 
+        self.train_features.to_hdf(
+            h5_file, key="train_features", mode="w", format="table"
+        )
+        # using mode="w" for the first one will overwrite an existing file,
         # and so avoid key conflicts on files produced the same day
-        self.train_labels.to_hdf(h5_file, key='train_labels', format="table")
-        self.test_features.to_hdf(h5_file, key='test_features', format="table")
-        self.test_labels.to_hdf(h5_file, key='test_labels', format="table")
-        self.valid_features.to_hdf(h5_file, key='valid_features', format="table")
-        self.valid_labels.to_hdf(h5_file, key='valid_labels', format="table")
-        self.labels.to_hdf(h5_file, key='labels', format="table")
-        self.features.to_hdf(h5_file, key='features', format="table")
+        self.train_labels.to_hdf(h5_file, key="train_labels", format="table")
+        self.test_features.to_hdf(h5_file, key="test_features", format="table")
+        self.test_labels.to_hdf(h5_file, key="test_labels", format="table")
+        self.valid_features.to_hdf(h5_file, key="valid_features", format="table")
+        self.valid_labels.to_hdf(h5_file, key="valid_labels", format="table")
+        self.labels.to_hdf(h5_file, key="labels", format="table")
+        self.features.to_hdf(h5_file, key="features", format="table")
         print(f"TTV split available at {h5_file} .")
 
     def lgbm_save_model_to_pkl_and_h5(self):
@@ -147,15 +175,15 @@ class lgbmClassificationHelpers:
         frozen = jsonpickle.encode(self.gbm_model)
         print("Saving GBM model to .h5 file...")
         h5_file = self.h5_file
-        with h5py.File(h5_file, 'a') as f:
+        with h5py.File(h5_file, "a") as f:
             try:
-                f.create_dataset('gbm_model', data=frozen)
+                f.create_dataset("gbm_model", data=frozen)
             except Exception as exc:
                 print(traceback.format_exc())
                 print(exc)
                 try:
                     del f["gbm_model"]
-                    f.create_dataset('gbm_model', data=frozen)
+                    f.create_dataset("gbm_model", data=frozen)
                     print("Successfully deleted old gbm model and saved new one!")
                 except:
                     print("Old gbm model persists...")
@@ -177,12 +205,14 @@ class lgbmClassificationHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + ".pdf", bbox_inches="tight")
             print(title1)
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
         plt.close()
+
+
 
     def lgbm_classification_results(self):
         n_features = self.n_features
@@ -195,13 +225,11 @@ class lgbmClassificationHelpers:
 
         print("Generating histogram of probabilities...")
         plt.hist(predicted_labels, bins=8)
-        plt.xlim(0, 1) # x-axis limit from 0 to 1
+        plt.xlim(0, 1)  # x-axis limit from 0 to 1
         plt.title("Histogram of predicted probabilities")
         plt.xlabel("Predicted probability")
         plt.ylabel("Frequency")
-        figure_title = (
-            f"{self.target}_Probability_Histogram_"
-        )
+        figure_title = f"{self.target}_Probability_Histogram_"
         ext = ".png"
         title = figure_title + n_features + self.timestr + ext
         print(title)
@@ -211,7 +239,7 @@ class lgbmClassificationHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + ".pdf", bbox_inches="tight")
             # print(title1)
         except Exception as exc:
             print(traceback.format_exc())
@@ -219,7 +247,7 @@ class lgbmClassificationHelpers:
         plt.close()
 
         fpr, tpr, threshold = metrics.roc_curve(self.test_labels, predicted_labels)
-        roc_auc = metrics.auc(fpr, tpr)
+        roc_auc = auc(fpr, tpr)
 
         print("Generating ROC curve...")
         # plt.figure(figsize=(5,5))
@@ -242,7 +270,7 @@ class lgbmClassificationHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1)
+            plt.savefig(title1 + ".pdf")
 
         except Exception as exc:
             print(traceback.format_exc())
@@ -266,9 +294,15 @@ class lgbmClassificationHelpers:
         plt.ylabel("Precision")
         plt.ylim([0.0, 1.05])
         plt.xlim([0.0, 1.0])
-        plt.legend([f"Average Precision: {average_precision:0.2f}"],handletextpad=0, handlelength=0, loc="lower right")
+        plt.legend(
+            [f"Average Precision: {average_precision:0.2f}"],
+            handletextpad=0,
+            handlelength=0,
+            loc="lower right",
+        )
         figure_title = (
-            f"{self.target}_Precision_Recall_curve_AP_{average_precision*100:.0f}_" % average_precision
+            f"{self.target}_Precision_Recall_curve_AP_{average_precision*100:.0f}_"
+            % average_precision
         )
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
@@ -279,7 +313,7 @@ class lgbmClassificationHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + ".pdf", bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
@@ -301,7 +335,12 @@ class lgbmClassificationHelpers:
         plt.plot(gb_x, gb_y, marker=".", color="red")
         plt.xlabel("Predicted probability")
         plt.ylabel("True probability")
-        plt.legend([f"Brier Score Loss: {brier_score:.2f}"], handletextpad=0, handlelength=0,  loc="lower right")
+        plt.legend(
+            [f"Brier Score Loss: {brier_score:.2f}"],
+            handletextpad=0,
+            handlelength=0,
+            loc="lower right",
+        )
         figure_title = f"{self.target}_Calibration_curve_{brier_score*100:.0f}_"
         ext = ".png"
         title1 = figure_title + n_features + self.timestr + ext
@@ -312,7 +351,7 @@ class lgbmClassificationHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + ".pdf", bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
@@ -368,7 +407,12 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
-            plt.legend([f"Brier Score Loss: {brier_score:.2f}"], handletextpad=0, handlelength=0,  loc="lower right")
+            plt.legend(
+                [f"Brier Score Loss: {brier_score:.2f}"],
+                handletextpad=0,
+                handlelength=0,
+                loc="lower right",
+            )
             figure_title = f"{self.target}_Calibration_curve_sigmoid_calibration_{brier_score_cal_sig*100:.0f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
@@ -404,7 +448,12 @@ class lgbmClassificationHelpers:
             plt.plot(gb_x, gb_y, marker=".", color="red")
             plt.xlabel("Predicted probability")
             plt.ylabel("True probability")
-            plt.legend([f"Brier Score Loss: {brier_score:.2f}"], handletextpad=0, handlelength=0,  loc="lower right")
+            plt.legend(
+                [f"Brier Score Loss: {brier_score:.2f}"],
+                handletextpad=0,
+                handlelength=0,
+                loc="lower right",
+            )
             figure_title = f"{self.target}_Calibration_curve_isotonic_calibration_{brier_score_cal_iso*100:.0f}_"
             ext = ".png"
             title1 = figure_title + n_features + self.timestr + ext
@@ -432,13 +481,71 @@ class lgbmClassificationHelpers:
             else:
                 predicted_labels[i] = 0
 
+        accuracy = accuracy_score(self.test_labels, predicted_labels)
+        ap_score = average_precision_score(self.test_labels, predicted_labels)
+        bsl = brier_score_loss(self.test_labels, predicted_labels)
         f1 = f1_score(self.test_labels, predicted_labels)
-        accuracy = metrics.accuracy_score(self.test_labels, predicted_labels)
+        pr_score = precision_score(self.test_labels, predicted_labels)
+        re_score = recall_score(self.test_labels, predicted_labels)
+        mcc = matthews_corrcoef(self.test_labels, predicted_labels)
+
+        scoring_funcs = [
+            accuracy_score,
+            brier_score_loss,
+            f1_score,
+            precision_score,
+            recall_score,
+            matthews_corrcoef,
+        ]
+        
+        scores = {}
+        scores[self.target] = {}
+        for scoring_func in scoring_funcs:
+            est, low, up, stderr = bootstrap_estimate_and_ci(
+                estimator=self.gbm_model,
+                X=self.features,
+                y=self.labels,
+                method=".632+",
+                n_splits=200,
+                scoring_func=scoring_func,
+            )
+            scores[self.target][f"{scoring_func.__name__}"] = {
+                "estimate": est,
+                "lower bound": low,
+                "upper bound": up,
+                "standard error": stderr,
+            }
+
+        scoring_funcs = [average_precision_score, roc_auc_score]
+        cloned_estimator = clone(self.gbm_model)
+        cloned_estimator.predict = cloned_estimator.decision_function
+
+        for scoring_func in scoring_funcs:
+            est, low, up, stderr = bootstrap_estimate_and_ci(
+                estimator=cloned_estimator,
+                X=self.features,
+                y=self.labels,
+                method=".632+",
+                n_splits=200,
+                scoring_func=scoring_func,
+            )
+            scores[self.target][f"{scoring_func.__name__}"] = {
+                "estimate": est,
+                "lower bound": low,
+                "upper bound": up,
+                "standard error": stderr,
+            }
+
+        print(scores)
+
+        with open(cbh.config.SCORES_JSON, "w") as f:
+            json.dump(scores, f, indent=4)
+
         print(f"Accuracy of GBM classifier for {self.target}: ", accuracy)
         print(classification_report_imbalanced(self.test_labels, predicted_labels))
 
         conf_mx = metrics.confusion_matrix(self.test_labels, predicted_labels)
-        fig = sns.heatmap(conf_mx, square=True, annot=True, fmt="d", cbar=False)
+        fig = sns.heatmap(conf_mx, annot=True, fmt="d", cbar=False, linewidths=0.5)
         fig = fig.get_figure()
         plt.xlabel("True Label")
         plt.ylabel("Predicted Label")
@@ -451,7 +558,7 @@ class lgbmClassificationHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + ".pdf", bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)
@@ -519,6 +626,7 @@ class lgbmClassificationHelpers:
                 roc_auc,
                 average_precision,
                 f1,
+                mcc,
                 brier_score,
                 brier_score_cal_sig,
                 brier_score_cal_iso,
@@ -549,6 +657,7 @@ class lgbmClassificationHelpers:
                 "ROC AUC",
                 "Average Precision",
                 "F1 Score",
+                "Matthews Correlation Coefficient",
                 "Brier Score Loss",
                 "Brier Score Loss Sigmoid Calibration",
                 "Brier Score Loss Isotonic Calibration",
@@ -559,7 +668,14 @@ class lgbmClassificationHelpers:
             self.tablefolder / "classifiertrainingreports.csv", mode="a", header=True
         )
         d2 = [
-            [self.timestr, self.target, n_features, roc_auc, average_precision, brier_score]
+            [
+                self.timestr,
+                self.target,
+                n_features,
+                roc_auc,
+                average_precision,
+                brier_score,
+            ]
         ]
 
         df2 = pd.DataFrame(
@@ -585,7 +701,6 @@ class lgbmClassificationHelpers:
         figures_path = config.FIGURES_DIR
         feat_sel = pd.read_csv(feature_selection_csv)
 
-        
         # cf.set_config_file(world_readable=True, theme="pearl", offline=True)
         # init_notebook_mode(connected=True)
         # cf.go_offline()
@@ -679,7 +794,7 @@ class lgbmRegressionHelpers:
         try:
             title1 = figure_title + n_features + self.timestr
             title1 = str(self.figfolder) + "/" + title1
-            texfig.savefig(title1, bbox_inches="tight")
+            plt.savefig(title1 + ".pdf", bbox_inches="tight")
         except Exception as exc:
             print(traceback.format_exc())
             print(exc)

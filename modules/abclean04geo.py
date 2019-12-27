@@ -58,7 +58,8 @@ geodata = geodata.rename(
     },
 )
 
-print("Merging...")
+print("Cleaning newlines...")
+geodata['patientid'] = geodata['patientid'].replace(r'\\n','', regex=True)
 
 data = data.drop(columns="patientid_")
 
@@ -70,7 +71,25 @@ for col in date_cols:
     geodata[col] = geodata[col].replace("Not available", np.nan)
     geodata[col] = pd.to_datetime(geodata[col], yearfirst=True)
     # print(geodata[col])
-    
+
+geodata = geodata.sort_values(by=['admissiontime_date'])
+data = data.sort_values(by=['admissiontime_date'])
+
+print("Text cleaning for geodata...")
+geodata = geodata.progress_apply(
+    lambda x: x.str.lower()
+    .str.strip()
+    .str.replace("\t", "")
+    .str.replace("  ", " ")
+    .str.replace(" ", "_")
+    .str.replace("__", "_")
+    if (x.dtype == "object")
+    else x
+)
+
+geodata = geodata.dropna(subset = ['patientid'])
+geodata['patientid'] = geodata['patientid'].astype('category')
+
 result = data.merge(
     geodata, on=["patientid", "admissiontime_date", "dischargetime_date"], how="left"
 )

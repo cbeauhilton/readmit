@@ -90,7 +90,7 @@ TRAINING_REPORTS = TABLES_DIR / "classifiertrainingreports.csv"
 REGRESSOR_TRAINING_REPORTS = TABLES_DIR / "regressortrainingreports.csv"
 PAPER_NUMBERS = TABLES_DIR / "papernumbers.csv"
 RESULTS_TEX = TEX_TABLE_DIR /  "all_results_df.tex"
-
+SCORES_JSON = TABLES_DIR / "scores.json"
 
 
 ### LIGHTGBM ###

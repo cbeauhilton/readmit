@@ -166,11 +166,18 @@ print("Setting numeric cols...")
 num_cols = configcols.NUMERIC_COLS
 for col in num_cols:
     try:
-        data[col] = data[col].apply(pd.to_numeric, errors="coerce")
+        data[col] = data[col].apply(pd.to_numeric, errors="coerce", downcast="signed")
         data[col] = data[col].round(2)
     except:
         print(f"{col} not in cols. But that's OK.")
 
+nums = data.select_dtypes(include=np.unsignedinteger).columns.tolist()
+for col in nums:
+    try:
+        print(col)
+        data[col] = data[col].apply(pd.to_numeric, downcast="signed")
+    except:
+        print(f"Could not convert {col} to signed.")
 
 print("Merging...")
 data = pd.merge(data, datecols, left_index=True, right_index=True)
@@ -207,13 +214,25 @@ feature_list_file = datafolder / title
 df.to_csv(feature_list_file, index=False)
 print("CSV of features available at: ", feature_list_file)
 
+# print(data.dtypes.to_dict())
+# with open(config.PROCESSED_DATA_DIR/"dtypes.json", 'w') as json_file:
+#         json.dump(data.dtypes.to_dict(), json_file)
+#         data.dtypes.to_json()
+# print(data.select_dtypes(include=['uint64']))
+
 # Save to disk
 # '09' just in case I want to go add some other preprocessing later
 # o BASIC, thy wisdom shines eternal.
 
 result_file = config.CLEAN_PHASE_09
+data.index = data.index.astype('float64') 
 data.to_pickle(result_file)
-data.to_hdf(interim_file, key='phase_09', mode='a', format='table')
+try:
+    data.to_hdf(interim_file, key='phase_09', mode='a', format='table')
+except:
+    print("HDF table format didn't work, trying fixed...")
+else:
+    data.to_hdf(interim_file, key='phase_09', mode='a', format='fixed')
 print(f"Files available at : {result_file} and {interim_file}")
 
 # How long did this take?

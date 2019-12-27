@@ -459,7 +459,7 @@ for obj in obj_list:
         data[obj] = data[obj].astype("category")
     
 
-write(config.INTERIM_PARQ, data)
+# write(config.INTERIM_PARQ, data)
 data.to_hdf(config.INTERIM_H5, key='phase_00', mode='a', format='table')
 
 # with h5py.File(h5_file, 'a') as f:

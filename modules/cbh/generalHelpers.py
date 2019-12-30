@@ -7,7 +7,6 @@ import jsonpickle
 import jsonpickle.ext.numpy as jsonpickle_numpy
 import numpy as np
 import pandas as pd
-from imblearn.under_sampling import RandomUnderSampler
 from sklearn.metrics import f1_score
 from sklearn.model_selection import StratifiedShuffleSplit
 
@@ -39,6 +38,7 @@ def make_modelfolder_for_target(debug, target):
     import time
     import os
     import cbh.config as config
+    
 
     timestrfolder = time.strftime("%Y-%m-%d")
     if debug:
@@ -89,6 +89,55 @@ def make_report_tables_folder(debug):
             os.makedirs(tablefolder)
     return tablefolder
 
+def get_latest_folders(target):
+    import errno
+    from pathlib import Path
+    latest_dirs = []
+    for folder in [config.MODELS_DIR, config.PROCESSED_DATA_DIR, config.FIGURES_DIR]:
+        # find and remove empty folders
+        for dir in [f.path for f in os.scandir(folder) if f.is_dir()]:
+            try:
+                os.rmdir(dir)
+                # print(f"Removed {dir}, which was empty.")
+            except OSError as ex:
+                if ex.errno == errno.ENOTEMPTY:
+                    # print(f"Did not remove {dir} as it was not empty.")
+                    pass
+        # grab newest not-empty folder
+        dirs = [f.path for f in os.scandir(folder) if f.is_dir()]
+        latest_dir = max(dirs, key=os.path.getmtime)
+        latest_dirs.append(Path(latest_dir)/target)
+
+    latest_dirs.append(config.TABLES_DIR)
+    models_dir = latest_dirs[0]
+    data_dir = latest_dirs[1]
+    figs_dir = latest_dirs[2]
+    tables_dir = latest_dirs[3]
+
+    return models_dir, data_dir, figs_dir, tables_dir
+
+def load_ttv_split(modelfolder, showkeys=False):
+    import glob
+    
+    h5_file = max(glob.iglob(str(modelfolder) + '/*.h5'), key=os.path.getmtime)
+    
+    if showkeys:
+        import h5py
+        f = h5py.File(h5_file, 'r')
+        print(f.keys())
+
+    print(f"Loading TTV split from {h5_file}...")
+
+    train_features = pd.read_hdf(h5_file, key='train_features')
+    train_labels = pd.read_hdf(h5_file, key='train_labels')
+    test_features = pd.read_hdf(h5_file, key='test_features')
+    test_labels = pd.read_hdf(h5_file, key='test_labels')
+    valid_features = pd.read_hdf(h5_file, key='valid_features')
+    valid_labels = pd.read_hdf(h5_file, key='valid_labels')
+    labels = pd.read_hdf(h5_file, key='labels')
+    features = pd.read_hdf(h5_file, key='features')
+
+    return train_features, train_labels, test_features, test_labels, valid_features, valid_labels, labels, features
 
 def lgb_f1_score(y_hat, data):
     y_true = data.get_label()

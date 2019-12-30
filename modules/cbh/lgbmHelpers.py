@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from imblearn.metrics import classification_report_imbalanced
+
 from sklearn import metrics
 from sklearn.base import clone
 from sklearn.calibration import CalibratedClassifierCV, calibration_curve
@@ -58,6 +58,7 @@ def bootstrap_estimate_and_ci(
     alpha=0.05,
     n_splits=200,
 ):
+# https://gist.github.com/roncho12/60178f12ea4c3a74764fd645c6f2fe13 
     scores = bootstrap_point632_score(
         estimator,
         X,
@@ -214,7 +215,7 @@ class lgbmClassificationHelpers:
 
 
 
-    def lgbm_classification_results(self):
+    def lgbm_classification_results(self, bootstrap=False):
         n_features = self.n_features
 
         # Predict probabilities
@@ -489,60 +490,64 @@ class lgbmClassificationHelpers:
         re_score = recall_score(self.test_labels, predicted_labels)
         mcc = matthews_corrcoef(self.test_labels, predicted_labels)
 
-        scoring_funcs = [
-            accuracy_score,
-            brier_score_loss,
-            f1_score,
-            precision_score,
-            recall_score,
-            matthews_corrcoef,
-        ]
-        
-        scores = {}
-        scores[self.target] = {}
-        for scoring_func in scoring_funcs:
-            est, low, up, stderr = bootstrap_estimate_and_ci(
-                estimator=self.gbm_model,
-                X=self.features,
-                y=self.labels,
-                method=".632+",
-                n_splits=200,
-                scoring_func=scoring_func,
-            )
-            scores[self.target][f"{scoring_func.__name__}"] = {
-                "estimate": est,
-                "lower bound": low,
-                "upper bound": up,
-                "standard error": stderr,
-            }
+        if bootstrap:
+            scoring_funcs = [
+                accuracy_score,
+                brier_score_loss,
+                f1_score,
+                precision_score,
+                recall_score,
+                matthews_corrcoef,
+            ]
+            
+            scores = {}
+            scores[self.target] = {}
+            for scoring_func in scoring_funcs:
+                est, low, up, stderr = bootstrap_estimate_and_ci(
+                    estimator=self.gbm_model,
+                    X=self.features,
+                    y=self.labels,
+                    method=".632+",
+                    n_splits=200,
+                    scoring_func=scoring_func,
+                )
+                scores[self.target][f"{scoring_func.__name__}"] = {
+                    "estimate": est,
+                    "lower bound": low,
+                    "upper bound": up,
+                    "standard error": stderr,
+                }
+                print(scores)
 
-        scoring_funcs = [average_precision_score, roc_auc_score]
-        cloned_estimator = clone(self.gbm_model)
-        cloned_estimator.predict = cloned_estimator.decision_function
+            scoring_funcs = [average_precision_score, roc_auc_score]
+            cloned_estimator = clone(self.gbm_model)
+            cloned_estimator.predict = cloned_estimator.decision_function
 
-        for scoring_func in scoring_funcs:
-            est, low, up, stderr = bootstrap_estimate_and_ci(
-                estimator=cloned_estimator,
-                X=self.features,
-                y=self.labels,
-                method=".632+",
-                n_splits=200,
-                scoring_func=scoring_func,
-            )
-            scores[self.target][f"{scoring_func.__name__}"] = {
-                "estimate": est,
-                "lower bound": low,
-                "upper bound": up,
-                "standard error": stderr,
-            }
+            for scoring_func in scoring_funcs:
+                est, low, up, stderr = bootstrap_estimate_and_ci(
+                    estimator=cloned_estimator,
+                    X=self.features,
+                    y=self.labels,
+                    method=".632+",
+                    n_splits=200,
+                    scoring_func=scoring_func,
+                )
+                scores[self.target][f"{scoring_func.__name__}"] = {
+                    "estimate": est,
+                    "lower bound": low,
+                    "upper bound": up,
+                    "standard error": stderr,
+                }
+                print(scores)
 
-        print(scores)
+            print(scores)
 
-        with open(cbh.config.SCORES_JSON, "w") as f:
-            json.dump(scores, f, indent=4)
+            with open(cbh.config.SCORES_JSON, "w") as f:
+                json.dump(scores, f, indent=4)
 
         print(f"Accuracy of GBM classifier for {self.target}: ", accuracy)
-        print(classification_report_imbalanced(self.test_labels, predicted_labels))
+        # from imblearn.metrics import classification_report_imbalanced
+        # print(classification_report_imbalanced(self.test_labels, predicted_labels))
 
         conf_mx = metrics.confusion_matrix(self.test_labels, predicted_labels)
         fig = sns.heatmap(conf_mx, annot=True, fmt="d", cbar=False, linewidths=0.5)

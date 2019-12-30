@@ -18,6 +18,7 @@ from cbh.generalHelpers import (
     make_modelfolder_for_target,
     make_report_tables_folder,
     train_test_valid_80_10_10_split,
+    get_latest_folders
 )
 from cbh.lgbmHelpers import lgbmClassificationHelpers
 from cbh.shapHelpers import shapHelpers
@@ -133,8 +134,6 @@ metricsgen = lgbmClassificationHelpers(
 
 metricsgen.lgbm_save_ttv_split()
 pkl_model = metricsgen.lgbm_save_model_to_pkl_and_h5()
-metricsgen.lgbm_save_feature_importance_plot()
-metricsgen.lgbm_classification_results()
 
 # How long did this take?
 print("This program,", os.path.basename(__file__), "took")

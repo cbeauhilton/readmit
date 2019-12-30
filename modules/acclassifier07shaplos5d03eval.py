@@ -11,11 +11,8 @@ import pandas as pd
 import cbh.config as config
 import cbh.configcols as configcols
 from cbh.generalHelpers import (
-    make_datafolder_for_target,
-    make_figfolder_for_target,
-    make_modelfolder_for_target,
-    make_report_tables_folder,
     train_test_valid_80_10_10_split,
+    get_latest_folders,
 )
 from cbh.lgbmHelpers import lgbmClassificationHelpers
 from cbh.shapHelpers import shapHelpers
@@ -24,7 +21,6 @@ try:
     import cPickle as pickle
 except BaseException:
     import pickle
-
 
 print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
@@ -37,13 +33,10 @@ name_for_figs = "Length of Stay"
 debug = False
 print("Debug:", debug)
 
-figfolder = make_figfolder_for_target(debug, target)
-datafolder = make_datafolder_for_target(debug, target)
-modelfolder = make_modelfolder_for_target(debug, target)
-tablefolder = make_report_tables_folder(debug)
+modelfolder, datafolder, figfolder, tablefolder = get_latest_folders(target)
 
 def lgbm_load_ttv_split():
-    h5_file = max(glob.iglob(os.path.join(modelfolder, '*.h5')), key=os.path.getmtime)
+    h5_file = max(glob.iglob(str(modelfolder) + '/*.h5'), key=os.path.getmtime)
     print(f"Loading TTV split from {h5_file}...")
 
     train_features = pd.read_hdf(h5_file, key='train_features')

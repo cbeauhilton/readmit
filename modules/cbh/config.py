@@ -91,7 +91,7 @@ REGRESSOR_TRAINING_REPORTS = TABLES_DIR / "regressortrainingreports.csv"
 PAPER_NUMBERS = TABLES_DIR / "papernumbers.csv"
 RESULTS_TEX = TEX_TABLE_DIR /  "all_results_df.tex"
 SCORES_JSON = TABLES_DIR / "scores.json"
-
+SCORES_JSON_SOTA = TABLES_DIR / "scores_sota.json"
 
 ### LIGHTGBM ###
 
@@ -223,6 +223,7 @@ C_READMIT_PARAMS_LGBM = {
     "subsample_for_bin": 240000,
     "subsample_freq": 0,
     "subsample": 0.6027609913849075,
+    "max_bin": 63,
     # "boost_from_average": True,
     # "importance_type": "split",
     # "num_threads": 8,

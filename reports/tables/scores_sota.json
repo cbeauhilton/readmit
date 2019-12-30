@@ -1,0 +1,72 @@
+{
+    "Deep Neural Network": {
+        "average_precision_score": 0.6735108775452969,
+        "brier_score_loss": 0.16765171145099575,
+        "roc_auc_score": 0.8089670141670958,
+        "accuracy_score": 0.74585,
+        "f1_score": 0.6079323696836,
+        "precision_score": 0.6359411309062742,
+        "recall_score": 0.582286710600195,
+        "matthews_corrcoef": 0.42135258639126116
+    },
+    "Gradient Boosting Machine": {
+        "average_precision_score": 0.7043620317052576,
+        "brier_score_loss": 0.1557935219417553,
+        "roc_auc_score": 0.8281306669156036,
+        "accuracy_score": 0.7671021197527587,
+        "f1_score": 0.6080130199607486,
+        "precision_score": 0.691654263622173,
+        "recall_score": 0.5424187211751978,
+        "matthews_corrcoef": 0.4524376973496977
+    },
+    "Logistic Regression": {
+        "average_precision_score": 0.5293212563785273,
+        "brier_score_loss": 0.19839245872017394,
+        "roc_auc_score": 0.693153192484186,
+        "accuracy_score": 0.6988168821811839,
+        "f1_score": 0.344055828550192,
+        "precision_score": 0.6260895701833483,
+        "recall_score": 0.23720321129647554,
+        "matthews_corrcoef": 0.23630110149382028
+    },
+    "Gaussian Naive Bayes": {
+        "average_precision_score": 0.5050667775911084,
+        "brier_score_loss": 0.2503011802081487,
+        "roc_auc_score": 0.6787401389482721,
+        "accuracy_score": 0.6904459444086307,
+        "f1_score": 0.3568825950800622,
+        "precision_score": 0.5790247331756886,
+        "recall_score": 0.2579285998975118,
+        "matthews_corrcoef": 0.21786379654391022
+    },
+    "Complement Naive Bayes": {
+        "average_precision_score": 0.4614525007349486,
+        "brier_score_loss": 0.23993905655253187,
+        "roc_auc_score": 0.6102601810280835,
+        "accuracy_score": 0.6852129232869439,
+        "f1_score": 0.29669794336305677,
+        "precision_score": 0.5794655414908579,
+        "recall_score": 0.19939645846381598,
+        "matthews_corrcoef": 0.1881340386819234
+    },
+    "Support Vector Machine": {
+        "average_precision_score": 0.3999627685044287,
+        "brier_score_loss": 0.3015244018050131,
+        "roc_auc_score": 0.5789279574797961,
+        "accuracy_score": 0.698475598194987,
+        "f1_score": 0.328023324600693,
+        "precision_score": 0.6359986891692611,
+        "recall_score": 0.22100438421681945,
+        "matthews_corrcoef": 0.23257105101494882
+    },
+    "Stochastic Gradient Descent": {
+        "average_precision_score": 0.38214976966885805,
+        "brier_score_loss": 0.3147586363808729,
+        "roc_auc_score": 0.5635615064104917,
+        "accuracy_score": 0.685241363619127,
+        "f1_score": 0.29656779661016947,
+        "precision_score": 0.5796753354315057,
+        "recall_score": 0.1992541137618858,
+        "matthews_corrcoef": 0.18817979741619623
+    }
+}

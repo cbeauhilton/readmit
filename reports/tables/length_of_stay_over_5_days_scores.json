@@ -1,23 +1,23 @@
 {
     "Gradient Boosting Machine": {
-        "average_precision_score": 0.7033939478037755,
-        "brier_score_loss": 0.15612123817569537,
-        "roc_auc_score": 0.8272873529536825,
-        "accuracy_score": 0.7663342307838156,
-        "f1_score": 0.6066766667730508,
-        "precision_score": 0.6902323892519971,
-        "recall_score": 0.5411660877982122,
-        "matthews_corrcoef": 0.45056653535270913
+        "average_precision_score": 0.7043620317052576,
+        "brier_score_loss": 0.1557935219417553,
+        "roc_auc_score": 0.8281306669156036,
+        "accuracy_score": 0.7671021197527587,
+        "f1_score": 0.6080130199607486,
+        "precision_score": 0.691654263622173,
+        "recall_score": 0.5424187211751978,
+        "matthews_corrcoef": 0.4524376973496977
     },
     "Deep Neural Network": {
-        "average_precision_score": 0.6735108775452969,
-        "brier_score_loss": 0.16765171145099575,
-        "roc_auc_score": 0.8089670141670958,
-        "accuracy_score": 0.74585,
-        "f1_score": 0.6079323696836,
-        "precision_score": 0.6359411309062742,
-        "recall_score": 0.582286710600195,
-        "matthews_corrcoef": 0.42135258639126116
+        "average_precision_score": 0.6739569040361832,
+        "brier_score_loss": 0.16901765840641994,
+        "roc_auc_score": 0.8105223746991643,
+        "accuracy_score": 0.74711,
+        "f1_score": 0.6089954697960634,
+        "precision_score": 0.6386276671638887,
+        "recall_score": 0.5819911935931913,
+        "matthews_corrcoef": 0.42370610014802695
     },
     "Logistic Regression": {
         "average_precision_score": 0.5293212563785273,

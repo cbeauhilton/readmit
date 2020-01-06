@@ -48,32 +48,59 @@ try:
 except BaseException:
     import pickle
 
-def bootstrap_estimate_and_ci(
-    estimator,
-    X,
-    y,
-    scoring_func=None,
-    random_seed=42,
-    method=".632",
-    alpha=0.05,
-    n_splits=200,
-):
-# https://gist.github.com/roncho12/60178f12ea4c3a74764fd645c6f2fe13 
-    scores = bootstrap_point632_score(
-        estimator,
-        X,
-        y,
-        scoring_func=scoring_func,
-        n_splits=n_splits,
-        random_seed=random_seed,
-        method=method,
-    )
-    estimate = np.mean(scores)
-    lower_bound = np.percentile(scores, 100 * (alpha / 2))
-    upper_bound = np.percentile(scores, 100 * (1 - alpha / 2))
-    stderr = np.std(scores)
+def bootstrap_estimate_and_ci(estimator, X, y, scoring_func=None, random_seed=0,
+                              method='.632', alpha=0.05, n_splits=200):
+      scores = bootstrap_point632_score(estimator, X, y, scoring_func=scoring_func,
+      n_splits=n_splits, random_seed=random_seed,  method=method)
 
-    return estimate, lower_bound, upper_bound, stderr
+      ci_dict = {}
+
+      if isinstance(scoring_func, list):
+            for func in scoring_func:
+                  func_name = func.__name__
+                  ci_dict[f"{func_name}"] = {}
+                  ci_dict[f"{func_name}"]["estimate"] = np.mean(scores[func_name])
+                  ci_dict[f"{func_name}"]["lower_bound"] = np.percentile(scores[func_name], 100*(alpha/2)) 
+                  ci_dict[f"{func_name}"]["upper_bound"] = np.percentile(scores[func_name], 100*(1-alpha/2)) 
+                  ci_dict[f"{func_name}"]["stderr"] = np.std(scores[func_name]) 
+
+      else:
+            estimate = np.mean(scores)
+            lower_bound = np.percentile(scores, 100*(alpha/2))
+            upper_bound = np.percentile(scores, 100*(1-alpha/2))
+            stderr = np.std(scores)
+
+            func_name = scoring_func.__name__
+            ci_dict[f"{func_name}"] = {"estimate": estimate, "lower_bound": lower_bound, "upper_bound": upper_bound, "stderr": stderr}
+      
+      return ci_dict
+
+# def bootstrap_estimate_and_ci(
+#     estimator,
+#     X,
+#     y,
+#     scoring_func=None,
+#     random_seed=42,
+#     method=".632",
+#     alpha=0.05,
+#     n_splits=200,
+# ):
+# # https://gist.github.com/roncho12/60178f12ea4c3a74764fd645c6f2fe13 
+#     scores = bootstrap_point632_score(
+#         estimator,
+#         X,
+#         y,
+#         scoring_func=scoring_func,
+#         n_splits=n_splits,
+#         random_seed=random_seed,
+#         method=method,
+#     )
+#     estimate = np.mean(scores)
+#     lower_bound = np.percentile(scores, 100 * (alpha / 2))
+#     upper_bound = np.percentile(scores, 100 * (1 - alpha / 2))
+#     stderr = np.std(scores)
+
+#     return estimate, lower_bound, upper_bound, stderr
     
 class lgbmClassificationHelpers:
     """ 

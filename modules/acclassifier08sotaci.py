@@ -1,8 +1,10 @@
 import glob
-import time
 import pickle
+import time
+
 import lightgbm as lgb
 import matplotlib.pyplot as plt
+import mlxtend
 import numpy as np
 import pandas as pd
 from fastai.callbacks import *
@@ -36,6 +38,10 @@ from sklearn.tree import DecisionTreeClassifier
 from cbh import config
 from cbh.generalHelpers import get_latest_folders, load_ttv_split
 from cbh.plottingHelpers import save_pr_curve
+from cbh.lgbmHelpers import bootstrap_estimate_and_ci
+
+# When training starts, certain metrics are often zero for a while, which throws a warning and clutters the terminal output
+warnings.filterwarnings(action="ignore", category=UndefinedMetricWarning)
 
 ##################################################################################################################
 
@@ -58,6 +64,8 @@ X_train = train_features
 y_train = train_labels
 X_test = test_features
 y_test = test_labels
+X = features
+y = labels
 
 
 # Set up calibration curve
@@ -68,7 +76,18 @@ ax1.plot([0, 1], [0, 1], "k:", label="Perfectly calibrated")
 
 scores = {}
 
+# grab desired scoring functions
+scoring_funcs_0 = [average_precision_score, roc_auc_score]
+scoring_funcs_1 = [brier_score_loss, accuracy_score, f1_score, precision_score, recall_score, matthews_corrcoef]
 
+n_splits = 10 # number of splits for bootstrap
+method = '.632+' # type of bootstrap evaluation method
+
+subsample_n = 1_000
+random_state = config.SEED
+
+X_boot = X.sample(n=subsample_n, random_state=random_state)
+y_boot = y.sample(n=subsample_n, random_state=random_state)
 ################################################################################################################
 
 # LGBM
@@ -87,8 +106,6 @@ early_stopping_rounds = 200
 
 if train_or_load == "train":
 
-    # When training starts, certain metrics are often zero for a while, which throws a warning and clutters the terminal output
-    warnings.filterwarnings(action="ignore", category=UndefinedMetricWarning)
 
     gbm_model.fit(
         X_train,
@@ -120,15 +137,11 @@ y_pred = gbm_model.predict_proba(X_test)[:, 1]
 
 save_pr_curve(target=target, classifier=cls_name, test_labels=y_test, predicted_labels=y_pred, figfolder=figfolder)
 
-scoring_funcs = [
-    (average_precision_score(y_test, y_pred), f"{average_precision_score.__name__}"),
-    (brier_score_loss(y_test, y_pred), f"{brier_score_loss.__name__}"),  # roc_auc_score
-    (roc_auc_score(y_test, y_pred), f"{roc_auc_score.__name__}"),
-]
-
-for score, func_name in scoring_funcs:
-    scores[cls_name][func_name] = score
-
+# scoring_funcs = [
+    # (average_precision_score(y_test, y_pred), f"{average_precision_score.__name__}"),
+    # (brier_score_loss(y_test, y_pred), f"{brier_score_loss.__name__}"),  # roc_auc_score
+    # (roc_auc_score(y_test, y_pred), f"{roc_auc_score.__name__}"),
+# ]
 
 fraction_of_positives, mean_predicted_value = calibration_curve(
     y_test, y_pred, n_bins=10
@@ -146,17 +159,29 @@ for i in range(len(y_pred)):
     else:
         y_pred[i] = 0
 
-scoring_funcs = [
-    (accuracy_score(y_test, y_pred), f"{accuracy_score.__name__}"),
-    (f1_score(y_test, y_pred), f"{f1_score.__name__}"),
-    (precision_score(y_test, y_pred), f"{precision_score.__name__}"),
-    (recall_score(y_test, y_pred), f"{recall_score.__name__}"),
-    (matthews_corrcoef(y_test, y_pred), f"{matthews_corrcoef.__name__}"),
-]
+# scoring_funcs = [
+#     (accuracy_score(y_test, y_pred), f"{accuracy_score.__name__}"),
+#     (f1_score(y_test, y_pred), f"{f1_score.__name__}"),
+#     (precision_score(y_test, y_pred), f"{precision_score.__name__}"),
+#     (recall_score(y_test, y_pred), f"{recall_score.__name__}"),
+#     (matthews_corrcoef(y_test, y_pred), f"{matthews_corrcoef.__name__}"),
+# ]
 
-for score, func_name in scoring_funcs:
-    scores[cls_name][func_name] = score
+# for score, func_name in scoring_funcs:
+    # scores[cls_name][func_name] = score
 
+ci_dict_1 = bootstrap_estimate_and_ci(gbm_model, X_boot, y_boot,
+                                            scoring_func=scoring_funcs_1, method=method, n_splits=n_splits)
+
+
+cloned_estimator = clone(gbm_model)
+cloned_estimator.predict = cloned_estimator.decision_function
+
+ci_dict_0 = bootstrap_estimate_and_ci(cloned_estimator, X_boot, y_boot,
+                                                 scoring_func=scoring_funcs_0, method=method, n_splits=n_splits)
+
+scores[cls_name] = ci_dict_1.update(ci_dict_0)
+print(scores)
 ##################################################################################################################
 
 # set up fastai
@@ -326,26 +351,40 @@ for cls_name, classifier in classifiers:
     except:
         y_pred_proba = y_pred
 
-    scoring_funcs = [
-        (
-            average_precision_score(y_test, y_pred_proba),
-            f"{average_precision_score.__name__}",
-        ),  # proba
-        (
-            brier_score_loss(y_test, y_pred_proba),
-            f"{brier_score_loss.__name__}",
-        ),  # proba
-        (roc_auc_score(y_test, y_pred_proba), f"{roc_auc_score.__name__}"),  # proba
-        (accuracy_score(y_test, y_pred), f"{accuracy_score.__name__}"),
-        (f1_score(y_test, y_pred), f"{f1_score.__name__}"),
-        (precision_score(y_test, y_pred), f"{precision_score.__name__}"),
-        (recall_score(y_test, y_pred), f"{recall_score.__name__}"),
-        (matthews_corrcoef(y_test, y_pred), f"{matthews_corrcoef.__name__}"),
-    ]
-    scores[cls_name] = {}
 
-    for score, func_name in scoring_funcs:
-        scores[cls_name][func_name] = score
+
+    ci_dict = {}
+    ci_dict_1 = bootstrap_estimate_and_ci(pipe, X_boot, y_boot, scoring_func=scoring_funcs_1, n_splits=n_splits, method=method)
+
+    print(ci_dict_1)
+
+    cloned_estimator = clone(estimator)
+    cloned_estimator.predict = cloned_estimator.decision_function
+
+    ci_dict_0 = bootstrap_estimate_and_ci(cloned_estimator, X_boot, y_boot,
+                                                scoring_func=scoring_funcs_0, n_splits=n_splits, method = method)
+
+    ci_dict.update(ci_dict_0)
+    ci_dict.update(ci_dict_1)
+
+    #     (
+    #         average_precision_score(y_test, y_pred_proba),
+    #         f"{average_precision_score.__name__}",
+    #     ),  # proba
+    #     (
+    #         brier_score_loss(y_test, y_pred_proba),
+    #         f"{brier_score_loss.__name__}",
+    #     ),  # proba
+    #     (roc_auc_score(y_test, y_pred_proba), f"{roc_auc_score.__name__}"),  # proba
+    #     (accuracy_score(y_test, y_pred), f"{accuracy_score.__name__}"),
+    #     (f1_score(y_test, y_pred), f"{f1_score.__name__}"),
+    #     (precision_score(y_test, y_pred), f"{precision_score.__name__}"),
+    #     (recall_score(y_test, y_pred), f"{recall_score.__name__}"),
+    #     (matthews_corrcoef(y_test, y_pred), f"{matthews_corrcoef.__name__}"),
+    # ]
+    # scores[cls_name] = {}
+
+    scores[cls_name]= ci_dict
     
     save_pr_curve(target=target, classifier=cls_name, test_labels=y_test, predicted_labels=y_pred, figfolder=figfolder)
     

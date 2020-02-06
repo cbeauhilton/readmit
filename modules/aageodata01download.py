@@ -284,7 +284,7 @@ def census_download_convert(
         geo_by_block.to_pickle(file_name)
         print("Pickle file available at", file_name)
         savedoneblocks = open(config.GEODATA_BLOCKS_DONE, "a")
-        savedoneblocks.write("{}\n".format(blockgroupid))
+        savedoneblocks.write(f"{blockgroupid}\n")
         print(f"Block {blockgroupid} finished, see: {config.GEODATA_BLOCKS_DONE}")
         downloadcounter += 1
         print("downloadcounter = ", downloadcounter)

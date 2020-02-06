@@ -27,8 +27,12 @@ startTime = datetime.now()
 seed = config.SEED
 class_thresh = 0.5
 
-target = "length_of_stay_over_5_days"
-name_for_figs = "Length of Stay"
+
+target = config.TARGET 
+name_for_figs = config.NAME_FOR_FIGS
+
+# target = "readmitted30d"
+# name_for_figs = "Readmission"
 
 debug = False
 print("Debug:", debug)

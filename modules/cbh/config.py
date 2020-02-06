@@ -27,13 +27,6 @@ TEX_TABLE_DIR = PROJECT_DIR / "reports/text/tables/"
 DOCS_DIR = PROJECT_DIR / "docs"
 # Specific files
 
-# TODO: autorename zip file
-# The following doesn't work - at some point, figure out how to
-# rename the zip file automagically
-# old_file = os.path.join(RAW_DATA_DIR, "*.zip")
-# new_file = os.path.join(RAW_DATA_DIR, "ccf_readmit.zip")
-# os.rename(old_file, new_file)
-
 RAW_ZIP_FILE = RAW_DATA_DIR / "ccf_readmit.zip"
 RAW_TXT_FILE = RAW_DATA_DIR / "ccf_readmit.txt"
 
@@ -93,81 +86,6 @@ RESULTS_TEX = TEX_TABLE_DIR /  "all_results_df.tex"
 SCORES_JSON = TABLES_DIR / "scores.json"
 SCORES_JSON_SOTA = TABLES_DIR / "scores_sota.json"
 
-### LIGHTGBM ###
-
-C_LGBM_SHAP_FILE = MODELS_DIR / "shap_values_classification.pickle"
-C_LGBM_SHAP_FILE_NP = MODELS_DIR / "shap_values_classification_numpy"
-
-C_LGBM_FULL_DATA = PROCESSED_DATA_DIR / "c_lgbm_full_data.pickle"
-C_LGBM_FULL_DATA_CV = PROCESSED_DATA_DIR / "c_lgbm_full_data_cv.pickle"
-C_TRAIN_LABELS_FILE_CV = PROCESSED_DATA_DIR / "c_train_labels_cv.pickle"
-C_TRAIN_FEATURES_FILE_CV = PROCESSED_DATA_DIR / "c_train_features_cv.pickle"
-C_VALID_LABELS_FILE_CV = PROCESSED_DATA_DIR / "c_valid_labels_cv.pickle"
-C_VALID_FEATURES_FILE_CV = PROCESSED_DATA_DIR / "c_valid_features_cv.pickle"
-C_FEATURES_FILE_CV = PROCESSED_DATA_DIR / "c_features_cv.pickle"
-
-C_TRAIN_LABELS_FILE = PROCESSED_DATA_DIR / "c_train_labels.pickle"
-C_TRAIN_FEATURES_FILE = PROCESSED_DATA_DIR / "c_train_features.pickle"
-C_TEST_LABELS_FILE = PROCESSED_DATA_DIR / "c_test_labels.pickle"
-C_TEST_FEATURES_FILE = PROCESSED_DATA_DIR / "c_test_features.pickle"
-C_VALID_LABELS_FILE = PROCESSED_DATA_DIR / "c_valid_labels.pickle"
-C_VALID_FEATURES_FILE = PROCESSED_DATA_DIR / "c_valid_features.pickle"
-C_FEATURES_FILE = PROCESSED_DATA_DIR / "c_features.pickle"
-
-R_TRAIN_LABELS_FILE = PROCESSED_DATA_DIR / "r_train_labels.pickle"
-R_LOS_LGBM_FULL_DATA = PROCESSED_DATA_DIR / "r_los_lgbm_full_data.pickle"
-R_TRAIN_FEATURES_FILE = PROCESSED_DATA_DIR / "r_train_features.pickle"
-R_TEST_LABELS_FILE = PROCESSED_DATA_DIR / "r_test_labels.pickle"
-R_TEST_FEATURES_FILE = PROCESSED_DATA_DIR / "r_test_features.pickle"
-R_VALID_LABELS_FILE = PROCESSED_DATA_DIR / "r_valid_labels.pickle"
-R_VALID_FEATURES_FILE = PROCESSED_DATA_DIR / "r_valid_features.pickle"
-R_FEATURES_FILE = PROCESSED_DATA_DIR / "r_features.pickle"
-
-# LightGBM doesn't like WindowPaths, so first
-# pull the WindowsPath then resolve it
-# into a string LightGBM can read
-LIGHTGBM_READMIT_TRAIN_00 = PROCESSED_DATA_DIR / "lgbm_readmit_train_00.bin"
-LIGHTGBM_READMIT_TEST_00 = PROCESSED_DATA_DIR / "lgbm_readmit_test_00.bin"
-LIGHTGBM_READMIT_VALID_00 = PROCESSED_DATA_DIR / "lgbm_readmit_valid_00.bin"
-R_LIGHTGBM_READMIT_TRAIN_00 = PROCESSED_DATA_DIR / "r_lgbm_readmit_train_00.bin"
-R_LIGHTGBM_READMIT_TEST_00 = PROCESSED_DATA_DIR / "r_lgbm_readmit_test_00.bin"
-R_LIGHTGBM_READMIT_VALID_00 = PROCESSED_DATA_DIR / "r_lgbm_readmit_valid_00.bin"
-LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE = (
-    MODELS_DIR / "LGBM_readmit_model_classification.pickle"
-)
-LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE_CV = (
-    MODELS_DIR / "LGBM_readmit_model_classification_cv.pickle"
-)
-LGBM_READMIT_MODEL_REGRESSION_PICKLE = (
-    MODELS_DIR / "LGBM_readmit_model_regression.pickle"
-)
-
-LIGHTGBM_READMIT_TRAIN_00 = str(Path.resolve(LIGHTGBM_READMIT_TRAIN_00))
-LIGHTGBM_READMIT_TEST_00 = str(Path.resolve(LIGHTGBM_READMIT_TEST_00))
-LIGHTGBM_READMIT_VALID_00 = str(Path.resolve(LIGHTGBM_READMIT_VALID_00))
-R_LIGHTGBM_READMIT_TRAIN_00 = str(Path.resolve(R_LIGHTGBM_READMIT_TRAIN_00))
-R_LIGHTGBM_READMIT_TEST_00 = str(Path.resolve(R_LIGHTGBM_READMIT_TEST_00))
-R_LIGHTGBM_READMIT_VALID_00 = str(Path.resolve(R_LIGHTGBM_READMIT_VALID_00))
-LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE = str(
-    Path.resolve(LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE)
-)
-LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE_CV = str(
-    Path.resolve(LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE_CV)
-)
-LGBM_READMIT_MODEL_REGRESSION_PICKLE = str(
-    Path.resolve(LGBM_READMIT_MODEL_REGRESSION_PICKLE)
-)
-
-# Train/Test/Validation Split
-TRAIN_START = "2011-01-01"
-TRAIN_END = "2016-12-31"
-TEST_START = "2017-01-01"
-TEST_END = "2017-12-31"
-VALID_START = "2018-01-01"
-VALID_END = "2018-12-31"
-LABEL_COLUMN = "readmitted"
-READMISSION_THRESHOLD = 30  # number of days
-
 # Hyperparameters
 NUMERIC_IMPUTER = "median"
 SCALER = "StandardScaler"
@@ -175,6 +93,29 @@ CATEGORICAL_IMPUTER_STRATEGY = "constant"
 CATEGORICAL_IMPUTER_FILL_VALUE = "missing"
 ONE_HOT_ENCODER = 1
 SEED = 42
+
+LABEL_COLUMN = "readmitted"
+READMISSION_THRESHOLD = 30  # number of days
+
+TARGET = "length_of_stay_over_3_days"
+# TARGET = "length_of_stay_over_5_days"
+# TARGET = "length_of_stay_over_7_days"
+# TARGET = "length_of_stay_over_14_days"
+NAME_FOR_FIGS = "Length of Stay"
+
+RE_TARGETS = [
+"readmitted3d",
+"readmitted5d",
+"readmitted7d",
+"readmitted30d",
+]
+
+LOS_TARGETS = [
+# "length_of_stay_over_3_days",
+# "length_of_stay_over_5_days",
+"length_of_stay_over_7_days",
+# "length_of_stay_over_14_days",
+]
 
 CLASSIFIER_TEST_TARGETS = [
     # "readmitted30d",
@@ -224,6 +165,7 @@ C_READMIT_PARAMS_LGBM = {
     "subsample_freq": 0,
     "subsample": 0.6027609913849075,
     "max_bin": 63,
+    "two_round": True
     # "boost_from_average": True,
     # "importance_type": "split",
     # "num_threads": 8,
@@ -371,3 +313,76 @@ R_READMIT_PARAMS_LGBM = {
 
 # CLEAN_REGRESSION_00 = PROCESSED_DATA_DIR / "ccf_clean_regression_00.h5"
 # PROCESSED_H5_PYTORCH = PROCESSED_DATA_DIR / "data_pytorch.h5"
+
+# Train/Test/Validation Split
+# TRAIN_START = "2011-01-01"
+# TRAIN_END = "2016-12-31"
+# TEST_START = "2017-01-01"
+# TEST_END = "2017-12-31"
+# VALID_START = "2018-01-01"
+# VALID_END = "2018-12-31"
+
+# TODO: autorename zip file
+# The following doesn't work - at some point, figure out how to
+# rename the zip file automagically
+# old_file = os.path.join(RAW_DATA_DIR, "*.zip")
+# new_file = os.path.join(RAW_DATA_DIR, "ccf_readmit.zip")
+# os.rename(old_file, new_file)
+
+# C_LGBM_SHAP_FILE = MODELS_DIR / "shap_values_classification.pickle"
+# C_LGBM_SHAP_FILE_NP = MODELS_DIR / "shap_values_classification_numpy"
+# C_LGBM_FULL_DATA = PROCESSED_DATA_DIR / "c_lgbm_full_data.pickle"
+# C_LGBM_FULL_DATA_CV = PROCESSED_DATA_DIR / "c_lgbm_full_data_cv.pickle"
+# C_TRAIN_LABELS_FILE_CV = PROCESSED_DATA_DIR / "c_train_labels_cv.pickle"
+# C_TRAIN_FEATURES_FILE_CV = PROCESSED_DATA_DIR / "c_train_features_cv.pickle"
+# C_VALID_LABELS_FILE_CV = PROCESSED_DATA_DIR / "c_valid_labels_cv.pickle"
+# C_VALID_FEATURES_FILE_CV = PROCESSED_DATA_DIR / "c_valid_features_cv.pickle"
+# C_FEATURES_FILE_CV = PROCESSED_DATA_DIR / "c_features_cv.pickle"
+# C_TRAIN_LABELS_FILE = PROCESSED_DATA_DIR / "c_train_labels.pickle"
+# C_TRAIN_FEATURES_FILE = PROCESSED_DATA_DIR / "c_train_features.pickle"
+# C_TEST_LABELS_FILE = PROCESSED_DATA_DIR / "c_test_labels.pickle"
+# C_TEST_FEATURES_FILE = PROCESSED_DATA_DIR / "c_test_features.pickle"
+# C_VALID_LABELS_FILE = PROCESSED_DATA_DIR / "c_valid_labels.pickle"
+# C_VALID_FEATURES_FILE = PROCESSED_DATA_DIR / "c_valid_features.pickle"
+# C_FEATURES_FILE = PROCESSED_DATA_DIR / "c_features.pickle"
+# R_TRAIN_LABELS_FILE = PROCESSED_DATA_DIR / "r_train_labels.pickle"
+# R_LOS_LGBM_FULL_DATA = PROCESSED_DATA_DIR / "r_los_lgbm_full_data.pickle"
+# R_TRAIN_FEATURES_FILE = PROCESSED_DATA_DIR / "r_train_features.pickle"
+# R_TEST_LABELS_FILE = PROCESSED_DATA_DIR / "r_test_labels.pickle"
+# R_TEST_FEATURES_FILE = PROCESSED_DATA_DIR / "r_test_features.pickle"
+# R_VALID_LABELS_FILE = PROCESSED_DATA_DIR / "r_valid_labels.pickle"
+# R_VALID_FEATURES_FILE = PROCESSED_DATA_DIR / "r_valid_features.pickle"
+# R_FEATURES_FILE = PROCESSED_DATA_DIR / "r_features.pickle"
+# # LightGBM doesn't like WindowPaths, so first
+# # pull the WindowsPath then resolve it
+# # into a string LightGBM can read
+# LIGHTGBM_READMIT_TRAIN_00 = PROCESSED_DATA_DIR / "lgbm_readmit_train_00.bin"
+# LIGHTGBM_READMIT_TEST_00 = PROCESSED_DATA_DIR / "lgbm_readmit_test_00.bin"
+# LIGHTGBM_READMIT_VALID_00 = PROCESSED_DATA_DIR / "lgbm_readmit_valid_00.bin"
+# R_LIGHTGBM_READMIT_TRAIN_00 = PROCESSED_DATA_DIR / "r_lgbm_readmit_train_00.bin"
+# R_LIGHTGBM_READMIT_TEST_00 = PROCESSED_DATA_DIR / "r_lgbm_readmit_test_00.bin"
+# R_LIGHTGBM_READMIT_VALID_00 = PROCESSED_DATA_DIR / "r_lgbm_readmit_valid_00.bin"
+# LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE = (
+#     MODELS_DIR / "LGBM_readmit_model_classification.pickle"
+# )
+# LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE_CV = (
+#     MODELS_DIR / "LGBM_readmit_model_classification_cv.pickle"
+# )
+# LGBM_READMIT_MODEL_REGRESSION_PICKLE = (
+#     MODELS_DIR / "LGBM_readmit_model_regression.pickle"
+# )
+# LIGHTGBM_READMIT_TRAIN_00 = str(Path.resolve(LIGHTGBM_READMIT_TRAIN_00))
+# LIGHTGBM_READMIT_TEST_00 = str(Path.resolve(LIGHTGBM_READMIT_TEST_00))
+# LIGHTGBM_READMIT_VALID_00 = str(Path.resolve(LIGHTGBM_READMIT_VALID_00))
+# R_LIGHTGBM_READMIT_TRAIN_00 = str(Path.resolve(R_LIGHTGBM_READMIT_TRAIN_00))
+# R_LIGHTGBM_READMIT_TEST_00 = str(Path.resolve(R_LIGHTGBM_READMIT_TEST_00))
+# R_LIGHTGBM_READMIT_VALID_00 = str(Path.resolve(R_LIGHTGBM_READMIT_VALID_00))
+# LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE = str(
+#     Path.resolve(LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE)
+# )
+# LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE_CV = str(
+#     Path.resolve(LGBM_READMIT_MODEL_CLASSIFICATION_PICKLE_CV)
+# )
+# LGBM_READMIT_MODEL_REGRESSION_PICKLE = str(
+#     Path.resolve(LGBM_READMIT_MODEL_REGRESSION_PICKLE)
+# )

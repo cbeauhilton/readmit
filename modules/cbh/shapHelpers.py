@@ -231,7 +231,7 @@ class shapHelpers:
         for i in range(n_plots):
             try:
                 shap.dependence_plot(
-                    "rank(%d)" % i,
+                    f"rank({i:d})",
                     self.shap_values,
                     df_with_codes,
                     display_features=self.features_shap,

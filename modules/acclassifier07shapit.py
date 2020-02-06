@@ -14,10 +14,6 @@ import shap
 from sklearn.exceptions import UndefinedMetricWarning
 from sklearn_pandas import DataFrameMapper
 from sklearn.preprocessing import LabelBinarizer
-from sklearn2pmml import sklearn2pmml
-from sklearn2pmml.decoration import CategoricalDomain, ContinuousDomain
-from sklearn2pmml.preprocessing import PMMLLabelEncoder
-from sklearn2pmml.pipeline import PMMLPipeline
 import cbh.config as config
 import configcols
 from cbh.generalHelpers import (

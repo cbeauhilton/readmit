@@ -9,6 +9,7 @@
 *.png
 *.jpg
 *.ipynb
+*.json
 
 /data/
 /models/

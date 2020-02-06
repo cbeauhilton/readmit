@@ -6,7 +6,7 @@ from cbh import config
 import matplotlib.pyplot as plt
 
 
-target = "length_of_stay_over_5_days"
+target = config.TARGET
 json_file = f"{config.TABLES_DIR}/{target}_scores.json"
 
 figs_dir = str(config.FIGURES_DIR)
@@ -44,7 +44,7 @@ for colname in list(df):
             ha = 'right'
 
         # Use X value as label and format number with one decimal place
-        label = "{:.2f}".format(x_value)
+        label = f"{x_value:.2f}"
 
         # Create annotation
         plt.annotate(

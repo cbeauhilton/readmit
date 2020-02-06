@@ -7,7 +7,11 @@ from inspect import signature
 import h5py
 import jsonpickle
 import jsonpickle.ext.numpy as jsonpickle_numpy
-import lightgbm as lgb
+try:
+    import lightgbm as lgb
+except BaseException:
+    print("lightgbm not available\n")
+
 import matplotlib
 import matplotlib.pylab as pl
 
@@ -48,7 +52,7 @@ try:
 except BaseException:
     import pickle
 
-def bootstrap_estimate_and_ci(estimator, X, y, scoring_func=None, random_seed=0,
+def bootstrap_estimate_and_ci(estimator, X, y, scoring_func=None, random_seed=42,
                               method='.632', alpha=0.05, n_splits=200):
       scores = bootstrap_point632_score(estimator, X, y, scoring_func=scoring_func,
       n_splits=n_splits, random_seed=random_seed,  method=method)

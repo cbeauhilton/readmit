@@ -30,14 +30,16 @@ startTime = datetime.now()
 
 seed = config.SEED
 debug = False
-target = "length_of_stay_over_5_days"
-name_for_figs = "Length of Stay"
+
+target = config.TARGET 
+name_for_figs = config.NAME_FOR_FIGS
+
 class_thresh = 0.5
 
 print("Debug:", debug)
 
-final_file = config.PROCESSED_DATA_DIR / "los5d.h5"
-data = pd.read_hdf(final_file, key="los5dclean")
+final_file = config.PROCESSED_DATA_DIR / f"{target}.h5"
+data = pd.read_hdf(final_file, key=f"{target}clean")
 if debug:
     data = data[:20000]
 

@@ -8,10 +8,7 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 seed = config.SEED
 
-#### Make a list of all the features we want to include ####
-
-# target = config.TARGET 
-targets = config.LOS_TARGETS
+targets = config.RE_TARGETS
 
 for target in targets:
     print(target)
@@ -37,34 +34,38 @@ for target in targets:
 
     #### Load data proper ####
     filename = config.PROCESSED_FINAL
-    print("Loading", filename)
+    print(f"\n Loading {filename}...")
     data = pd.read_pickle(filename)
 
-    print("File loaded.")
+    print("File loaded. \n")
 
-    # final cleaning for LoS prediction
-    print("Dropping expired, obs, outpt, ambulatory, emergency patients...")
+    # final cleaning for readmission prediction
     data = data[data["dischargedispositiondescription"] != "Expired"]
-    data = data[data["patientclassdescription"] != "Observation"]  #
-    data = data[data["patientclassdescription"] != "Outpatient"]  # ~10,000
-    data = data[
-        data["patientclassdescription"] != "Ambulatory Surgical Procedures"
-    ]  # ~8,000
-    data = data[data["patientclassdescription"] != "Emergency"]  # ~7,000
-
-    print(data["dischargedispositiondescription"].value_counts(dropna=False), "\n")
-    print(data["patientclassdescription"].value_counts(dropna=False), "\n")
 
     #### drop everything but the good stuff ####
     dropem = list(set(list(data)) - set(shap_list))
+    # for i, col in enumerate(dropem):
+    #     try:
+    #         print(f"Dropping {col}... ({i}/{len(dropem)})")
+    #         data = data.drop(columns=col)
+    #     except:
+    #         print(f"Couldn't drop {col}. Hmm.")
+
     data = data.drop(columns=dropem)
 
+    data.reset_index(inplace=True)
+    data = data.set_index(["index"])
+    int_cols = list(data.select_dtypes(include='int').columns)
+    for col in int_cols:
+        data[col] = data[col].astype("int32")
+    data.index = pd.to_numeric(data.index, downcast = 'signed')
+
+    # pkl = config.PROCESSED_DATA_DIR / f"{target}.pkl"
+    # data.to_pickle(pkl)
+
+    df = pd.DataFrame(data.to_records(), columns=list(data.columns))
+    df = df.loc[:, df.columns.notnull()]
+
     final_file = config.PROCESSED_DATA_DIR / f"{target}.h5"
-
-    print(f"Saving to {final_file}...")
-    data.to_hdf(final_file, key=f"{target}clean", mode='a', format='table')
-
-    # sample_size = 300_000
-    # print(f"Saving data set with {sample_size} encounters for comparison with Rajkomar...")
-    # small_data = data.sample(n=sample_size)
-    # small_data.to_hdf(final_file, key=f"{target}cleansmall", mode='a', format='table')
+    print(f"\n Saving to {final_file}...")
+    df.to_hdf(final_file, key=f"{target}clean", mode='a', format='table')

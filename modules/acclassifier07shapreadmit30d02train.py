@@ -34,21 +34,32 @@ print("About to run", os.path.basename(__file__))
 startTime = datetime.now()
 seed = config.SEED
 
-target = config.TARGET 
-name_for_figs = config.NAME_FOR_FIGS
+target = "readmitted30d"
+name_for_figs = "Readmission"
 
 final_file = config.PROCESSED_DATA_DIR / f"{target}.h5"
-# data = pd.read_hdf(final_file, key=f"{target}clean")
+data = pd.read_hdf(final_file, key=f"{target}clean")
 
-data = pd.read_hdf(final_file, key=f"{target}cleansmall")
-# data = data[:300_000]
+
+#final_file = config.PROCESSED_DATA_DIR / f"{target}.pkl"
+#data = pd.read_pickle(final_file)
+
 print("File loaded.")
+
+print("Fixing dtypes ONE. LAST. TIME. ...")
+obj_cols = list(data.select_dtypes(['object']))
+for col in obj_cols:
+    print(col)
+    data[col] = data[col].astype('category')
 
 debug = False
 print("Debug:", debug)
 
 if debug:
     data = data[:20000]
+
+# for Rajkomar comparison
+data = data[:300_000]
 
 figfolder = make_figfolder_for_target(debug, target)
 datafolder = make_datafolder_for_target(debug, target)
@@ -70,18 +81,20 @@ labels = data[target]
 features = data.drop([target], axis=1)
 
 
-print("Dropping length of stay in days for LoS targets...")
-features = features.drop(["length_of_stay_in_days"], axis=1)
-train_features = train_features.drop(["length_of_stay_in_days"], axis=1)
-test_features = test_features.drop(["length_of_stay_in_days"], axis=1)
-valid_features = valid_features.drop(["length_of_stay_in_days"], axis=1)
-
-
 #### train model ####
 print(f"Predicting {target} ...")
 
+# initialize lgb data structures
+d_train = lgb.Dataset(train_features, label=train_labels, free_raw_data=True)
+d_test = lgb.Dataset(
+    test_features, label=test_labels, reference=d_train, free_raw_data=True
+)
+d_valid = lgb.Dataset(
+    valid_features, label=valid_labels, reference=d_train, free_raw_data=True
+)
+
 # set training params
-class_thresh = 0.5
+class_thresh = 0.25
 params = config.C_READMIT_PARAMS_LGBM
 gbm_model = lgb.LGBMClassifier(**params)
 
@@ -125,8 +138,8 @@ metricsgen = lgbmClassificationHelpers(
     calibrate_please=False,
 )
 
-metricsgen.lgbm_save_ttv_split()
 pkl_model = metricsgen.lgbm_save_model_to_pkl_and_h5()
+metricsgen.lgbm_save_ttv_split()
 
 # How long did this take?
 print("This program,", os.path.basename(__file__), "took")

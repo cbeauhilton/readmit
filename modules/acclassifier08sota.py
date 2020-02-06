@@ -134,7 +134,7 @@ fraction_of_positives, mean_predicted_value = calibration_curve(
     y_test, y_pred, n_bins=10
 )
 
-ax1.plot(mean_predicted_value, fraction_of_positives, "s-", label="%s" % (cls_name,))
+ax1.plot(mean_predicted_value, fraction_of_positives, "s-", label=f"{cls_name}")
 
 ax2.hist(y_pred, range=(0, 1), bins=10, label=cls_name, histtype="step", lw=2)
 
@@ -253,7 +253,7 @@ fraction_of_positives, mean_predicted_value = calibration_curve(
     y_test_, y_pred, n_bins=10
 )
 
-ax1.plot(mean_predicted_value, fraction_of_positives, "s-", label="%s" % (cls_name,))
+ax1.plot(mean_predicted_value, fraction_of_positives, "s-", label=f"{cls_name}")
 
 ax2.hist(y_pred, range=(0, 1), bins=10, label=cls_name, histtype="step", lw=2)
 
@@ -359,7 +359,7 @@ for cls_name, classifier in classifiers:
     )
 
     ax1.plot(
-        mean_predicted_value, fraction_of_positives, "s-", label="%s" % (cls_name,)
+        mean_predicted_value, fraction_of_positives, "s-", label=f"{cls_name}"
     )
 
     ax2.hist(prob_pos, range=(0, 1), bins=10, label=cls_name, histtype="step", lw=2)

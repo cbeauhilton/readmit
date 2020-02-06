@@ -79,3 +79,36 @@ def plt_pr_curve(target, classifier, test_labels, predicted_labels, figfolder):
 
     plt.close()
 
+
+def save_roc_auc(target, classifier, test_labels, predicted_labels, figfolder):
+    print(f"Saving data for ROC-AUC curve for {classifier}...")
+
+    import time
+    import os
+    import numpy as np
+    from sklearn.metrics import (
+        auc,
+        roc_auc_score,
+        roc_curve,
+    )
+    import json
+
+    timestr = time.strftime("%Y-%m-%d-%H%M_")
+
+    fpr, tpr, _ = roc_curve(test_labels, predicted_labels)
+    roc_auc = auc(fpr, tpr)
+
+    d = {}
+    d["target"] = target
+    d["classifier"] = classifier
+    d["figfolder"] = str(figfolder)
+    d["roc_auc"] = roc_auc.tolist()
+    d["fpr"] = fpr.tolist()
+    d["tpr"] = tpr.tolist()
+
+
+    figure_title = f"{figfolder}/{target}_{classifier}_ROC_AUC_{roc_auc*100:.0f}_"
+    filename = figure_title + timestr + ".json"
+
+    with open(filename, "w") as f:
+        json.dump(d, f, indent=4)
